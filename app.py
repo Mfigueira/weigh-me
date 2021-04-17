@@ -36,17 +36,17 @@ def index():
         db.session.add(new_weight)
         db.session.commit()
 
-        return redirect(url_for('analytics'))
+        return redirect(url_for('weighings'))
 
     return render_template('index.html')
 
 
-@app.route('/analytics')
+@app.route('/weighings')
 @login_required
-def analytics():
+def weighings():
     person_id = session['person_id']
     weighings = db.session.query(Weighing).filter_by(person_id = person_id).all()
-    return render_template('analytics.html', weighings=weighings)
+    return render_template('weighings.html', weighings=weighings)
 
 
 @app.route('/register', methods=['GET', 'POST'])
