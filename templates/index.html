@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block main %}
+
+    <section>
+		<h2>Add new weighing</h2>
+		<form action="/" method="post">
+			<input type="number" name="weight" id="weightInput"
+				   autofocus autocomplete="off" placeholder="000.0" />
+			<label for="weightInput">kg</label>
+			<input type="submit" value="Add" />
+		</form>
+	</section>
+
+{% endblock %}
