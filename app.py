@@ -1,15 +1,17 @@
 import os
-from flask import Flask, render_template, request, redirect, session, url_for, jsonify
-from flask_session import Session
+from flask import Flask, render_template, request, url_for, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, JWTManager
+from flask_cors import CORS #comment this on deployment
 from datetime import datetime
-from helpers import login_required
+from helpers import new_weighing_dict
+
 
 app = Flask(__name__)
 app.config.from_object(os.environ['APP_SETTINGS'])
+CORS(app) #comment this on deployment
+jwt = JWTManager(app)
 db = SQLAlchemy(app)
-app.config['SESSION_SQLALCHEMY'] = db
-Session(app)
 
 from models import Person, Weighing
 
@@ -17,92 +19,123 @@ from models import Person, Weighing
 # db.create_all()
 
 
-@app.route('/', methods=['GET', 'POST'])
-@login_required
+@app.route('/api/login', methods=['POST'])
+def login():
+    username = request.json.get('username')
+    password = request.json.get('password')
+
+    if not username or not password:
+        return jsonify('Must provide username and password.'), 401
+        
+    person = Person.query.filter_by(name=username).one_or_none()
+    if not person or not person.check_password(password):
+        return jsonify('Invalid username and/or password.'), 401
+
+    access_token = create_access_token(identity=person.id)
+    return jsonify(access_token=access_token)
+
+
+@app.route('/api/register', methods=['POST'])
+def register():
+    username = request.json.get('username')
+    if not username:
+        return jsonify('Must choose a username.'), 400
+    if not Person.query.filter(Person.name == username).count() == 0:
+        return jsonify('Username already exist.'), 409
+    
+    #TODO: Review user and pass validation (characters, max length -> db.add try catch?)
+    password = request.json.get('password')
+    confirmation = request.json.get('confirmation')
+    if not password or not confirmation:
+        return jsonify('Must choose and confirm password.'), 400
+    if not password == confirmation:
+        return jsonify('Passwords do not match.'), 400
+    
+    #TODO: Validate optional profile parameters
+    height = request.json.get('height')
+    date_of_birth = request.json.get('date_of_birth')
+    email = request.json.get('email')
+
+    new_person = Person(username, password, height, date_of_birth, email)
+    db.session.add(new_person)
+    db.session.commit()
+
+    access_token = create_access_token(identity=new_person.id)
+    return jsonify(access_token=access_token)
+
+
+@app.route('/api/add_weighing', methods=['POST'])
+@jwt_required()
+def add_weighing():
+    weight = request.json.get('weight')
+    date = request.json.get('date')
+    time = request.json.get('time')
+
+    #TODO: Validate weight characters
+    try:
+        weight = float(weight)
+    except:
+        return jsonify('Invalid weight'), 400
+
+    #TODO: Validate date and time
+    now = datetime.now()
+    date = now.strftime('%Y-%m-%d')
+    time = now.strftime('%H:%M')
+
+    user_id = get_jwt_identity()
+    new_weight = Weighing(user_id, weight, date, time)
+    db.session.add(new_weight)
+    db.session.commit()
+
+    return jsonify('Weighing added.'), 201
+
+
+@app.route('/')
 def index():
-    if request.method == 'POST':
-        weight = request.form.get('weight')
-        try:
-            weight = float(weight)
-        except:
-            return jsonify({400: 'invalid weight'})
-
-        now = datetime.now()
-        date = now.strftime('%Y-%m-%d')
-        time = now.strftime('%H:%M')
-
-        person_id = session['person_id']
-        new_weight = Weighing(person_id, weight, date, time)
-        db.session.add(new_weight)
-        db.session.commit()
-
-        return redirect(url_for('weighings'))
-
     return render_template('index.html')
 
 
-@app.route('/weighings')
-@login_required
-def weighings():
-    person_id = session['person_id']
-    weighings = db.session.query(Weighing).filter_by(person_id = person_id).all()
-    return render_template('weighings.html', weighings=weighings)
+@app.route('/api/weighings')
+@jwt_required()
+def get_weighings():
+    user_id = get_jwt_identity()
+    db_weighings = Weighing.query.filter_by(person_id=user_id).all()
+    weighings = []
+
+    if db_weighings:
+        for weighing in db_weighings:
+            weighings.append(
+                new_weighing_dict(
+                    float(weighing.weight), 
+                    weighing.date.isoformat(),
+                    weighing.time.isoformat()
+                )
+            )
+
+    return jsonify(weighings), 200
 
 
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    if request.method == 'POST':
-        username = request.form.get('username')
-        if not username:
-            return jsonify({400: 'must choose a username'})
-        if not db.session.query(Person).filter(Person.name == username).count() == 0:
-            return jsonify({400: 'username already exist'})
-        
-        password = request.form.get('password')
-        confirmation = request.form.get('confirmation')
-        if not password or not confirmation:
-            return jsonify({400: 'must choose and confirm password'})
-        if not password == confirmation:
-            return jsonify({400: 'passwords do not match'})
-        
-        height = request.form.get('height')
-        date_of_birth = request.form.get('date_of_birth')
-        email = request.form.get('email')
-
-        new_person = Person(username, password, height, date_of_birth, email)
-        db.session.add(new_person)
-        db.session.commit()
-
-        session['person_id'] = new_person.id
-        return redirect(url_for('index'))
-
-    return render_template('register.html')
+@app.route('/api/profile')
+@jwt_required()
+def get_profile():
+    try:
+        user_id = get_jwt_identity()
+        person = Person.query.filter_by(id=user_id).one_or_none()
+        return jsonify(
+            height=person.height,
+            date_of_birth=person.date_of_birth,
+            email=person.email,
+        ), 200
+    except:
+        return jsonify('Could not get profile data.'), 500
 
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    session.pop('person_id', None)
 
-    if request.method == 'POST':
-        username = request.form.get('username')
-        password = request.form.get('password')
-        if not username or not password:
-            return jsonify({403: 'must provide username and password'})
-            
-        person = db.session.query(Person).filter_by(name = username).first()
-        if person is None or not person.check_password(password):
-            return jsonify({403: 'invalid username and/or password'})
-
-        session['person_id'] = person.id
-        return redirect(url_for('index'))
-
-    return render_template('login.html')
-
-
-@app.route('/logout')
+@app.route('/api/logout')
+@jwt_required()
 def logout():
-    session.pop('person_id', None)
-    return redirect(url_for('login'))
+    #session.pop('person_id', None)
+    return jsonify('Logged out.'), 200
     
 
 if __name__ == '__main__':
