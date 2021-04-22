@@ -1,32 +1,40 @@
 import axios from 'axios';
-import { getTokenFromStorage } from './helpers';
 
-export const SERVER_BASE_URL = 'http://localhost:5000/api';
+const API_BASE_URL = 'http://localhost:5000/api';
 
-export const getWeighings = () => axios.get(SERVER_BASE_URL + '/weighings', {
+const HTTP_HEADERS = {
     headers: {
-        'Authorization': `Bearer ${getTokenFromStorage()}`
+        'content-type': 'application/json'
     }
-});
+}
 
-export const addNewWeighing = weighing => 
-    axios.post(SERVER_BASE_URL + '/add_weighing', weighing, {
+const getWithToken = (token, endpoint) => 
+    axios.get(API_BASE_URL + endpoint, {
         headers: {
-            'content-type': 'application/json',
-            'Authorization': `Bearer ${getTokenFromStorage()}`
+            ...HTTP_HEADERS.headers,
+            'Authorization': `Bearer ${token}`
         }
     });
 
-export const loginUser = user => 
-    axios.post(SERVER_BASE_URL + '/login', user, {
+const postWithToken = (token, data, endpoint) => 
+    axios.post(API_BASE_URL + endpoint, data, {
         headers: {
-            'content-type': 'application/json'
+            ...HTTP_HEADERS.headers,
+            'Authorization': `Bearer ${token}`
         }
     });
 
-export const registerUser = user => 
-    axios.post(SERVER_BASE_URL + '/register', user, {
-        headers: {
-            'content-type': 'application/json'
-        }
-    });
+const postUser = (user, endpoint) => 
+    axios.post(API_BASE_URL + endpoint, user, HTTP_HEADERS);
+
+export const getProfile = token => getWithToken(token, '/profile');
+
+export const updateProfile = (token, profile) => postWithToken(token, profile, '/profile');
+
+export const getWeighings = token => getWithToken(token, '/weighings');
+
+export const createWeighing = (token, weighing) => postWithToken(token, weighing, '/add_weighing');
+
+export const loginUser = user => postUser(user, '/login');
+
+export const registerUser = user => postUser(user, '/register');

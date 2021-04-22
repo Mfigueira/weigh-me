@@ -1,5 +1,4 @@
 export const getDateToday = () => {
-
     let today = new Date()
     let year = today.getFullYear();
     let month = today.getMonth() + 1;
@@ -11,7 +10,6 @@ export const getDateToday = () => {
 }
 
 export const getTimeNow = () => {
-
     let today = new Date()
     let hours = today.getHours();
     let minutes = today.getMinutes();
@@ -24,3 +22,5 @@ export const getTimeNow = () => {
 export const saveTokenInStorage = token => localStorage.setItem('token', token);
 
 export const getTokenFromStorage = () => localStorage.getItem('token');
+
+export const removeTokenFromStorage = () => localStorage.removeItem('token');

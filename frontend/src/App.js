@@ -11,30 +11,45 @@ import { Footer } from './components/footer/Footer';
 
 // Util
 import { getWeighings } from './util/requests';
+import { getTokenFromStorage, removeTokenFromStorage } from './util/helpers';
 
 function App() {
     const [weighings, setWeighings] = useState([]);
+    const [token, setToken] = useState(getTokenFromStorage());
 
     useEffect(() => {
-        getWeighings().then(res => {
-            setWeighings(res.data);
-        }).catch(err => {
-            console.error(err);
-            // TODO: error message handler for all requests
-            console.log(err.response.data);
-        });
-    }, []);
+        console.log('useEffect hooked');
+        
+        if (token) {
+            console.log('hooked with token');
+            getWeighings(token).then(res => {
+                setWeighings(res.data);
+            }).catch(err => {
+                // TODO: error message handler for all requests
+                console.error(err);
+                console.log(err.response.data);
+                if (err.response.status === 401) {
+                    removeTokenFromStorage();
+                    setToken(null);
+                }
+            });
+        } else {
+            console.log('hooked without token');
+        }
+    }, [token]);
 
-    const setNewWeighing = weighing =>
+    const addWeighing = weighing =>
         setWeighings(currentWeighings =>
             [...currentWeighings, weighing]
         );
 
     return (
         <BrowserRouter>
-            <Header />
+            <Header token={token} setToken={setToken} />
             <Main
-                setNewWeighing={setNewWeighing}
+                token={token}
+                setToken={setToken}
+                addWeighing={addWeighing}
                 weighings={weighings}
             />
             <Footer />
