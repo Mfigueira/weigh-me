@@ -5,21 +5,32 @@
 
 html {
   font-size: 16px;
+  min-width: 320px;
 }
 
-#root {
-  min-width: 320px;
-  margin: 0;
-  padding: 0;
+body {
   font-family: 'Maven Pro', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-image: linear-gradient(#a4dad2, #bce08a);
-  min-height: 100vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#root {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-width: 900px;
+  height: 100vh;
+  margin: auto;
 }
 
 h1 {
-  font-size: 3rem;
+  font-size: 1.25rem;
+  line-height: 1.6;
+  letter-spacing: 0.0075em;
+  flex-grow: 1;
 }
 
 h2 {
@@ -28,7 +39,6 @@ h2 {
 }
 
 header, main, footer {
-  max-width: 900px;
-  margin: auto;
-  padding: 0.5rem;
+  box-sizing: border-box;
+  width: 100%;
 }
