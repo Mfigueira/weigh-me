@@ -1,79 +1,45 @@
 import '../../assets/styles/Header.css';
 import logo from '../../assets/img/scale.svg';
 import user from '../../assets/img/user.svg';
-import React from 'react';
+import { useState } from 'react';
 import { removeTokenFromStorage } from '../../util/helpers';
-import { Link, useLocation, useHistory } from 'react-router-dom';
-import { AppBar, Tabs, Tab, Toolbar, Button, Avatar, Menu, MenuItem } from '@material-ui/core';
+import { Link, useHistory } from 'react-router-dom';
+import { AppBar, Toolbar, Button, Avatar, Menu, MenuItem, ButtonGroup } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
+import { Navbar } from './Navbar';
 
-export const Header = ({ token, setToken, profile, setProfile }) => {
-  const navRoutes = [
-    {
-      path: '/',
-      tab: 0
-    },
-    {
-      path: '/weighings',
-      tab: 1
-    },
-    {
-      path: '/register',
-      tab: 1
-    }
-  ];
+export const Header = ({ token, setToken, profile, setProfile, tabValue, setTabValue }) => {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const history = useHistory();
 
-  const location = useLocation();
+  const handleClick = (event) => setAnchorEl(event.currentTarget);
 
-  const getTabByRoute = (routes, currentPath) => {
-    try {
-      return routes.filter(route => route.path === currentPath)[0].tab;
-    } catch {
-      return 0;
-    }
-  };
+  const handleClose = () => setAnchorEl(null);
 
-  const [value, setValue] = React.useState(getTabByRoute(navRoutes, location.pathname));
-  const [anchorEl, setAnchorEl] = React.useState(null);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const a11yProps = index => {
-    return {
-      id: `full-width-tab-${index}`,
-      'aria-controls': `full-width-tabpanel-${index}`,
-    };
+  const logout = () => {
+    handleClose();
+    removeTokenFromStorage();
+    setToken(null);
+    setProfile(null);
+    history.push('/');
+    setTabValue(0);
   }
-
-  const handleChange = (event, newValue) => {
-    if (token)
-      (newValue === 0) ? history.push('/') : history.push('/weighings');
-    else
-      (newValue === 0) ? history.push('/') : history.push('/register');
-    setValue(newValue);
-  };
 
   const styles = {
     icon: {
       width: '1.75rem',
       marginRight: '0.5rem'
+    },
+    authButton: {
+      color: '#fff',
+      padding: '0.4rem 0.8rem',
+      lineHeight: '1rem',
+      borderColor: '#fff'
+    },
+    buttonLink: {
+      color: 'inherit',
+      textDecoration: 'none'
     }
-  }
-
-  const history = useHistory();
-
-  const logout = () => {
-    removeTokenFromStorage();
-    setToken(null);
-    setProfile(null);
-    history.push('/');
-    setValue(0);
   }
 
   return (
@@ -98,61 +64,40 @@ export const Header = ({ token, setToken, profile, setProfile }) => {
                   onClose={handleClose}
                 >
                   <MenuItem onClick={handleClose}>
-                    <Link to='/profile'>Profile</Link>
+                    <Link to='/profile' style={styles.buttonLink}>Profile</Link>
                   </MenuItem>
-                  <MenuItem onClick={() => {
-                    handleClose();
-                    logout();
-                  }}>Log Out</MenuItem>
+                  <MenuItem onClick={logout}>Log Out</MenuItem>
                 </Menu>
               </>
               :
               <div style={{ display: 'flex', alignItems: 'center' }}>
-                <Skeleton
-                  width='26px'
-                  height='26px'
-                  style={{ marginRight: '10px', backgroundColor: 'rgba(203, 213, 224, 0.7)' }}
-                  variant='circle'
+                <Skeleton width='26px' height='26px' variant='circle'
+                  style={{ backgroundColor: 'rgba(203, 213, 224, 0.7)', marginRight: '10px' }}
                 >
                   <Avatar />
                 </Skeleton>
-                <Skeleton variant='rect' width='100px' height='16px'
+                <Skeleton width='100px' height='16px' variant='rect'
                   style={{ backgroundColor: 'rgba(203, 213, 224, 0.7)', borderRadius: '2px' }}
                 />
               </div>
           )
             :
-            <></>
+            <ButtonGroup variant="text" aria-label="authenticate user actions">
+              <Button style={styles.authButton}>
+                <Link to='/' style={styles.buttonLink}>Log In</Link>
+              </Button>
+              <Button style={styles.authButton}>
+                <Link to='/register' style={styles.buttonLink}>New User</Link>
+              </Button>
+            </ButtonGroup>
           }
         </Toolbar>
       </AppBar>
-      <nav>
-        {token ?
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            indicatorColor='primary'
-            textColor='primary'
-            variant='fullWidth'
-            aria-label='navbar'
-          >
-            <Tab label='New Weighing' {...a11yProps(0)} />
-            <Tab label='Weighings' {...a11yProps(1)} />
-          </Tabs>
-          :
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            indicatorColor='primary'
-            textColor='primary'
-            variant='fullWidth'
-            aria-label='navbar'
-          >
-            <Tab label='Log In' {...a11yProps(0)} />
-            <Tab label='Register' {...a11yProps(1)} />
-          </Tabs>
-        }
-      </nav>
+      {token ?
+        <Navbar tabValue={tabValue} setTabValue={setTabValue} />
+        :
+        <></>
+      }
     </>
   );
 }

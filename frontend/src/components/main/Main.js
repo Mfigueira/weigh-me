@@ -1,19 +1,18 @@
 import '../../assets/styles/Main.css';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { LoginForm } from './auth/LoginForm';
 import { RegisterForm } from './auth/RegisterForm';
 import { WeighingForm } from './WeighingForm';
 import { Weighings } from './Weighings';
-import { InvalidRoute } from './InvalidRoute';
 
-export const Main = ({ token, setToken, weighings, addWeighing }) => {
+export const Main = ({ token, setToken, weighings, addWeighing, setTabValue }) => {
   return (
     <main>
       {token ?
         <Switch>
           <Route path='/' exact
             render={props => (
-              <WeighingForm {...props} token={token} addWeighing={addWeighing} />
+              <WeighingForm {...props} token={token} addWeighing={addWeighing} setTabValue={setTabValue} />
             )}
           />
           <Route path='/weighings'
@@ -21,7 +20,7 @@ export const Main = ({ token, setToken, weighings, addWeighing }) => {
               <Weighings {...props} token={token} weighings={weighings} />
             )}
           />
-          <Route component={InvalidRoute} />
+          <Redirect to='/' />
         </Switch>
         :
         <Switch>
@@ -30,12 +29,12 @@ export const Main = ({ token, setToken, weighings, addWeighing }) => {
               <LoginForm {...props} token={token} setToken={setToken} />
             )}
           />
-          <Route path='/register' exact
+          <Route path='/register'
             render={props => (
               <RegisterForm {...props} token={token} setToken={setToken} />
             )}
           />
-          <Route component={InvalidRoute} />
+          <Redirect to='/' />
         </Switch>
       }
     </main>

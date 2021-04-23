@@ -1,4 +1,6 @@
-export const Weighings = ({weighings}) => {
+import { extractSecsFromTime } from '../../util/helpers';
+
+export const Weighings = ({ weighings }) => {
 
     return (
         <section>
@@ -17,9 +19,9 @@ export const Weighings = ({weighings}) => {
                         {weighings.map((weighing, i) => {
                             return (
                                 <tr key={i}>
-                                    <td>{ weighing.date }</td>
-                                    <td>{ weighing.time }</td>
-                                    <td>{ weighing.weight }</td>
+                                    <td>{weighing.date}</td>
+                                    <td>{extractSecsFromTime(weighing.time)}</td>
+                                    <td>{weighing.weight}</td>
                                 </tr>
                             )
                         })}

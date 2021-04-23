@@ -2,7 +2,7 @@
 // import logo from './logo.svg';
 import './App.css';
 import { useEffect, useState } from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 // Components
 import { Header } from './components/header/Header';
@@ -11,31 +11,32 @@ import { Footer } from './components/footer/Footer';
 
 // Util
 import { getWeighings, getProfile } from './util/requests';
-import { getTokenFromStorage, removeTokenFromStorage } from './util/helpers';
+import { getTabByRoute, getTokenFromStorage, removeTokenFromStorage } from './util/helpers';
 
 function App() {
+  const location = useLocation();
   const [token, setToken] = useState(getTokenFromStorage());
   const [profile, setProfile] = useState(null);
   const [weighings, setWeighings] = useState([]);
+  const [tabValue, setTabValue] = useState(() => getTabByRoute(location.pathname));
 
   useEffect(() => {
     if (token) {
       (async () => {
         try {
-          const pr1 = getProfile(token)
-          const pr2 = getWeighings(token)
-          const [profileResponse, weighingsResponse] = await Promise.all([pr1, pr2])
+          const pr1 = getProfile(token);
+          const pr2 = getWeighings(token);
+          const [profileResponse, weighingsResponse] = await Promise.all([pr1, pr2]);
 
           setProfile(profileResponse.data);
           setWeighings(weighingsResponse.data);
         } catch (error) {
           // TODO: error message handler for all requests
           console.error(error);
-          console.log(error.response.data);
-          if (error.response.status === 401) {
-            removeTokenFromStorage();
-            setToken(null);
-          }
+          removeTokenFromStorage();
+          setToken(null);
+          setProfile(null);
+          setWeighings([]);
         }
       })();
     }
@@ -47,20 +48,24 @@ function App() {
     );
 
   return (
-    <BrowserRouter>
+    <>
       <Header
         token={token}
         setToken={setToken}
         profile={profile}
-        setProfile={setProfile} />
+        setProfile={setProfile}
+        tabValue={tabValue}
+        setTabValue={setTabValue}
+      />
       <Main
         token={token}
         setToken={setToken}
         weighings={weighings}
         addWeighing={addWeighing}
+        setTabValue={setTabValue}
       />
       <Footer />
-    </BrowserRouter>
+    </>
   );
 }
 
