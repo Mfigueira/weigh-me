@@ -33,12 +33,12 @@ export const Header = ({ token, setToken, profile, setProfile, tabValue, setTabV
     authButton: {
       color: '#fff',
       padding: '0.4rem 0.8rem',
-      lineHeight: '1rem',
-      borderColor: '#fff'
+      lineHeight: '1rem'
     },
     buttonLink: {
       color: 'inherit',
-      textDecoration: 'none'
+      textDecoration: 'none',
+      borderColor: '#fff'
     }
   }
 
@@ -63,10 +63,10 @@ export const Header = ({ token, setToken, profile, setProfile, tabValue, setTabV
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                  <MenuItem onClick={handleClose}>
-                    <Link to='/profile' style={styles.buttonLink}>Profile</Link>
-                  </MenuItem>
-                  <MenuItem onClick={logout}>Log Out</MenuItem>
+                  <Link to='/profile' style={styles.buttonLink}>
+                    <MenuItem onClick={handleClose}>Profile</MenuItem>
+                  </Link>
+                  <MenuItem onClick={logout}>Sign Out</MenuItem>
                 </Menu>
               </>
               :
@@ -83,12 +83,12 @@ export const Header = ({ token, setToken, profile, setProfile, tabValue, setTabV
           )
             :
             <ButtonGroup variant="text" aria-label="authenticate user actions">
-              <Button style={styles.authButton}>
-                <Link to='/' style={styles.buttonLink}>Log In</Link>
-              </Button>
-              <Button style={styles.authButton}>
-                <Link to='/register' style={styles.buttonLink}>New User</Link>
-              </Button>
+              <Link to='/' style={styles.buttonLink}>
+                <Button style={styles.authButton}>Sign In</Button>
+              </Link>
+              <Link to='/register' style={styles.buttonLink}>
+                <Button style={styles.authButton}>New user</Button>
+              </Link>
             </ButtonGroup>
           }
         </Toolbar>

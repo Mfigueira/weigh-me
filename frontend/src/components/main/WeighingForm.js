@@ -1,13 +1,16 @@
 import { useState } from 'react';
+import scale from '../../assets/img/bg-scale.svg';
+import add from '../../assets/img/add.svg';
+import addDisabled from '../../assets/img/add-disabled.svg';
+import '../../assets/styles/WeighingForm.css';
 import { useHistory } from 'react-router';
 import { getDateTimeToday, getDateFromDT, getTimeFromDT } from '../../util/helpers';
 import { createWeighing } from '../../util/requests';
-import { TextField, InputAdornment, Input, InputLabel, FormControl } from '@material-ui/core';
+import { TextField, InputAdornment, Input, FormControl, Fab } from '@material-ui/core';
 
 export const WeighingForm = ({ token, addWeighing, setTabValue }) => {
   const [weight, setWeight] = useState('');
   const [dateTime, setDateTime] = useState(getDateTimeToday);
-
   const history = useHistory();
 
   const handleSubmit = e => {
@@ -29,30 +32,49 @@ export const WeighingForm = ({ token, addWeighing, setTabValue }) => {
     });
   }
 
-  return (
-    <section>
-      <h2>Add Weighing</h2>
+  const styles = {
+    section: {
+      boxShadow: '0px 7px 8px #888888',
+      borderRadius: '60px',
+      backgroundImage: `url(${scale})`,
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: '100%',
+      padding: '2rem',
+      width: '300px',
+      height: '300px',
+      boxSizing: 'border-box'
+    },
+    form: {
+      paddingTop: '7rem',
+      position: 'relative'
+    }
+  }
 
-      <form onSubmit={handleSubmit}>
-        <div style={{ marginBottom: '1rem' }}>
+  return (
+    <section id='addWeighingForm' style={styles.section}>
+      <form onSubmit={handleSubmit} style={styles.form}>
+        <div style={{ marginBottom: '1.2rem' }}>
           <FormControl>
-            <InputLabel htmlFor="weightInput">Weight</InputLabel>
             <Input
-              id="weightInput"
+              id='addWeighingFormWeight'
               value={weight}
               autoFocus
               autoComplete='off'
               onChange={e => setWeight(e.target.value)}
               endAdornment={
-                <InputAdornment position="end">Kg</InputAdornment>
+                <InputAdornment position='end'>
+                  <span style={{ color: '#fff', fontSize: '1rem', marginTop: '2rem' }}>Kg</span>
+                </InputAdornment>
               }
+              style={{ fontSize: '3rem' }}
             />
           </FormControl>
         </div>
-        <div style={{ marginBottom: '1rem' }}>
+        <div>
           <TextField
-            label="When?"
-            type="datetime-local"
+            id='addWeighingFormDatepicker'
+            label='When?'
+            type='datetime-local'
             autoComplete='off'
             value={dateTime}
             InputLabelProps={{
@@ -61,7 +83,11 @@ export const WeighingForm = ({ token, addWeighing, setTabValue }) => {
             onChange={e => setDateTime(e.target.value)}
           />
         </div>
-        <button type="submit" disabled={!weight}>Add</button>
+        <Fab id='addWeighingFormAddButton' aria-label='Add' type='submit' disabled={(!weight || !dateTime)}>
+          <img src={(!weight || !dateTime) ? addDisabled : add} alt='Add'
+            style={(!weight || !dateTime) ? ({ width: '100%', opacity: '0.5' }) : ({ width: '100%' })}
+          />
+        </Fab>
       </form>
     </section>
   )

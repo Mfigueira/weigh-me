@@ -1,0 +1,5 @@
+@media (max-width: 330px) {
+  .MuiToolbar-root {
+    padding-right: 2px!important;
+  }
+}

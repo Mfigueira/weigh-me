@@ -1,8 +1,10 @@
+import '../../../assets/styles/AuthForms.css';
+import user from '../../../assets/img/user.svg';
+import key from '../../../assets/img/key.svg';
 import { useState } from 'react';
 import { saveTokenInStorage } from '../../../util/helpers';
 import { loginUser } from '../../../util/requests';
 import { TextField, InputAdornment, Button } from '@material-ui/core';
-import user from '../../../assets/img/user.svg';
 
 export const LoginForm = ({ setToken }) => {
   const [username, setUsername] = useState('');
@@ -21,8 +23,8 @@ export const LoginForm = ({ setToken }) => {
   }
 
   return (
-    <section>
-      <h2>Welcome back!</h2>
+    <section class='auth-form-section'>
+      <h2>Let's <p><b>Weigh Me!</b></p></h2>
 
       <form onSubmit={handleSubmit}>
         <div style={{ marginBottom: '1rem' }}>
@@ -32,26 +34,26 @@ export const LoginForm = ({ setToken }) => {
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <img src={user} style={{ width: '1.25rem' }} alt='user' />
+                  <img src={user} style={{ width: '1.5rem' }} alt='user' />
                 </InputAdornment>
               ),
             }}
           />
         </div>
-        <div style={{ marginBottom: '1rem' }}>
+        <div style={{ marginBottom: '1.5rem' }}>
           <TextField
             type="password" label="Password" autoComplete="off" required
             value={password} onChange={e => setPassword(e.target.value)}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <img src={user} style={{ width: '1.25rem' }} alt='user' />
+                  <img src={key} style={{ width: '1.5rem' }} alt='password' />
                 </InputAdornment>
               ),
             }}
           />
         </div>
-        <Button variant="contained" color="primary" type="submit">Log In</Button>
+        <Button variant="contained" color="primary" type="submit">Sign In</Button>
       </form>
     </section>
   )

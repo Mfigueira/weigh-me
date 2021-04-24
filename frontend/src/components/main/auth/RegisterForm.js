@@ -1,8 +1,11 @@
+import '../../../assets/styles/AuthForms.css';
 import { useState } from 'react';
 import { saveTokenInStorage } from '../../../util/helpers';
 import { registerUser } from '../../../util/requests';
 import { TextField, InputAdornment, Button } from '@material-ui/core';
 import user from '../../../assets/img/user.svg';
+import key from '../../../assets/img/key.svg';
+import doubleKey from '../../../assets/img/double-key.svg';
 
 export const RegisterForm = ({ setToken }) => {
   const [username, setUsername] = useState('');
@@ -22,8 +25,8 @@ export const RegisterForm = ({ setToken }) => {
   }
 
   return (
-    <section>
-      <h2>Sign Up</h2>
+    <section class='auth-form-section'>
+      <h2>Register <b>Me</b></h2>
 
       <form onSubmit={handleSubmit}>
         <div style={{ marginBottom: '1rem' }}>
@@ -33,7 +36,7 @@ export const RegisterForm = ({ setToken }) => {
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <img src={user} style={{ width: '1.25rem' }} alt='user' />
+                  <img src={user} style={{ width: '1.5rem' }} alt='user' />
                 </InputAdornment>
               ),
             }}
@@ -46,26 +49,26 @@ export const RegisterForm = ({ setToken }) => {
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <img src={user} style={{ width: '1.25rem' }} alt='user' />
+                  <img src={key} style={{ width: '1.5rem' }} alt='password' />
                 </InputAdornment>
               ),
             }}
           />
         </div>
-        <div style={{ marginBottom: '1rem' }}>
+        <div style={{ marginBottom: '1.5rem' }}>
           <TextField
             type="password" label="Confirm Password" autoComplete="off" required
             value={confirmation} onChange={e => setConfirmation(e.target.value)}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <img src={user} style={{ width: '1.25rem' }} alt='user' />
+                  <img src={doubleKey} style={{ width: '1.5rem' }} alt='confirm' />
                 </InputAdornment>
               ),
             }}
           />
         </div>
-        <Button variant="contained" color="primary" type="submit">Register</Button>
+        <Button variant="contained" color="primary" type="submit">Sign Up</Button>
       </form>
     </section>
   )

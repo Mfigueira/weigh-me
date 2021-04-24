@@ -3,6 +3,13 @@
   src: url('./assets/fonts/MavenPro-VariableFont_wght.ttf');
 }
 
+.MuiFormLabel-root,
+.MuiInputBase-input,
+.MuiButtonBase-root,
+.MuiTypography-root {
+  font-family: 'Maven Pro', sans-serif!important;
+}
+
 html {
   font-size: 16px;
   min-width: 320px;
@@ -34,8 +41,11 @@ h1 {
 }
 
 h2 {
-  font-size: 2rem;
+  font-size: 2.5rem;
+  letter-spacing: 2px;
+  color: #444;
   margin-bottom: 2rem;
+  line-height: 3rem;
 }
 
 header, main, footer {
