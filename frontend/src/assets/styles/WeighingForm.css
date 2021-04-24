@@ -1,0 +1,54 @@
+#addWeighingForm .MuiInput-input {
+    color: #fff;
+}
+
+#addWeighingForm .MuiInput-underline:hover:before {
+    border-bottom: 1px solid #fff;
+}
+
+#addWeighingForm .MuiInput-underline:after {
+    border-bottom: 2px solid #fff;
+  }
+
+#addWeighingForm .MuiInput-underline:before {
+    border-bottom: 1px solid #fff;
+}
+
+#addWeighingForm .MuiFormLabel-root {
+    color: #fff;
+}
+
+#addWeighingFormWeight {
+    text-align: center;
+    width: 160px;
+    margin-left: 30px;
+}
+
+#addWeighingFormDatepicker {
+    width: 190px;
+    font-size: 0.9rem;
+}
+#addWeighingFormDatepicker::-webkit-calendar-picker-indicator {
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 4px;
+    cursor: pointer;
+}
+
+#addWeighingFormAddButton {
+    position: absolute;
+    right: -60px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+@media (max-width: 400px) {
+    #addWeighingForm {
+        margin-top: -40px;
+    }
+    #addWeighingFormAddButton {
+        right: 50%;
+        top: 105%;
+        transform: translateX(50%);
+    }
+}
