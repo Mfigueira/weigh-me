@@ -37,18 +37,13 @@
 
 #addWeighingFormAddButton {
     position: absolute;
-    right: -60px;
+    right: -45px;
     top: 50%;
     transform: translateY(-50%);
 }
 
-@media (max-width: 400px) {
-    #addWeighingForm {
-        margin-top: -40px;
-    }
+@media (max-width: 339px) {
     #addWeighingFormAddButton {
-        right: 50%;
-        top: 105%;
-        transform: translateX(50%);
+        right: -35px;
     }
 }

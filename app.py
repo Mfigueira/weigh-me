@@ -50,13 +50,8 @@ def register():
         return jsonify('Must choose and confirm password.'), 400
     if not password == confirmation:
         return jsonify('Passwords do not match.'), 400
-    
-    #TODO: Validate optional profile parameters
-    height = request.json.get('height')
-    date_of_birth = request.json.get('date_of_birth')
-    email = request.json.get('email')
 
-    new_person = Person(username, password, height, date_of_birth, email)
+    new_person = Person(username, password, None, None, None)
     db.session.add(new_person)
     db.session.commit()
 
@@ -124,7 +119,7 @@ def get_profile():
         return jsonify(
             name=person.name,
             height=person.height,
-            date_of_birth=person.date_of_birth,
+            goal=person.goal,
             email=person.email,
         ), 200
     except:

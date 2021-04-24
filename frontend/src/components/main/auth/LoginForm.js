@@ -23,7 +23,7 @@ export const LoginForm = ({ setToken }) => {
   }
 
   return (
-    <section class='auth-form-section'>
+    <section className='auth-form-section'>
       <h2>Let's <p><b>Weigh Me!</b></p></h2>
 
       <form onSubmit={handleSubmit}>

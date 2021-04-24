@@ -32,13 +32,15 @@ export const Header = ({ token, setToken, profile, setProfile, tabValue, setTabV
     },
     authButton: {
       color: '#fff',
-      padding: '0.4rem 0.8rem',
-      lineHeight: '1rem'
+      borderColor: '#fff',
+      padding: '0'
     },
     buttonLink: {
+      display: 'inline-block',
       color: 'inherit',
+      lineHeight: '1rem',
       textDecoration: 'none',
-      borderColor: '#fff'
+      padding: '0.4rem 0.8rem'
     }
   }
 
@@ -63,10 +65,12 @@ export const Header = ({ token, setToken, profile, setProfile, tabValue, setTabV
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                  <Link to='/profile' style={styles.buttonLink}>
-                    <MenuItem onClick={handleClose}>Profile</MenuItem>
-                  </Link>
-                  <MenuItem onClick={logout}>Sign Out</MenuItem>
+                  <MenuItem onClick={handleClose} style={{ padding: '0' }}>
+                    <Link to='/profile' style={{ ...styles.buttonLink, padding: '0.6rem 1.1rem' }}>Profile</Link>
+                  </MenuItem>
+                  <MenuItem onClick={logout} style={{ padding: '0' }}>
+                    <span style={{ ...styles.buttonLink, padding: '0.6rem 1.1rem' }}>Sign Out</span>
+                  </MenuItem>
                 </Menu>
               </>
               :
@@ -83,20 +87,21 @@ export const Header = ({ token, setToken, profile, setProfile, tabValue, setTabV
           )
             :
             <ButtonGroup variant="text" aria-label="authenticate user actions">
-              <Link to='/' style={styles.buttonLink}>
-                <Button style={styles.authButton}>Sign In</Button>
-              </Link>
-              <Link to='/register' style={styles.buttonLink}>
-                <Button style={styles.authButton}>New user</Button>
-              </Link>
+              <Button style={styles.authButton}>
+                <Link to='/' style={styles.buttonLink}>Sign In</Link>
+              </Button>
+              <Button style={styles.authButton}>
+                <Link to='/register' style={styles.buttonLink}>New user</Link>
+              </Button>
             </ButtonGroup>
           }
         </Toolbar>
       </AppBar>
-      {token ?
-        <Navbar tabValue={tabValue} setTabValue={setTabValue} />
-        :
-        <></>
+      {
+        token ?
+          <Navbar tabValue={tabValue} setTabValue={setTabValue} />
+          :
+          <></>
       }
     </>
   );

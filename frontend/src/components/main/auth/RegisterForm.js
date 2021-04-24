@@ -25,7 +25,7 @@ export const RegisterForm = ({ setToken }) => {
   }
 
   return (
-    <section class='auth-form-section'>
+    <section className='auth-form-section'>
       <h2>Register <b>Me</b></h2>
 
       <form onSubmit={handleSubmit}>

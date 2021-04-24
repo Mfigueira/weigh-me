@@ -7,17 +7,17 @@ class Person(db.Model):
     __tablename__ = 'person'
 
     id = db.Column(db.BigInteger, primary_key=True)
-    name = db.Column(db.String(10), unique=True, nullable=False)
-    hash = db.Column(db.String(255), nullable=False)
+    name = db.Column(db.String(12), unique=True, nullable=False)
+    hash = db.Column(db.String(), nullable=False)
     height = db.Column(db.Numeric(3, 0))
-    date_of_birth = db.Column(db.Date)
+    goal = db.Column(db.Numeric(5, 2))
     email = db.Column(db.String(100), unique=True)
 
-    def __init__(self, name, password, height, date_of_birth, email):
+    def __init__(self, name, password, height, goal, email):
         self.name = name
         self.hash = generate_password_hash(password)
         self.height = height
-        self.date_of_birth = date_of_birth
+        self.goal = goal
         self.email = email
 
     def check_password(self, password):

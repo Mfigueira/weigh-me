@@ -1,10 +1,16 @@
 main {
     flex-grow: 1;
+    overflow: auto;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     font-size: 1rem;
     text-align: center;
-    padding: 0.5rem 0.5rem 3rem 0.5rem;
+    padding: 2.5rem 0.5rem 4.5rem 0.5rem;
+}
+
+@media (min-height: 500px) {
+    main {
+        justify-content: center;
+    }
 }
