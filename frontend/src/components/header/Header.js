@@ -65,9 +65,10 @@ export const Header = ({ token, setToken, profile, setProfile, tabValue, setTabV
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                  <MenuItem onClick={handleClose} style={{ padding: '0' }}>
+                  {/* Profile will be available in version 2.0 */}
+                  {/* <MenuItem onClick={handleClose} style={{ padding: '0' }}>
                     <Link to='/profile' style={{ ...styles.buttonLink, padding: '0.6rem 1.1rem' }}>Profile</Link>
-                  </MenuItem>
+                  </MenuItem> */}
                   <MenuItem onClick={logout} style={{ padding: '0' }}>
                     <span style={{ ...styles.buttonLink, padding: '0.6rem 1.1rem' }}>Sign Out</span>
                   </MenuItem>

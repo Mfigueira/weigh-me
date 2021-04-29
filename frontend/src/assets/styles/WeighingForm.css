@@ -24,6 +24,15 @@
     margin-left: 30px;
 }
 
+/* Chrome, Safari, Edge, Opera */
+#addWeighingFormWeight::-webkit-outer-spin-button,
+#addWeighingFormWeight::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+#addWeighingFormWeight[type=number] {
+  -moz-appearance: textfield;
+}
+
 #addWeighingFormDatepicker {
     width: 190px;
     font-size: 0.9rem;

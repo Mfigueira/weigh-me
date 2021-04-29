@@ -10,14 +10,14 @@ class Person(db.Model):
     name = db.Column(db.String(12), unique=True, nullable=False)
     hash = db.Column(db.String(), nullable=False)
     height = db.Column(db.Numeric(3, 0))
-    goal = db.Column(db.Numeric(5, 2))
+    target = db.Column(db.Numeric(5, 2))
     email = db.Column(db.String(100), unique=True)
 
-    def __init__(self, name, password, height, goal, email):
+    def __init__(self, name, password, height, target, email):
         self.name = name
         self.hash = generate_password_hash(password)
         self.height = height
-        self.goal = goal
+        self.target = target
         self.email = email
 
     def check_password(self, password):
@@ -30,11 +30,9 @@ class Weighing(db.Model):
     id = db.Column(db.BigInteger, primary_key=True)
     person_id = db.Column(db.BigInteger, ForeignKey('person.id'), nullable=False)
     weight = db.Column(db.Numeric(5, 2), nullable=False)
-    date = db.Column(db.Date, nullable=False)
-    time = db.Column(db.Time, nullable=False)
+    datetime = db.Column(db.DateTime, nullable=False)
 
-    def __init__(self, person_id, weight, date, time):
+    def __init__(self, person_id, weight, datetime):
         self.person_id = person_id
         self.weight = weight
-        self.date = date
-        self.time = time
+        self.datetime = datetime

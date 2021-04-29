@@ -18,7 +18,6 @@ export const LoginForm = ({ setToken }) => {
       setToken(res.data.access_token);
     }).catch(err => {
       console.error(err);
-      console.log(err.response.data);
     });
   }
 

@@ -43,7 +43,6 @@ def register():
     if not Person.query.filter(Person.name == username).count() == 0:
         return jsonify('Username already exist.'), 409
     
-    #TODO: Review user and pass validation (characters, max length -> db.add try catch?)
     password = request.json.get('password')
     confirmation = request.json.get('confirmation')
     if not password or not confirmation:
@@ -51,9 +50,12 @@ def register():
     if not password == confirmation:
         return jsonify('Passwords do not match.'), 400
 
-    new_person = Person(username, password, None, None, None)
-    db.session.add(new_person)
-    db.session.commit()
+    try:
+        new_person = Person(username, password, None, None, None)
+        db.session.add(new_person)
+        db.session.commit()
+    except:
+        return jsonify('Could not register user.'), 500
 
     access_token = create_access_token(identity=new_person.id)
     return jsonify(access_token=access_token)
@@ -63,26 +65,24 @@ def register():
 @jwt_required()
 def add_weighing():
     weight = request.json.get('weight')
-    date = request.json.get('date')
-    time = request.json.get('time')
+    datetime = request.json.get('datetime')
 
-    #TODO: Validate weight characters
     try:
         weight = float(weight)
+        if weight <= 0:
+            return jsonify('Invalid weight.'), 400
+
+        user_id = get_jwt_identity()
+        new_weight = Weighing(user_id, weight, datetime)
+        db.session.add(new_weight)
+        db.session.commit()
     except:
-        return jsonify('Invalid weight'), 400
+        return jsonify('Could not add weighing.'), 500
 
-    #TODO: Validate date and time
-    now = datetime.now()
-    date = now.strftime('%Y-%m-%d')
-    time = now.strftime('%H:%M')
-
-    user_id = get_jwt_identity()
-    new_weight = Weighing(user_id, weight, date, time)
-    db.session.add(new_weight)
-    db.session.commit()
-
-    return jsonify('Weighing added.'), 201
+    return jsonify(
+        id=new_weight.id,
+        msg='Weighing added.'
+    ), 201
 
 
 @app.route('/')
@@ -93,21 +93,22 @@ def index():
 @app.route('/api/weighings')
 @jwt_required()
 def get_weighings():
-    user_id = get_jwt_identity()
-    db_weighings = Weighing.query.filter_by(person_id=user_id).all()
-    weighings = []
-
-    if db_weighings:
-        for weighing in db_weighings:
-            weighings.append(
-                new_weighing_dict(
-                    float(weighing.weight), 
-                    weighing.date.isoformat(),
-                    weighing.time.isoformat()
+    try:
+        user_id = get_jwt_identity()
+        db_weighings = Weighing.query.filter_by(person_id=user_id).all()
+        weighings = []
+        if db_weighings:
+            for weighing in db_weighings:
+                weighings.append(
+                    new_weighing_dict(
+                        weighing.id,
+                        float(weighing.weight), 
+                        weighing.datetime.isoformat()
+                    )
                 )
-            )
-
-    return jsonify(weighings), 200
+        return jsonify(weighings), 200
+    except:
+        return jsonify('Could not get weighings.'), 500
 
 
 @app.route('/api/profile')
@@ -119,7 +120,7 @@ def get_profile():
         return jsonify(
             name=person.name,
             height=person.height,
-            goal=person.goal,
+            target=person.target,
             email=person.email,
         ), 200
     except:

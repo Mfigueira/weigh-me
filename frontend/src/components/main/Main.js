@@ -5,9 +5,9 @@ import { RegisterForm } from './auth/RegisterForm';
 import { WeighingForm } from './WeighingForm';
 import { Weighings } from './Weighings';
 
-export const Main = ({ token, setToken, weighings, addWeighing, setTabValue }) => {
+export const Main = ({ token, setToken, weighings, addWeighing, tabValue, setTabValue }) => {
   return (
-    <main>
+    <main className={tabValue === 1 ? 'weighings' : ''}>
       {token ?
         <Switch>
           <Route path='/' exact

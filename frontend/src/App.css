@@ -6,7 +6,8 @@
 .MuiFormLabel-root,
 .MuiInputBase-input,
 .MuiButtonBase-root,
-.MuiTypography-root {
+.MuiTypography-root,
+.MuiDataGrid-root {
   font-family: 'Maven Pro', sans-serif!important;
 }
 

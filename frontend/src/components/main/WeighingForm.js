@@ -1,34 +1,26 @@
-import { useState } from 'react';
+import '../../assets/styles/WeighingForm.css';
 import scale from '../../assets/img/bg-scale.svg';
 import add from '../../assets/img/add.svg';
 import addDisabled from '../../assets/img/add-disabled.svg';
-import '../../assets/styles/WeighingForm.css';
-import { useHistory } from 'react-router';
-import { getDateTimeToday, getDateFromDT, getTimeFromDT } from '../../util/helpers';
+import { useState } from 'react';
+import { getDateTimeToday, extractSecsFromTime } from '../../util/helpers';
 import { createWeighing } from '../../util/requests';
 import { TextField, InputAdornment, Input, FormControl, Fab } from '@material-ui/core';
 
-export const WeighingForm = ({ token, addWeighing, setTabValue }) => {
+export const WeighingForm = ({ token, addWeighing }) => {
   const [weight, setWeight] = useState('');
-  const [dateTime, setDateTime] = useState(getDateTimeToday);
-  const history = useHistory();
+  const [datetime, setDateTime] = useState(getDateTimeToday);
 
   const handleSubmit = e => {
     e.preventDefault();
-    const date = getDateFromDT(dateTime);
-    const time = getTimeFromDT(dateTime);
-    const weighing = { weight, date, time };
+    let weighing = { weight, datetime };
     createWeighing(token, JSON.stringify(weighing)).then(res => {
-      // TODO: remove console.log
-      console.log(res.data);
+      weighing.id = res.data.id;
       addWeighing(weighing);
       setWeight('');
       setDateTime(getDateTimeToday);
-      history.push('/weighings');
-      setTabValue(1);
     }).catch(err => {
       console.error(err);
-      console.log(err.response.data);
     });
   }
 
@@ -58,6 +50,8 @@ export const WeighingForm = ({ token, addWeighing, setTabValue }) => {
             <Input
               id='addWeighingFormWeight'
               value={weight}
+              type='number'
+              step='0.01'
               autoFocus
               autoComplete='off'
               onChange={e => setWeight(e.target.value)}
@@ -76,16 +70,16 @@ export const WeighingForm = ({ token, addWeighing, setTabValue }) => {
             label='When?'
             type='datetime-local'
             autoComplete='off'
-            value={dateTime}
+            value={datetime}
             InputLabelProps={{
               shrink: true,
             }}
-            onChange={e => setDateTime(e.target.value)}
+            onChange={e => setDateTime(extractSecsFromTime(e.target.value))}
           />
         </div>
-        <Fab id='addWeighingFormAddButton' aria-label='Add' type='submit' disabled={(!weight || !dateTime)}>
-          <img src={(!weight || !dateTime) ? addDisabled : add} alt='Add'
-            style={(!weight || !dateTime) ? ({ width: '100%', opacity: '0.5' }) : ({ width: '100%' })}
+        <Fab id='addWeighingFormAddButton' aria-label='Add' type='submit' disabled={(!weight || !datetime)}>
+          <img src={(!weight || !datetime) ? addDisabled : add} alt='Add'
+            style={(!weight || !datetime) ? ({ width: '100%', opacity: '0.5' }) : ({ width: '100%' })}
           />
         </Fab>
       </form>

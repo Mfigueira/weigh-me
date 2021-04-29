@@ -16,10 +16,6 @@ export const getDateTimeToday = () => {
   return `${year}-${month}-${day}T${hours}:${minutes}`
 }
 
-export const getDateFromDT = dt => dt.substring(0, dt.indexOf('T'));
-
-export const getTimeFromDT = dt => `${dt.substring(dt.indexOf('T') + 1)}:00`;
-
 export const getTabByRoute = currentRoute => {
   const tab = navRoutes.filter(route => route.path === currentRoute);
   return (!tab.length) ? 0 : tab[0].tab;
@@ -30,7 +26,20 @@ export const getRouteByTab = val => {
   return (!route.length) ? 0 : route[0].path;
 };
 
-export const extractSecsFromTime = t => t.substring(0, t.lastIndexOf(':'));
+export const extractSecsFromTime = t => {
+  const io = t.indexOf(':');
+  const lio = t.lastIndexOf(':');
+  return io === lio ? t : t.substring(0, t.lastIndexOf(':'));
+}
+
+export const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December'
+];
+
+export const getMonthFromDate = date => {
+  const d = new Date(date);
+  return monthNames[d.getMonth()];
+}
 
 export const saveTokenInStorage = token => localStorage.setItem('token', token);
 

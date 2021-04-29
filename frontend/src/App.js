@@ -30,12 +30,13 @@ function App() {
 
           setProfile(profileResponse.data);
           setWeighings(weighingsResponse.data);
-        } catch (error) {
+        } catch (err) {
           // TODO: error message handler for all requests
-          console.error(error);
+          console.error(err);
           removeTokenFromStorage();
           setToken(null);
           setProfile(null);
+          setTabValue(0);
           setWeighings([]);
         }
       })();
@@ -62,6 +63,7 @@ function App() {
         setToken={setToken}
         weighings={weighings}
         addWeighing={addWeighing}
+        tabValue={tabValue}
         setTabValue={setTabValue}
       />
       <Footer />

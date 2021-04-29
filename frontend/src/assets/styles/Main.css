@@ -9,7 +9,12 @@ main {
     padding: 2.5rem 0.5rem 4.5rem 0.5rem;
 }
 
-@media (min-height: 500px) {
+main.weighings {
+    align-items: normal;
+    justify-content: flex-start;
+}
+
+@media (min-height: 600px) {
     main {
         justify-content: center;
     }

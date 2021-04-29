@@ -1,35 +1,71 @@
-import { extractSecsFromTime } from '../../util/helpers';
+import '../../assets/styles/Weighings.css';
+import { getMonthFromDate, extractSecsFromTime } from '../../util/helpers';
+import { DataGrid, GridToolbar, GridOverlay } from '@material-ui/data-grid';
+import { monthsFilterOperators } from './MonthsFilter.js';
+import { WeighingChart } from './Chart';
+
+const CustomNoRowsOverlay = () => {
+  return (
+    <GridOverlay>
+      <p>No weighings to show</p>
+    </GridOverlay>
+  )
+};
 
 export const Weighings = ({ weighings }) => {
 
-    return (
-        <section>
-            <h2>Weighings</h2>
+  const rows = weighings.map(weighing => {
+    weighing.month = getMonthFromDate(weighing.datetime);
+    weighing.dtshow = `${extractSecsFromTime(weighing.datetime).replace('T', ' at ')}`;
+    return weighing;
+  });
 
-            {weighings.length ?
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Time</th>
-                            <th>Weight</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {weighings.map((weighing, i) => {
-                            return (
-                                <tr key={i}>
-                                    <td>{weighing.date}</td>
-                                    <td>{extractSecsFromTime(weighing.time)}</td>
-                                    <td>{weighing.weight}</td>
-                                </tr>
-                            )
-                        })}
-                    </tbody>
-                </table>
-                :
-                <div>No data to show</div>
-            }
-        </section>
-    )
+  const columns = [
+    {
+      field: 'dtshow', type: 'dateTime', headerName: 'Date & Time', flex: 1.5,
+      headerClassName: 'weighing-grid-th', filterable: false
+    },
+    {
+      field: 'datetime', type: 'dateTime', headerName: 'Date & Time', hide: true,
+      headerClassName: 'weighing-grid-th'
+    },
+    {
+      field: 'month', type: 'string', headerName: 'Month', hide: true,
+      headerClassName: 'weighing-grid-th', filterOperators: monthsFilterOperators
+    },
+    {
+      field: 'weight', type: 'string', headerName: 'Weight (kg)', flex: 1,
+      headerClassName: 'weighing-grid-th'
+    },
+  ];
+
+  return (
+    <section>
+      <h2 style={{ marginBottom: '0' }}>Chart</h2>
+      <WeighingChart weighings={weighings} />
+
+      <h2>Grid</h2>
+      <DataGrid
+        autoHeight
+        rows={rows}
+        rowHeight={35}
+        columns={columns.map((column) => ({
+          ...column,
+          disableClickEventBubbling: true,
+        }))}
+        sortModel={[{
+          field: 'dtshow',
+          sort: 'desc',
+        }]}
+        disableColumnMenu={true}
+        disableColumnSelector={true}
+        components={{
+          NoRowsOverlay: CustomNoRowsOverlay,
+          Toolbar: GridToolbar
+        }}
+        pagination
+        pageSize={25}
+      />
+    </section>
+  )
 }
