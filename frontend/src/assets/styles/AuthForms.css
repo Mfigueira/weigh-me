@@ -1,5 +1,11 @@
 .auth-form-section .MuiInputBase-input {
     font-size: 1.5rem;
-    max-width: 200px;
+    max-width: 240px;
     color: #444;
+}
+
+.MuiFormLabel-root.MuiInputLabel-root.MuiInputLabel-formControl[data-shrink='false'] {
+    top: 0.1rem;
+    font-size: 1.2rem;
+    color: rgba(0,0,0,0.4);
 }

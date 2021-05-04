@@ -32,7 +32,8 @@ export const extractSecsFromTime = t => {
   return io === lio ? t : t.substring(0, t.lastIndexOf(':'));
 }
 
-export const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+export const monthNames = [
+  'January', 'February', 'March', 'April', 'May', 'June',
   'July', 'August', 'September', 'October', 'November', 'December'
 ];
 
@@ -41,8 +42,23 @@ export const getMonthFromDate = date => {
   return monthNames[d.getMonth()];
 }
 
+export const isUsernameValid = username => /^[\S]{0,12}$/.test(username);
+
+export const isPasswordValid = password => /^[\S]{0,20}$/.test(password);
+
+export const isWeightValid = weight => /^[0-9]{0,3}([.]{1}[0-9]{0,2}){0,1}$/.test(weight);
+
 export const saveTokenInStorage = token => localStorage.setItem('token', token);
 
 export const getTokenFromStorage = () => localStorage.getItem('token');
 
 export const removeTokenFromStorage = () => localStorage.removeItem('token');
+
+export const setErrorMsg = err => {
+  let message = 'An error has occurred. Please try again later.';
+  try {
+    message = err.response.data.msg;
+  } finally {
+    return message;
+  }
+}

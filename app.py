@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, JWTManager
 from flask_cors import CORS #comment this on deployment
 from datetime import datetime
-from helpers import new_weighing_dict
+from helpers import new_weighing_dict, is_username_valid, is_password_valid, is_weight_valid, is_datetime_valid
 
 
 app = Flask(__name__)
@@ -24,12 +24,12 @@ def login():
     username = request.json.get('username')
     password = request.json.get('password')
 
-    if not username or not password:
-        return jsonify('Must provide username and password.'), 401
+    if not is_username_valid(username) or not is_password_valid(password):
+        return jsonify(msg='Invalid inputs username and/or password.'), 401
         
     person = Person.query.filter_by(name=username).one_or_none()
     if not person or not person.check_password(password):
-        return jsonify('Invalid username and/or password.'), 401
+        return jsonify(msg='Invalid user credentials.'), 401
 
     access_token = create_access_token(identity=person.id)
     return jsonify(access_token=access_token)
@@ -38,24 +38,22 @@ def login():
 @app.route('/api/register', methods=['POST'])
 def register():
     username = request.json.get('username')
-    if not username:
-        return jsonify('Must choose a username.'), 400
+    if not is_username_valid(username):
+        return jsonify(msg='Must choose a valid username.'), 400
     if not Person.query.filter(Person.name == username).count() == 0:
-        return jsonify('Username already exist.'), 409
+        return jsonify(msg='Username already exist.'), 409
     
     password = request.json.get('password')
     confirmation = request.json.get('confirmation')
-    if not password or not confirmation:
-        return jsonify('Must choose and confirm password.'), 400
-    if not password == confirmation:
-        return jsonify('Passwords do not match.'), 400
+    if not password == confirmation or not is_password_valid(password):
+        return jsonify(msg='Must choose and confirm valid password.'), 400
 
     try:
         new_person = Person(username, password, None, None, None)
         db.session.add(new_person)
         db.session.commit()
     except:
-        return jsonify('Could not register user.'), 500
+        return jsonify(msg='Could not register user.'), 500
 
     access_token = create_access_token(identity=new_person.id)
     return jsonify(access_token=access_token)
@@ -65,19 +63,20 @@ def register():
 @jwt_required()
 def add_weighing():
     weight = request.json.get('weight')
-    datetime = request.json.get('datetime')
+    if not is_weight_valid(weight):
+        return jsonify(msg='Invalid weight.'), 400
+
+    dt = request.json.get('datetime')
+    if not is_datetime_valid(dt):
+        return jsonify(msg='Invalid datetime.'), 400
 
     try:
-        weight = float(weight)
-        if weight <= 0:
-            return jsonify('Invalid weight.'), 400
-
         user_id = get_jwt_identity()
-        new_weight = Weighing(user_id, weight, datetime)
+        new_weight = Weighing(user_id, float(weight), dt)
         db.session.add(new_weight)
         db.session.commit()
     except:
-        return jsonify('Could not add weighing.'), 500
+        return jsonify(msg='Could not add weighing.'), 500
 
     return jsonify(
         id=new_weight.id,
@@ -108,7 +107,7 @@ def get_weighings():
                 )
         return jsonify(weighings), 200
     except:
-        return jsonify('Could not get weighings.'), 500
+        return jsonify(msg='Could not get weighings.'), 500
 
 
 @app.route('/api/profile')
@@ -124,7 +123,7 @@ def get_profile():
             email=person.email,
         ), 200
     except:
-        return jsonify('Could not get profile data.'), 500
+        return jsonify(msg='Could not get profile data.'), 500
 
 
 
@@ -132,7 +131,7 @@ def get_profile():
 @jwt_required()
 def logout():
     #session.pop('person_id', None)
-    return jsonify('Logged out.'), 200
+    return jsonify(msg='Logged out.'), 200
     
 
 if __name__ == '__main__':

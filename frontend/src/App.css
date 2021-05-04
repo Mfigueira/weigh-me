@@ -7,8 +7,14 @@
 .MuiInputBase-input,
 .MuiButtonBase-root,
 .MuiTypography-root,
-.MuiDataGrid-root {
+.MuiDataGrid-root,
+.MuiFormHelperText-root,
+.MuiAlert-message {
   font-family: 'Maven Pro', sans-serif!important;
+}
+
+.MuiSnackbar-root.MuiSnackbar-anchorOriginTopCenter {
+  top: 120px;
 }
 
 html {

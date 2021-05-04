@@ -5,19 +5,29 @@ import { RegisterForm } from './auth/RegisterForm';
 import { WeighingForm } from './WeighingForm';
 import { Weighings } from './Weighings';
 
-export const Main = ({ token, setToken, weighings, addWeighing, tabValue, setTabValue }) => {
+export const Main = ({ token, setToken, setAlert, weighings, addWeighing, tabValue, setTabValue }) => {
   return (
     <main className={tabValue === 1 ? 'weighings' : ''}>
       {token ?
         <Switch>
           <Route path='/' exact
             render={props => (
-              <WeighingForm {...props} token={token} addWeighing={addWeighing} setTabValue={setTabValue} />
+              <WeighingForm
+                {...props}
+                token={token}
+                setAlert={setAlert}
+                addWeighing={addWeighing}
+                setTabValue={setTabValue}
+              />
             )}
           />
           <Route path='/weighings'
             render={props => (
-              <Weighings {...props} token={token} weighings={weighings} />
+              <Weighings
+                {...props}
+                token={token}
+                weighings={weighings}
+              />
             )}
           />
           <Redirect to='/' />
@@ -26,12 +36,20 @@ export const Main = ({ token, setToken, weighings, addWeighing, tabValue, setTab
         <Switch>
           <Route path='/' exact
             render={props => (
-              <LoginForm {...props} token={token} setToken={setToken} />
+              <LoginForm
+                {...props}
+                setToken={setToken}
+                setAlert={setAlert}
+              />
             )}
           />
           <Route path='/register'
             render={props => (
-              <RegisterForm {...props} token={token} setToken={setToken} />
+              <RegisterForm
+                {...props}
+                setToken={setToken}
+                setAlert={setAlert}
+              />
             )}
           />
           <Redirect to='/' />

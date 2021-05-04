@@ -14,7 +14,7 @@ main.weighings {
     justify-content: flex-start;
 }
 
-@media (min-height: 600px) {
+@media (min-height: 650px) {
     main {
         justify-content: center;
     }
