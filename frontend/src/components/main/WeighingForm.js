@@ -3,11 +3,11 @@ import scale from '../../assets/img/bg-scale.svg';
 import add from '../../assets/img/add.svg';
 import addDisabled from '../../assets/img/add-disabled.svg';
 import { useState } from 'react';
-import { getDateTimeToday, extractSecsFromTime, isWeightValid, setErrorMsg } from '../../util/helpers';
+import { getDateTimeToday, extractSecsFromTime, isWeightValid, handleSuccessAlert, handleErrorAlert } from '../../util/helpers';
 import { createWeighing } from '../../util/requests';
 import { TextField, InputAdornment, Input, FormControl, Fab } from '@material-ui/core';
 
-export const WeighingForm = ({ token, addWeighing, setAlert }) => {
+export const WeighingForm = ({ token, addWeighing, alert, setAlert }) => {
   const [weight, setWeight] = useState('');
   const [datetime, setDateTime] = useState(getDateTimeToday);
 
@@ -22,22 +22,11 @@ export const WeighingForm = ({ token, addWeighing, setAlert }) => {
     let weighing = { weight, datetime };
     createWeighing(token, JSON.stringify(weighing)).then(res => {
       weighing.id = res.data.id;
-      addWeighing(weighing);
+      addWeighing({ ...weighing, weight: Number(weighing.weight) });
       setWeight('');
       setDateTime(getDateTimeToday);
-      setAlert({
-        open: true,
-        message: 'Weighing added!',
-        severity: 'success'
-      });
-    }).catch(err => {
-      console.error(err);
-      setAlert({
-        open: true,
-        message: setErrorMsg(err),
-        severity: 'error'
-      });
-    });
+      handleSuccessAlert('Weighing added!', alert, setAlert);
+    }).catch(err => handleErrorAlert(err, alert, setAlert));
   }
 
   const styles = {
@@ -79,7 +68,7 @@ export const WeighingForm = ({ token, addWeighing, setAlert }) => {
                   <InputAdornment position='end'>
                     <span style={{ color: '#fff', fontSize: '1rem', marginTop: '2rem' }}>
                       Kg
-                  </span>
+                    </span>
                   </InputAdornment>
                 }
                 style={{ fontSize: '3rem' }}

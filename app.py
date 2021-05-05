@@ -84,6 +84,51 @@ def add_weighing():
     ), 201
 
 
+@app.route('/api/edit_weighing', methods=['POST'])
+@jwt_required()
+def edit_weighing():
+    id = request.json.get('id')
+    if not id:
+        return jsonify(msg='ID missing.'), 400
+
+    weight = request.json.get('weight')
+    if not is_weight_valid(weight):
+        return jsonify(msg='Invalid weight.'), 400
+
+    dt = request.json.get('datetime')
+    if not is_datetime_valid(dt):
+        return jsonify(msg='Invalid datetime.'), 400
+
+    try:
+        user_id = get_jwt_identity()
+        weighing = Weighing.query.filter_by(id=id, person_id=user_id).one_or_none()
+        weighing.weight = weight
+        weighing.datetime = dt
+        db.session.commit()
+    except:
+        return jsonify(msg='Could not edit weighing.'), 500
+
+    return jsonify(msg='Weighing edited.'), 200
+
+
+@app.route('/api/delete_weighing', methods=['POST'])
+@jwt_required()
+def delete_weighing():
+    id = request.json.get('id')
+    if not id:
+        return jsonify(msg='ID missing.'), 400
+
+    try:
+        user_id = get_jwt_identity()
+        weighing = Weighing.query.filter_by(id=id, person_id=user_id).one_or_none()
+        db.session.delete(weighing)
+        db.session.commit()
+    except:
+        return jsonify(msg='Could not delete weighing.'), 500
+
+    return jsonify(msg='Weighing deleted.'), 200
+
+
 @app.route('/')
 def index():
     return render_template('index.html')

@@ -2,11 +2,11 @@ import '../../../assets/styles/AuthForms.css';
 import user from '../../../assets/img/user.svg';
 import key from '../../../assets/img/key.svg';
 import { useState } from 'react';
-import { isPasswordValid, isUsernameValid, saveTokenInStorage, setErrorMsg } from '../../../util/helpers';
+import { handleErrorAlert, handleSuccessAlert, isPasswordValid, isUsernameValid, saveTokenInStorage } from '../../../util/helpers';
 import { loginUser } from '../../../util/requests';
 import { TextField, Grid, Button } from '@material-ui/core';
 
-export const LoginForm = ({ setToken, setAlert }) => {
+export const LoginForm = ({ setToken, alert, setAlert }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -35,19 +35,8 @@ export const LoginForm = ({ setToken, setAlert }) => {
     loginUser(JSON.stringify(user)).then(res => {
       saveTokenInStorage(res.data.access_token);
       setToken(res.data.access_token);
-      setAlert({
-        open: true,
-        message: 'Signed in!',
-        severity: 'success'
-      });
-    }).catch(err => {
-      console.error(err);
-      setAlert({
-        open: true,
-        message: setErrorMsg(err),
-        severity: 'error'
-      });
-    });
+      handleSuccessAlert('Signed in!', alert, setAlert);
+    }).catch(err => handleErrorAlert(err, alert, setAlert));
   }
 
   return (

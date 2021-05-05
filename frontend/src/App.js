@@ -1,5 +1,4 @@
 // Core
-// import logo from './logo.svg';
 import './App.css';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -11,8 +10,8 @@ import { Footer } from './components/footer/Footer';
 
 // Util
 import { getWeighings, getProfile } from './util/requests';
-import { getTabByRoute, getTokenFromStorage, removeTokenFromStorage, setErrorMsg } from './util/helpers';
-import { CustomSnackbar } from './components/main/CustomSnackbar';
+import { getTabByRoute, getTokenFromStorage, handleErrorAlert, removeTokenFromStorage } from './util/helpers';
+import { CustomSnackbar } from './components/main/custom/CustomSnackbar';
 
 function App() {
   const location = useLocation();
@@ -37,19 +36,12 @@ function App() {
           setProfile(profileResponse.data);
           setWeighings(weighingsResponse.data);
         } catch (err) {
-          // TODO: error message handler for all requests
-          console.error(err);
-          console.error(err.message.body);
           removeTokenFromStorage();
           setToken(null);
           setProfile(null);
           setTabValue(0);
           setWeighings([]);
-          setAlert({
-            open: true,
-            message: setErrorMsg(err),
-            severity: 'error'
-          });
+          handleErrorAlert(err, { message: '', severity: 'error' }, setAlert);
         }
       })();
     }
@@ -65,6 +57,8 @@ function App() {
       <Header
         token={token}
         setToken={setToken}
+        alert={alert}
+        setAlert={setAlert}
         profile={profile}
         setProfile={setProfile}
         tabValue={tabValue}
@@ -79,6 +73,7 @@ function App() {
       <Main
         token={token}
         setToken={setToken}
+        alert={alert}
         setAlert={setAlert}
         weighings={weighings}
         addWeighing={addWeighing}

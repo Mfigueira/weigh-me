@@ -1,13 +1,13 @@
 import '../../../assets/styles/AuthForms.css';
 import { useState } from 'react';
-import { isPasswordValid, isUsernameValid, saveTokenInStorage, setErrorMsg } from '../../../util/helpers';
+import { handleErrorAlert, handleSuccessAlert, isPasswordValid, isUsernameValid, saveTokenInStorage } from '../../../util/helpers';
 import { registerUser } from '../../../util/requests';
 import { TextField, Button, Grid } from '@material-ui/core';
 import user from '../../../assets/img/user.svg';
 import key from '../../../assets/img/key.svg';
 import doubleKey from '../../../assets/img/double-key.svg';
 
-export const RegisterForm = ({ setToken, setAlert }) => {
+export const RegisterForm = ({ setToken, alert, setAlert }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmation, setConfirmation] = useState('');
@@ -43,19 +43,8 @@ export const RegisterForm = ({ setToken, setAlert }) => {
     registerUser(JSON.stringify(user)).then(res => {
       saveTokenInStorage(res.data.access_token);
       setToken(res.data.access_token);
-      setAlert({
-        open: true,
-        message: 'Signed up!',
-        severity: 'success'
-      });
-    }).catch(err => {
-      console.error(err);
-      setAlert({
-        open: true,
-        message: setErrorMsg(err),
-        severity: 'error'
-      });
-    });
+      handleSuccessAlert('Signed up!', alert, setAlert);
+    }).catch(err => handleErrorAlert(err, alert, setAlert));
   }
 
   return (

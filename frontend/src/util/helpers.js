@@ -54,11 +54,31 @@ export const getTokenFromStorage = () => localStorage.getItem('token');
 
 export const removeTokenFromStorage = () => localStorage.removeItem('token');
 
-export const setErrorMsg = err => {
-  let message = 'An error has occurred. Please try again later.';
-  try {
-    message = err.response.data.msg;
-  } finally {
-    return message;
-  }
+const setErrorMsg = err => {
+  let message = 'An unexpected error has ocurred.';
+  try { message = err.response.data.msg; }
+  finally { return message; }
+}
+
+export const handleErrorAlert = (err, alert, setAlert) => {
+  console.error(err);
+  setAlert({ ...alert, open: false });
+  setTimeout(() => {
+    setAlert({
+      open: true,
+      message: setErrorMsg(err),
+      severity: 'error'
+    });
+  }, 150);
+}
+
+export const handleSuccessAlert = (message, alert, setAlert) => {
+  setAlert({ ...alert, open: false });
+  setTimeout(() => {
+    setAlert({
+      open: true,
+      message: message,
+      severity: 'success'
+    });
+  }, 150);
 }

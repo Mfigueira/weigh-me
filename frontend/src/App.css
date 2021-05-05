@@ -9,12 +9,9 @@
 .MuiTypography-root,
 .MuiDataGrid-root,
 .MuiFormHelperText-root,
-.MuiAlert-message {
+.MuiAlert-message,
+.VictoryContainer tspan {
   font-family: 'Maven Pro', sans-serif!important;
-}
-
-.MuiSnackbar-root.MuiSnackbar-anchorOriginTopCenter {
-  top: 120px;
 }
 
 html {

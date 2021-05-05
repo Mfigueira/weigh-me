@@ -2,13 +2,13 @@ import '../../assets/styles/Header.css';
 import logo from '../../assets/img/scale.svg';
 import user from '../../assets/img/user.svg';
 import { useState } from 'react';
-import { removeTokenFromStorage } from '../../util/helpers';
+import { handleSuccessAlert, removeTokenFromStorage } from '../../util/helpers';
 import { Link, useHistory } from 'react-router-dom';
 import { AppBar, Toolbar, Button, Avatar, Menu, MenuItem, ButtonGroup } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
 import { Navbar } from './Navbar';
 
-export const Header = ({ token, setToken, profile, setProfile, tabValue, setTabValue }) => {
+export const Header = ({ token, setToken, alert, setAlert, profile, setProfile, tabValue, setTabValue }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const history = useHistory();
 
@@ -23,6 +23,7 @@ export const Header = ({ token, setToken, profile, setProfile, tabValue, setTabV
     setProfile(null);
     history.push('/');
     setTabValue(0);
+    handleSuccessAlert('Signed out.', alert, setAlert);
   }
 
   const styles = {
@@ -53,8 +54,11 @@ export const Header = ({ token, setToken, profile, setProfile, tabValue, setTabV
           {token ? (
             profile ?
               <>
-                <Button aria-controls="simple-menu" aria-haspopup="true"
-                  onClick={handleClick} style={{ color: '#fff', textTransform: 'none' }}>
+                <Button
+                  aria-controls="simple-menu" aria-haspopup="true"
+                  onClick={handleClick}
+                  style={{ color: '#fff', textTransform: 'none', overflow: 'hidden' }}
+                >
                   <img src={user} style={styles.icon} alt='user' />
                   {profile.name}
                 </Button>
@@ -65,12 +69,10 @@ export const Header = ({ token, setToken, profile, setProfile, tabValue, setTabV
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                  {/* Profile will be available in version 2.0 */}
-                  {/* <MenuItem onClick={handleClose} style={{ padding: '0' }}>
-                    <Link to='/profile' style={{ ...styles.buttonLink, padding: '0.6rem 1.1rem' }}>Profile</Link>
-                  </MenuItem> */}
                   <MenuItem onClick={logout} style={{ padding: '0' }}>
-                    <span style={{ ...styles.buttonLink, padding: '0.6rem 1.1rem' }}>Sign Out</span>
+                    <span style={{ ...styles.buttonLink, padding: '0.6rem 1.1rem' }}>
+                      Sign Out
+                    </span>
                   </MenuItem>
                 </Menu>
               </>

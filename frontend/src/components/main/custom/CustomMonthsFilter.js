@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import { monthNames } from '../../util/helpers';
+import { monthNames } from '../../../util/helpers';
 
-const MonthsFilter = (props) => {
+const CustomMonthsFilter = (props) => {
   const { item, applyValue } = props;
 
   const handleChangeMultiple = (event) => {
@@ -42,7 +42,7 @@ const MonthsFilter = (props) => {
   );
 }
 
-MonthsFilter.propTypes = {
+CustomMonthsFilter.propTypes = {
   applyValue: PropTypes.func.isRequired,
   item: PropTypes.shape({
     columnField: PropTypes.string,
@@ -72,7 +72,7 @@ export const monthsFilterOperators = [
         return filterItem.value.indexOf(rowValue) >= 0;
       };
     },
-    InputComponent: MonthsFilter,
+    InputComponent: CustomMonthsFilter,
     InputComponentProps: { type: 'array' },
   }
 ];
