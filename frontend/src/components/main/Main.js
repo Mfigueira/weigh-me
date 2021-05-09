@@ -5,7 +5,12 @@ import { RegisterForm } from './auth/RegisterForm';
 import { WeighingForm } from './WeighingForm';
 import { Weighings } from './Weighings';
 
-export const Main = ({ token, setToken, alert, setAlert, weighings, addWeighing, tabValue, setTabValue }) => {
+export const Main = (
+  {
+    token, setToken, alert, setAlert,
+    weighings, addWeighingToState, editWeighingFromState, removeWeighingFromState,
+    tabValue, setTabValue
+  }) => {
   return (
     <main className={tabValue === 1 ? 'weighings' : ''}>
       {token ?
@@ -17,7 +22,7 @@ export const Main = ({ token, setToken, alert, setAlert, weighings, addWeighing,
                 token={token}
                 alert={alert}
                 setAlert={setAlert}
-                addWeighing={addWeighing}
+                addWeighingToState={addWeighingToState}
                 setTabValue={setTabValue}
               />
             )}
@@ -27,7 +32,11 @@ export const Main = ({ token, setToken, alert, setAlert, weighings, addWeighing,
               <Weighings
                 {...props}
                 token={token}
+                alert={alert}
+                setAlert={setAlert}
                 weighings={weighings}
+                editWeighingFromState={editWeighingFromState}
+                removeWeighingFromState={removeWeighingFromState}
               />
             )}
           />

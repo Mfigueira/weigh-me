@@ -3,13 +3,13 @@ import scale from '../../assets/img/bg-scale.svg';
 import add from '../../assets/img/add.svg';
 import addDisabled from '../../assets/img/add-disabled.svg';
 import { useState } from 'react';
-import { getDateTimeToday, extractSecsFromTime, isWeightValid, handleSuccessAlert, handleErrorAlert } from '../../util/helpers';
+import { formatDateTimeOrGetToday, extractSecsFromTime, isWeightValid, handleSuccessAlert, handleErrorAlert } from '../../util/helpers';
 import { createWeighing } from '../../util/requests';
 import { TextField, InputAdornment, Input, FormControl, Fab } from '@material-ui/core';
 
-export const WeighingForm = ({ token, addWeighing, alert, setAlert }) => {
+export const WeighingForm = ({ token, addWeighingToState, alert, setAlert }) => {
   const [weight, setWeight] = useState('');
-  const [datetime, setDateTime] = useState(getDateTimeToday);
+  const [datetime, setDateTime] = useState(formatDateTimeOrGetToday);
 
   const handleWeightChange = e => {
     let value = e.target.value;
@@ -22,9 +22,9 @@ export const WeighingForm = ({ token, addWeighing, alert, setAlert }) => {
     let weighing = { weight, datetime };
     createWeighing(token, JSON.stringify(weighing)).then(res => {
       weighing.id = res.data.id;
-      addWeighing({ ...weighing, weight: Number(weighing.weight) });
+      addWeighingToState({ ...weighing, weight: Number(weighing.weight) });
       setWeight('');
-      setDateTime(getDateTimeToday);
+      setDateTime(formatDateTimeOrGetToday);
       handleSuccessAlert('Weighing added!', alert, setAlert);
     }).catch(err => handleErrorAlert(err, alert, setAlert));
   }

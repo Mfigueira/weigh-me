@@ -12,6 +12,22 @@
   height: 300px!important;
 }
 
+.MuiDataGrid-root .MuiDataGrid-cell:focus,
+.MuiDataGrid-root .MuiDataGrid-cell:focus-within {
+  outline: 0!important;
+}
+
+.MuiInputBase-root.MuiTablePagination-input {
+  display: flex!important;
+  margin: 0;
+  margin-right: 10px;
+}
+
+.MuiTypography-root.MuiTablePagination-caption {
+  display: flex!important;
+  margin: 0;
+}
+
 .MuiDataGrid-root .MuiDataGrid-colCellRight .MuiDataGrid-colCellTitleContainer,
 .MuiDataGrid-root .MuiDataGrid-colCellTitleContainer {
   justify-content: center!important;
@@ -51,14 +67,6 @@
 .MuiDataGrid-root .MuiDataGrid-cell,
 .MuiDataGrid-root .MuiDataGrid-colCellSortable {
   padding: 0 5px!important;
-}
-
-.MuiTypography-root.MuiTablePagination-caption.makeStyles-caption-6.MuiTypography-body2.MuiTypography-colorInherit {
-  display: block!important;
-}
-
-.MuiInputBase-root.MuiTablePagination-input.makeStyles-input-7.MuiTablePagination-selectRoot {
-  display: inline-flex!important;
 }
 
 .MuiTablePagination-actions {

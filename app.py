@@ -25,7 +25,7 @@ def login():
     password = request.json.get('password')
 
     if not is_username_valid(username) or not is_password_valid(password):
-        return jsonify(msg='Invalid inputs username and/or password.'), 401
+        return jsonify(msg='Invalid format.'), 400
         
     person = Person.query.filter_by(name=username).one_or_none()
     if not person or not person.check_password(password):
@@ -84,11 +84,11 @@ def add_weighing():
     ), 201
 
 
-@app.route('/api/edit_weighing', methods=['POST'])
+@app.route('/api/update_weighing', methods=['POST'])
 @jwt_required()
-def edit_weighing():
-    id = request.json.get('id')
-    if not id:
+def update_weighing():
+    wId = request.json.get('id')
+    if not wId:
         return jsonify(msg='ID missing.'), 400
 
     weight = request.json.get('weight')
@@ -101,26 +101,26 @@ def edit_weighing():
 
     try:
         user_id = get_jwt_identity()
-        weighing = Weighing.query.filter_by(id=id, person_id=user_id).one_or_none()
+        weighing = Weighing.query.filter_by(id=wId, person_id=user_id).one_or_none()
         weighing.weight = weight
         weighing.datetime = dt
         db.session.commit()
     except:
-        return jsonify(msg='Could not edit weighing.'), 500
+        return jsonify(msg='Could not update weighing.'), 500
 
-    return jsonify(msg='Weighing edited.'), 200
+    return jsonify(msg='Weighing updated.'), 200
 
 
 @app.route('/api/delete_weighing', methods=['POST'])
 @jwt_required()
 def delete_weighing():
-    id = request.json.get('id')
-    if not id:
+    wId = request.json.get('id')
+    if not wId:
         return jsonify(msg='ID missing.'), 400
 
     try:
         user_id = get_jwt_identity()
-        weighing = Weighing.query.filter_by(id=id, person_id=user_id).one_or_none()
+        weighing = Weighing.query.filter_by(id=wId, person_id=user_id).one_or_none()
         db.session.delete(weighing)
         db.session.commit()
     except:
@@ -169,14 +169,6 @@ def get_profile():
         ), 200
     except:
         return jsonify(msg='Could not get profile data.'), 500
-
-
-
-@app.route('/api/logout')
-@jwt_required()
-def logout():
-    #session.pop('person_id', None)
-    return jsonify(msg='Logged out.'), 200
     
 
 if __name__ == '__main__':

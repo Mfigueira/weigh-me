@@ -3,7 +3,7 @@ import MuiAlert from '@material-ui/lab/Alert';
 
 const Alert = props => <MuiAlert elevation={6} variant='filled' {...props} />;
 
-export const CustomSnackbar = ({ open, setAlert, message, severity }) => {
+export const AppSnackbar = ({ open, setAlert, message, severity }) => {
 
   const handleClose = (e, reason) => {
     if (reason === 'clickaway') return;

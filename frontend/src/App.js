@@ -7,11 +7,16 @@ import { useLocation } from 'react-router-dom';
 import { Header } from './components/header/Header';
 import { Main } from './components/main/Main';
 import { Footer } from './components/footer/Footer';
+import { AppSnackbar } from './components/main/custom/AppSnackbar';
 
 // Util
 import { getWeighings, getProfile } from './util/requests';
-import { getTabByRoute, getTokenFromStorage, handleErrorAlert, removeTokenFromStorage } from './util/helpers';
-import { CustomSnackbar } from './components/main/custom/CustomSnackbar';
+import {
+  getTabByRoute,
+  getTokenFromStorage,
+  handleErrorAlert,
+  removeTokenFromStorage
+} from './util/helpers';
 
 function App() {
   const location = useLocation();
@@ -47,9 +52,21 @@ function App() {
     }
   }, [token]);
 
-  const addWeighing = weighing =>
+  const addWeighingToState = weighing =>
     setWeighings(currentWeighings =>
       [...currentWeighings, weighing]
+    );
+
+  const editWeighingFromState = weighing =>
+    setWeighings(
+      weighings.map(currentWeighing =>
+        currentWeighing.id === weighing.id ? weighing : currentWeighing
+      )
+    );
+
+  const removeWeighingFromState = id =>
+    setWeighings(
+      weighings.filter(currentWeighing => currentWeighing.id !== id)
     );
 
   return (
@@ -64,23 +81,25 @@ function App() {
         tabValue={tabValue}
         setTabValue={setTabValue}
       />
-      <CustomSnackbar
-        open={alert.open}
-        setAlert={setAlert}
-        message={alert.message}
-        severity={alert.severity}
-      />
       <Main
         token={token}
         setToken={setToken}
         alert={alert}
         setAlert={setAlert}
         weighings={weighings}
-        addWeighing={addWeighing}
+        addWeighingToState={addWeighingToState}
+        editWeighingFromState={editWeighingFromState}
+        removeWeighingFromState={removeWeighingFromState}
         tabValue={tabValue}
         setTabValue={setTabValue}
       />
       <Footer />
+      <AppSnackbar
+        open={alert.open}
+        setAlert={setAlert}
+        message={alert.message}
+        severity={alert.severity}
+      />
     </>
   );
 }

@@ -1,7 +1,7 @@
 import { navRoutes } from '../config/routes.js';
 
-export const getDateTimeToday = () => {
-  let today = new Date()
+export const formatDateTimeOrGetToday = dt => {
+  let today = dt ? new Date(dt) : new Date();
   let year = today.getFullYear();
   let month = today.getMonth() + 1;
   let day = today.getDate();

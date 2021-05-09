@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const CustomNoWeighingsOverlay = () => {
+export const NoWeighingsOverlay = () => {
   const classes = useStyles();
 
   return (
