@@ -110,13 +110,13 @@ export const EditModal = (
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
               <Button variant="contained" color="secondary" onClick={handleDelete}>
-                <b>Delete</b>
+                Delete
               </Button>
               <Button variant="contained" color="primary" onClick={handleUpdate} disabled={(!id || !weight || !datetime)}>
-                <b>Update</b>
+                Update
               </Button>
               <Button variant="contained" onClick={handleClose}>
-                <b>Cancel</b>
+                Cancel
               </Button>
             </div>
           </form>

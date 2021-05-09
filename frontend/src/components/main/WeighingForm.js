@@ -3,7 +3,13 @@ import scale from '../../assets/img/bg-scale.svg';
 import add from '../../assets/img/add.svg';
 import addDisabled from '../../assets/img/add-disabled.svg';
 import { useState } from 'react';
-import { formatDateTimeOrGetToday, extractSecsFromTime, isWeightValid, handleSuccessAlert, handleErrorAlert } from '../../util/helpers';
+import {
+  formatDateTimeOrGetToday,
+  extractSecsFromTime,
+  isWeightValid,
+  handleSuccessAlert,
+  handleErrorAlert
+} from '../../util/helpers';
 import { createWeighing } from '../../util/requests';
 import { TextField, InputAdornment, Input, FormControl, Fab } from '@material-ui/core';
 
@@ -13,8 +19,7 @@ export const WeighingForm = ({ token, addWeighingToState, alert, setAlert }) => 
 
   const handleWeightChange = e => {
     let value = e.target.value;
-    if (isWeightValid(value.toString()))
-      setWeight(value);
+    if (isWeightValid(value.toString())) setWeight(value);
   }
 
   const handleSubmit = e => {
