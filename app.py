@@ -24,6 +24,11 @@ def serve(path):
     return send_from_directory(app.static_folder,'index.html')
 
 
+@app.errorhandler(404)
+def not_found_redirect(error):
+    return send_from_directory(app.static_folder,'index.html')
+
+
 @app.route('/api/login', methods=['POST'])
 def login():
     username = request.json.get('username')
@@ -169,11 +174,6 @@ def get_profile():
         ), 200
     except:
         return jsonify(msg='Could not get profile data.'), 500
-
-
-@app.errorhandler(404)
-def internal_error(error):
-    return redirect(url_for('serve'))
     
 
 if __name__ == '__main__':
