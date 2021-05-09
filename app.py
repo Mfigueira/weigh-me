@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, jsonify, send_from_directory
+from flask import Flask, request, url_for, jsonify, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, JWTManager
 # from flask_cors import CORS #comment this on deployment
@@ -169,6 +169,11 @@ def get_profile():
         ), 200
     except:
         return jsonify(msg='Could not get profile data.'), 500
+
+
+@app.errorhandler(404)
+def internal_error(error):
+    return redirect(url_for('serve'))
     
 
 if __name__ == '__main__':
