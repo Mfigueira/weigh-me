@@ -88,10 +88,10 @@ export const WeighingsGrid = (
         rows={rows}
         rowHeight={35}
         columns={columns}
-        sortModel={[{
-          field: 'datetime',
-          sort: 'desc',
-        }]}
+        // sortModel={[{
+        //   field: 'datetime',
+        //   sort: 'desc',
+        // }]}
         disableColumnMenu={true}
         disableColumnSelector={true}
         disableSelectionOnClick

@@ -60,8 +60,8 @@ export const WeighingForm = ({ token, addWeighingToState, alert, setAlert }) => 
                 value={weight}
                 type='number'
                 inputProps={{ step: 0.01, min: 0, max: 999.99 }}
-                autoFocus
                 autoComplete='off'
+                placeholder='0.00'
                 onChange={handleWeightChange}
                 onKeyDown={e => e.key === 'e' && e.preventDefault()}
                 endAdornment={

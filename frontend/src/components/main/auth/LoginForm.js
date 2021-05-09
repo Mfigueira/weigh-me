@@ -56,7 +56,6 @@ export const LoginForm = ({ setToken, alert, setAlert }) => {
             <Grid item>
               <TextField
                 label="Username"
-                autoFocus
                 autoComplete="off"
                 value={username}
                 onChange={handleUsernameChange} />

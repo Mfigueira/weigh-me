@@ -65,7 +65,6 @@ export const RegisterForm = ({ setToken, alert, setAlert }) => {
               <TextField
                 label="Username"
                 helperText="* Max 12 chars. No spaces."
-                autoFocus
                 autoComplete="off"
                 required
                 value={username}
