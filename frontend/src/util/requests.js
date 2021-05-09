@@ -1,6 +1,10 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:5000/api';
+// LOCAL ROUTE
+// const API_BASE_URL = 'http://localhost:5000/api';
+
+// HEROKU ROUTE
+const API_BASE_URL = 'https://weighme.herokuapp.com/api';
 
 const HTTP_HEADERS = {
     headers: {
