@@ -82,6 +82,7 @@ export const EditModal = (
                   type='number'
                   inputProps={{ step: 0.01, min: 0, max: 999.99 }}
                   autoComplete='off'
+                  placeholder='0.00'
                   onChange={handleWeightChange}
                   onKeyDown={e => e.key === 'e' && e.preventDefault()}
                   endAdornment={

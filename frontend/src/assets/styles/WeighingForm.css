@@ -34,14 +34,9 @@
 }
 
 #addWeighingFormDatepicker {
+    text-align: center;
     width: 190px;
     font-size: 0.9rem;
-}
-#addWeighingFormDatepicker::-webkit-calendar-picker-indicator {
-    background-color: #fff;
-    border-radius: 5px;
-    padding: 4px;
-    cursor: pointer;
 }
 
 #addWeighingFormAddButton {
