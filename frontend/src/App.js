@@ -54,20 +54,19 @@ function App() {
 
   const addWeighingToState = weighing =>
     setWeighings(currentWeighings =>
-      [...currentWeighings, weighing]
-    );
+      [...currentWeighings, weighing].sort((a, b) =>
+        new Date(b.datetime) - new Date(a.datetime)
+      ));
 
   const editWeighingFromState = weighing =>
-    setWeighings(
-      weighings.map(currentWeighing =>
-        currentWeighing.id === weighing.id ? weighing : currentWeighing
-      )
-    );
+    setWeighings(weighings.map(currentWeighing =>
+      currentWeighing.id === weighing.id ? weighing : currentWeighing
+    ));
 
   const removeWeighingFromState = id =>
-    setWeighings(
-      weighings.filter(currentWeighing => currentWeighing.id !== id)
-    );
+    setWeighings(weighings.filter(currentWeighing =>
+      currentWeighing.id !== id
+    ));
 
   return (
     <>

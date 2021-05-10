@@ -19,7 +19,7 @@ export const Navbar = ({ tabValue, setTabValue }) => {
   };
 
   return (
-    <nav>
+    <nav style={{ backgroundColor: '#a8dac5' }}>
       <Tabs
         value={tabValue}
         onChange={handleChange}

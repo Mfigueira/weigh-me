@@ -11,8 +11,17 @@ export const Main = (
     weighings, addWeighingToState, editWeighingFromState, removeWeighingFromState,
     tabValue, setTabValue
   }) => {
+  const setPaddingTop = () => {
+    const header = document.getElementsByTagName('header')[0];
+    const nav = document.getElementsByTagName('nav')[0];
+    let h = 40;
+    if (header) h += header.clientHeight;
+    if (nav) h += nav.clientHeight;
+    return `${h}px`;
+  }
+
   return (
-    <main className={tabValue === 1 ? 'weighings' : ''}>
+    <main className={tabValue === 1 ? 'weighings' : ''} style={{ paddingTop: setPaddingTop() }}>
       {token ?
         <Switch>
           <Route path='/' exact

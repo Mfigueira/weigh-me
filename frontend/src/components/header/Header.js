@@ -46,7 +46,7 @@ export const Header = ({ token, setToken, alert, setAlert, profile, setProfile, 
   }
 
   return (
-    <>
+    <div style={{ position: 'fixed', top: 0, width: '100%', zIndex: 999 }}>
       <AppBar position='static'>
         <Toolbar>
           <img src={logo} style={styles.icon} alt='scale' />
@@ -106,6 +106,6 @@ export const Header = ({ token, setToken, alert, setAlert, profile, setProfile, 
           :
           <></>
       }
-    </>
+    </div>
   );
 }

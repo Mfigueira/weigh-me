@@ -11,11 +11,12 @@ import {
   handleErrorAlert
 } from '../../util/helpers';
 import { createWeighing } from '../../util/requests';
-import { TextField, InputAdornment, Input, FormControl, Fab } from '@material-ui/core';
+import { TextField, InputAdornment, Input, FormControl, Fab, CircularProgress } from '@material-ui/core';
 
 export const WeighingForm = ({ token, addWeighingToState, alert, setAlert }) => {
   const [weight, setWeight] = useState('');
   const [datetime, setDateTime] = useState(formatDateTimeOrGetToday);
+  const [ajaxLoading, setAjaxLoading] = useState(false);
 
   const handleWeightChange = e => {
     let value = e.target.value;
@@ -24,14 +25,18 @@ export const WeighingForm = ({ token, addWeighingToState, alert, setAlert }) => 
 
   const handleSubmit = e => {
     e.preventDefault();
+    setAjaxLoading(true);
     let weighing = { weight, datetime };
-    createWeighing(token, JSON.stringify(weighing)).then(res => {
-      weighing.id = res.data.id;
-      addWeighingToState({ ...weighing, weight: Number(weighing.weight) });
-      setWeight('');
-      setDateTime(formatDateTimeOrGetToday);
-      handleSuccessAlert('Weighing added!', alert, setAlert);
-    }).catch(err => handleErrorAlert(err, alert, setAlert));
+    createWeighing(token, JSON.stringify(weighing))
+      .then(res => {
+        weighing.id = res.data.id;
+        addWeighingToState({ ...weighing, weight: Number(weighing.weight) });
+        setWeight('');
+        setDateTime(formatDateTimeOrGetToday);
+        handleSuccessAlert('Weighing added!', alert, setAlert);
+      })
+      .catch(err => handleErrorAlert(err, alert, setAlert))
+      .finally(setAjaxLoading(false));
   }
 
   const styles = {
@@ -95,12 +100,15 @@ export const WeighingForm = ({ token, addWeighingToState, alert, setAlert }) => 
           </div>
           <Fab
             id='addWeighingFormAddButton' aria-label='Add' type='submit'
-            disabled={(!weight || !datetime)}
+            disabled={(!weight || !datetime || ajaxLoading)}
           >
-            <img
-              src={(!weight || !datetime) ? addDisabled : add} alt='Add'
-              style={(!weight || !datetime) ? ({ width: '100%', opacity: '0.5' }) : ({ width: '100%' })}
-            />
+            {ajaxLoading ?
+              <CircularProgress style={{ height: '25px', width: '25px' }} />
+              :
+              <img
+                src={(!weight || !datetime) ? addDisabled : add} alt='Add'
+                style={(!weight || !datetime || ajaxLoading) ? ({ width: '100%', opacity: '0.5' }) : ({ width: '100%' })}
+              />}
           </Fab>
         </form>
       </section>

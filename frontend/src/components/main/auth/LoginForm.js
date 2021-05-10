@@ -4,11 +4,12 @@ import key from '../../../assets/img/key.svg';
 import { useState } from 'react';
 import { handleErrorAlert, handleSuccessAlert, isPasswordValid, isUsernameValid, saveTokenInStorage } from '../../../util/helpers';
 import { loginUser } from '../../../util/requests';
-import { TextField, Grid, Button } from '@material-ui/core';
+import { TextField, Grid, Button, CircularProgress } from '@material-ui/core';
 
 export const LoginForm = ({ setToken, alert, setAlert }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [ajaxLoading, setAjaxLoading] = useState(false);
 
   const styles = {
     icon: {
@@ -19,24 +20,26 @@ export const LoginForm = ({ setToken, alert, setAlert }) => {
 
   const handleUsernameChange = e => {
     let value = e.target.value;
-    if (isUsernameValid(value))
-      setUsername(value)
+    if (isUsernameValid(value)) setUsername(value)
   }
 
   const handlePasswordChange = e => {
     let value = e.target.value;
-    if (isPasswordValid(value))
-      setPassword(value)
+    if (isPasswordValid(value)) setPassword(value)
   }
 
   const handleSubmit = e => {
     e.preventDefault();
+    setAjaxLoading(true);
     const user = { username, password };
-    loginUser(JSON.stringify(user)).then(res => {
-      saveTokenInStorage(res.data.access_token);
-      setToken(res.data.access_token);
-      handleSuccessAlert('Signed in!', alert, setAlert);
-    }).catch(err => handleErrorAlert(err, alert, setAlert));
+    loginUser(JSON.stringify(user))
+      .then(res => {
+        saveTokenInStorage(res.data.access_token);
+        setToken(res.data.access_token);
+        handleSuccessAlert('Signed in!', alert, setAlert);
+      })
+      .catch(err => handleErrorAlert(err, alert, setAlert))
+      .finally(setAjaxLoading(false));
   }
 
   return (
@@ -83,9 +86,12 @@ export const LoginForm = ({ setToken, alert, setAlert }) => {
         </div>
         <Button
           variant="contained" color="primary" type="submit"
-          disabled={(!username || !password)}
+          disabled={(!username || !password || ajaxLoading)}
         >
-          Sign In
+          {ajaxLoading ?
+            <CircularProgress style={{ height: '25px', width: '25px' }} />
+            :
+            'Sign In'}
         </Button>
       </form>
     </section>

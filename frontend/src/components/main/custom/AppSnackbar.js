@@ -27,7 +27,7 @@ export const AppSnackbar = ({ open, setAlert, message, severity }) => {
       autoHideDuration={4000}
       anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
       onClose={handleClose}
-      style={{ bottom: setTopPosition(), position: 'absolute' }}
+      style={{ bottom: setTopPosition(), position: 'fixed', right: '10px' }}
     >
       <Alert
         onClose={handleClose}

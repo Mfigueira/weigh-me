@@ -144,7 +144,7 @@ def delete_weighing():
 def get_weighings():
     try:
         user_id = get_jwt_identity()
-        db_weighings = Weighing.query.filter_by(person_id=user_id).all()
+        db_weighings = Weighing.query.filter_by(person_id=user_id).order_by(Weighing.datetime.desc()).all()
         weighings = []
         if db_weighings:
             for weighing in db_weighings:

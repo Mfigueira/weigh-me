@@ -4,8 +4,8 @@ import { WeighingsGrid } from './WeighingsGrid';
 
 export const Weighings = (
   {
-    weighings, editWeighingFromState, removeWeighingFromState,
-    token, alert, setAlert
+    token, alert, setAlert,
+    weighings, editWeighingFromState, removeWeighingFromState
   }) => {
   return (
     <section>

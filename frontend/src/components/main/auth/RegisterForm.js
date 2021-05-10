@@ -2,7 +2,7 @@ import '../../../assets/styles/AuthForms.css';
 import { useState } from 'react';
 import { handleErrorAlert, handleSuccessAlert, isPasswordValid, isUsernameValid, saveTokenInStorage } from '../../../util/helpers';
 import { registerUser } from '../../../util/requests';
-import { TextField, Button, Grid } from '@material-ui/core';
+import { TextField, Button, Grid, CircularProgress } from '@material-ui/core';
 import user from '../../../assets/img/user.svg';
 import key from '../../../assets/img/key.svg';
 import doubleKey from '../../../assets/img/double-key.svg';
@@ -11,6 +11,7 @@ export const RegisterForm = ({ setToken, alert, setAlert }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmation, setConfirmation] = useState('');
+  const [ajaxLoading, setAjaxLoading] = useState(false);
 
   const styles = {
     icon: {
@@ -21,30 +22,31 @@ export const RegisterForm = ({ setToken, alert, setAlert }) => {
 
   const handleUsernameChange = e => {
     let value = e.target.value;
-    if (isUsernameValid(value))
-      setUsername(value);
+    if (isUsernameValid(value)) setUsername(value);
   }
 
   const handlePasswordChange = e => {
     let value = e.target.value;
-    if (isPasswordValid(value))
-      setPassword(value);
+    if (isPasswordValid(value)) setPassword(value);
   }
 
   const handleConfirmationChange = e => {
     let value = e.target.value;
-    if (isPasswordValid(value))
-      setConfirmation(value);
+    if (isPasswordValid(value)) setConfirmation(value);
   }
 
   const handleSubmit = e => {
     e.preventDefault();
+    setAjaxLoading(true);
     const user = { username, password, confirmation };
-    registerUser(JSON.stringify(user)).then(res => {
-      saveTokenInStorage(res.data.access_token);
-      setToken(res.data.access_token);
-      handleSuccessAlert('Signed up!', alert, setAlert);
-    }).catch(err => handleErrorAlert(err, alert, setAlert));
+    registerUser(JSON.stringify(user))
+      .then(res => {
+        saveTokenInStorage(res.data.access_token);
+        setToken(res.data.access_token);
+        handleSuccessAlert('Signed up!', alert, setAlert);
+      })
+      .catch(err => handleErrorAlert(err, alert, setAlert))
+      .finally(setAjaxLoading(false));
   }
 
   return (
@@ -116,9 +118,12 @@ export const RegisterForm = ({ setToken, alert, setAlert }) => {
         </div>
         <Button
           variant="contained" color="primary" type="submit"
-          disabled={(!username || !password || !confirmation)}
+          disabled={(!username || !password || !confirmation || ajaxLoading)}
         >
-          Sign Up
+          {ajaxLoading ?
+            <CircularProgress style={{ height: '25px', width: '25px' }} />
+            :
+            'Sign Un'}
         </Button>
       </form>
     </section>
