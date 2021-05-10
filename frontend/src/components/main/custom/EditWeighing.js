@@ -167,7 +167,7 @@ export const EditWeighing = (
                 </Button>
                 <Button
                   variant="contained" color="primary" onClick={handleUpdate}
-                  disabled={(!id || !editWeight || !editDateTime || updateLoading)}
+                  disabled={(!id || (!editWeight && !editDateTime) || updateLoading)}
                 >
                   {updateLoading ?
                     <CircularProgress style={{ height: '25px', width: '25px' }} />
