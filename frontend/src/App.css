@@ -15,6 +15,10 @@
 }
 
 html {
+  height: 100%;
+}
+
+body {
   font-family: 'Maven Pro', sans-serif;
   font-size: 16px;
   min-width: 320px;
@@ -23,7 +27,6 @@ html {
 
 #root {
   max-width: 900px;
-  min-height: 100vh;
   margin: auto;
 }
 
