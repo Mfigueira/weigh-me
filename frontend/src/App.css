@@ -24,6 +24,7 @@ body {
   min-width: 320px;
   height: 100%;
   background-image: linear-gradient(#a4dad2, #bce08a);
+  background-size: 100%;
   background-repeat: no-repeat;
 }
 
