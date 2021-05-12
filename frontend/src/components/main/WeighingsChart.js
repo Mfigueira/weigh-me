@@ -42,7 +42,8 @@ export const WeighingsChart = ({ weighings }) => {
             zoomDimension="x"
             zoomDomain={zoomDomain}
             onZoomDomainChange={handleZoom}
-            style={{ margin: 'auto', width: '90%', height: '300px' }}
+            style={{ margin: 'auto', width: '90%', height: '260px' }}
+            viewBox="15 100 315 120"
           />
         }
       >

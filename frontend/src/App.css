@@ -17,15 +17,11 @@
 html {
   font-size: 16px;
   min-width: 320px;
+  background-image: linear-gradient(#a4dad2, #bce08a);
 }
 
 body {
   font-family: 'Maven Pro', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-image: linear-gradient(#a4dad2, #bce08a);
-  background-repeat: no-repeat;
-  background-size: cover;
 }
 
 #root {
@@ -33,7 +29,7 @@ body {
   display: flex;
   flex-direction: column;
   max-width: 900px;
-  height: 100vh;
+  min-height: 100vh;
   margin: auto;
 }
 
@@ -52,7 +48,6 @@ h2 {
   line-height: 3rem;
 }
 
-header, main, footer {
-  box-sizing: border-box;
-  width: 100%;
+header, main, footer, nav {
+  max-width: 900px;
 }
