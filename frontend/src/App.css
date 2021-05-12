@@ -15,19 +15,13 @@
 }
 
 html {
+  font-family: 'Maven Pro', sans-serif;
   font-size: 16px;
   min-width: 320px;
   background-image: linear-gradient(#a4dad2, #bce08a);
 }
 
-body {
-  font-family: 'Maven Pro', sans-serif;
-}
-
 #root {
-  position: relative;
-  display: flex;
-  flex-direction: column;
   max-width: 900px;
   min-height: 100vh;
   margin: auto;

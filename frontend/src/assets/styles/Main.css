@@ -1,21 +1,13 @@
 main {
-    flex-grow: 1;
-    overflow: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-size: 1rem;
     text-align: center;
-    padding: 10rem 10px 7rem 10px;
+    padding: 10rem 16px 7rem 16px;
 }
 
-main.weighings {
-    align-items: normal;
-    justify-content: flex-start;
-}
-
-@media (min-height: 650px) {
+@media (min-width: 600px) {
     main {
-        justify-content: center;
+        padding: 10rem 24px 7rem 24px;
     }
 }
