@@ -17,6 +17,7 @@ export const Main = (
     let h = 40;
     if (header) h += header.clientHeight;
     if (nav) h += nav.clientHeight;
+    h = Math.max(h, 104);
     return `${h}px`;
   }
 
