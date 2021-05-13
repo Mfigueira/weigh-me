@@ -5,6 +5,10 @@ Inspired in solving some of my parents problems with tracking their weights.
 	
 ## Technologies
 Project stack:
-* BE/API: Python - Flask
+* BackEnd/API: Python with Flask
 * DB: PostgreSQL
-* FE: React
+* FrontEnd: React and Material-UI
+* Deployment: Heroku
+
+## Can I see it? Can I use it??
+OF COURSE! Here's the link to the app: [WeighMe](https://weighme.herokuapp.com/). Enjoy your Weighings!
