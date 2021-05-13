@@ -3,11 +3,11 @@ main {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 10rem 16px 7rem 16px;
+    padding: 10rem 16px 5rem 16px;
 }
 
 @media (min-width: 600px) {
     main {
-        padding: 10rem 24px 7rem 24px;
+        padding: 10rem 24px 5rem 24px;
     }
 }

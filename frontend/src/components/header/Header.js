@@ -4,9 +4,29 @@ import user from '../../assets/img/user.svg';
 import { useState } from 'react';
 import { handleSuccessAlert, removeTokenFromStorage } from '../../util/helpers';
 import { Link, useHistory } from 'react-router-dom';
-import { AppBar, Toolbar, Button, Avatar, Menu, MenuItem, ButtonGroup } from '@material-ui/core';
+import { AppBar, Toolbar, Button, Avatar, Menu, MenuItem, ButtonGroup, withStyles } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
 import { Navbar } from './Navbar';
+
+const StyledMenu = withStyles({
+  paper: {
+    border: '1px solid #d3d4d5',
+  },
+})((props) => (
+  <Menu
+    elevation={0}
+    getContentAnchorEl={null}
+    anchorOrigin={{
+      vertical: 'bottom',
+      horizontal: 'center',
+    }}
+    transformOrigin={{
+      vertical: 'top',
+      horizontal: 'center',
+    }}
+    {...props}
+  />
+));
 
 export const Header = ({ token, setToken, alert, setAlert, profile, setProfile, tabValue, setTabValue }) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -62,8 +82,7 @@ export const Header = ({ token, setToken, alert, setAlert, profile, setProfile, 
                   <img src={user} style={styles.icon} alt='user' />
                   {profile.name}
                 </Button>
-                <Menu
-                  id="simple-menu"
+                <StyledMenu
                   anchorEl={anchorEl}
                   keepMounted
                   open={Boolean(anchorEl)}
@@ -74,7 +93,7 @@ export const Header = ({ token, setToken, alert, setAlert, profile, setProfile, 
                       Sign Out
                     </span>
                   </MenuItem>
-                </Menu>
+                </StyledMenu>
               </>
               :
               <div style={{ display: 'flex', alignItems: 'center' }}>

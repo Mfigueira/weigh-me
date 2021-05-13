@@ -1,3 +1,4 @@
+import '../../assets/styles/WeighingsGrid.css';
 import { getMonthFromDate, formatDateTimeOrGetToday } from '../../util/helpers';
 import {
   DataGrid,
@@ -62,21 +63,25 @@ export const WeighingsGrid = (
   }
 
   return (
-    <DataGrid
-      autoHeight
-      rows={rows}
-      rowHeight={35}
-      columns={columns}
-      disableColumnMenu={true}
-      disableColumnSelector={true}
-      disableSelectionOnClick
-      components={{
-        NoRowsOverlay: NoWeighingsOverlay,
-        Toolbar: CustomToolbar
-      }}
-      pagination
-      pageSize={25}
-      className={!weighings.length && 'zero-state-grid'}
-    />
+    <>
+      <h2>Weighings</h2>
+
+      <DataGrid
+        autoHeight
+        rows={rows}
+        rowHeight={35}
+        columns={columns}
+        disableColumnMenu={true}
+        disableColumnSelector={true}
+        disableSelectionOnClick
+        components={{
+          NoRowsOverlay: NoWeighingsOverlay,
+          Toolbar: CustomToolbar
+        }}
+        pagination
+        pageSize={25}
+        className={!weighings.length && 'zero-state-grid'}
+      />
+    </>
   )
 }

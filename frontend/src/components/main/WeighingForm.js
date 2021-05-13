@@ -40,7 +40,7 @@ export const WeighingForm = ({ token, addWeighingToState, alert, setAlert }) => 
   }
 
   const styles = {
-    section: {
+    container: {
       boxShadow: '0px 7px 8px #888888',
       borderRadius: '60px',
       backgroundImage: `url(${scale})`,
@@ -60,8 +60,8 @@ export const WeighingForm = ({ token, addWeighingToState, alert, setAlert }) => 
   return (
     <>
       <h2>Let's <p><b>Weigh Me!</b></p></h2>
-      <section id='addWeighingForm' style={styles.section}>
 
+      <div id='addWeighingForm' style={styles.container}>
         <form onSubmit={handleSubmit} style={styles.form}>
           <div style={{ marginBottom: '1.2rem' }}>
             <FormControl>
@@ -111,7 +111,7 @@ export const WeighingForm = ({ token, addWeighingToState, alert, setAlert }) => 
               />}
           </Fab>
         </form>
-      </section>
+      </div>
     </>
   )
 }

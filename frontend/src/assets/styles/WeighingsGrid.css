@@ -1,3 +1,8 @@
+.MuiDataGrid-root,
+.MuiDataGridPanel-root .MuiDataGridPanelWrapper-root {
+  width: 100%;
+}
+
 .weighing-grid-th {
   background-color: #3f51b5;
   color: #fff;
@@ -49,14 +54,6 @@
   background-color: rgba(200, 200, 255, 0.5);
 }
 
-.MuiDataGridPanel-root {
-  max-width: 95%;
-}
-
-.MuiDataGridPanel-root .MuiDataGridPanelWrapper-root {
-  width: 100%;
-}
-
 .MuiDataGrid-root .MuiDataGrid-cellRight,
 .MuiDataGrid-root .MuiDataGrid-cellLeft {
   text-align: center!important;
@@ -78,6 +75,14 @@
   }
 }
 
-.VictoryContainer rect {
-  fill: #333!important;
+@media (max-width: 365px) {
+  .MuiTablePagination-toolbar.MuiToolbar-gutters {
+    padding: 0 4px;
+  }
+  .MuiInputBase-root.MuiTablePagination-input {
+    margin-right: 0;
+  }
+  .MuiTablePagination-actions .MuiButtonBase-root {
+    padding: 12px 2px;
+  }
 }

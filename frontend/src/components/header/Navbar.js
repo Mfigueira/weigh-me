@@ -26,10 +26,10 @@ export const Navbar = ({ tabValue, setTabValue }) => {
         indicatorColor='primary'
         textColor='primary'
         variant='fullWidth'
-        aria-label='navbar'
       >
-        <Tab label='New Weighing' {...a11yProps(0)} />
-        <Tab label='Weighings' {...a11yProps(1)} />
+        <Tab label='New' {...a11yProps(0)} />
+        <Tab label='Grid' {...a11yProps(1)} />
+        <Tab label='Chart' {...a11yProps(2)} />
       </Tabs>
     </nav>
   );

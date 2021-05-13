@@ -1,4 +1,4 @@
-import { navRoutes } from '../config/routes.js';
+import { navTabs } from '../config/navTabs.js';
 
 export const formatDateTimeOrGetToday = dt => {
   let today = dt ? new Date(dt) : new Date();
@@ -17,12 +17,12 @@ export const formatDateTimeOrGetToday = dt => {
 }
 
 export const getTabByRoute = currentRoute => {
-  const tab = navRoutes.filter(route => route.path === currentRoute);
+  const tab = navTabs.filter(route => route.path === currentRoute);
   return (!tab.length) ? 0 : tab[0].tab;
 };
 
 export const getRouteByTab = val => {
-  const route = navRoutes.filter(route => route.tab === val);
+  const route = navTabs.filter(route => route.tab === val);
   return (!route.length) ? 0 : route[0].path;
 };
 

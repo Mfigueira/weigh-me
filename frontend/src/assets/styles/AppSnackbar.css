@@ -1,18 +1,12 @@
 .MuiSnackbar-root {
-    right: 16px!important;
-}
-
-@media (min-width: 600px) {
-    .MuiSnackbar-root {
-        right: 24px!important;
-    }
+    right: 10px!important;
 }
 
 @media (min-width: 900px) {
     .MuiSnackbar-root {
-        transform: translateX(-50%);
-        left: 50%;
+        transform: translateX(-50%)!important;
+        left: 50%!important;
         right: 0!important;
-        justify-content: center;
+        justify-content: center!important;
     }
 }

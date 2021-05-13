@@ -89,8 +89,6 @@ function App() {
         addWeighingToState={addWeighingToState}
         editWeighingFromState={editWeighingFromState}
         removeWeighingFromState={removeWeighingFromState}
-        tabValue={tabValue}
-        setTabValue={setTabValue}
       />
       <Footer />
       <AppSnackbar

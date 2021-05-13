@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import '../../assets/styles/WeighingsChart.css';
 import {
   VictoryChart,
   VictoryZoomContainer,
@@ -30,6 +31,8 @@ export const WeighingsChart = ({ weighings }) => {
 
   return (
     <>
+      <h2 style={{ marginBottom: '0' }}>Time Graph</h2>
+
       <VictoryChart
         width={width}
         theme={VictoryTheme.material}
@@ -42,8 +45,7 @@ export const WeighingsChart = ({ weighings }) => {
             zoomDimension="x"
             zoomDomain={zoomDomain}
             onZoomDomainChange={handleZoom}
-            style={{ margin: 'auto', width: '90%', height: '260px' }}
-            viewBox="15 100 315 120"
+            style={{ width: '100%', height: '275px' }}
           />
         }
       >
@@ -77,7 +79,7 @@ export const WeighingsChart = ({ weighings }) => {
             brushDimension="x"
             brushDomain={selectedDomain}
             onBrushDomainChange={handleBrush}
-            style={{ margin: '0 auto 3rem auto', width: '90%', height: '90px' }}
+            style={{ width: '100%', height: '90px' }}
           />
         }
       >
