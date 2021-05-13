@@ -42,7 +42,7 @@ export const LoginForm = ({ setToken, alert, setAlert }) => {
       .then(res => {
         saveTokenInStorage(res.data.access_token);
         setToken(res.data.access_token);
-        handleSuccessAlert('Signed in!', alert, setAlert);
+        handleSuccessAlert(`Hi ${username}!`, alert, setAlert);
       })
       .catch(err => handleErrorAlert(err, alert, setAlert))
       .finally(setAjaxLoading(false));

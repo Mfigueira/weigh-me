@@ -64,7 +64,7 @@ export const WeighingsGrid = (
 
   return (
     <>
-      <h2>Weighings</h2>
+      <h2>My Weighings</h2>
 
       <DataGrid
         autoHeight

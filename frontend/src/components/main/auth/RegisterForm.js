@@ -22,7 +22,7 @@ export const RegisterForm = ({ setToken, alert, setAlert }) => {
   const styles = {
     icon: {
       width: '1.5rem',
-      margin: '0 0.5rem 1.8rem 0'
+      margin: '0 0.5rem 1.85rem 0'
     }
   }
 
@@ -49,7 +49,7 @@ export const RegisterForm = ({ setToken, alert, setAlert }) => {
       .then(res => {
         saveTokenInStorage(res.data.access_token);
         setToken(res.data.access_token);
-        handleSuccessAlert('Signed up!', alert, setAlert);
+        handleSuccessAlert(`Wellcome ${username}!`, alert, setAlert);
       })
       .catch(err => handleErrorAlert(err, alert, setAlert))
       .finally(setAjaxLoading(false));

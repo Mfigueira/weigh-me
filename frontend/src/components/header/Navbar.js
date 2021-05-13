@@ -27,7 +27,7 @@ export const Navbar = ({ tabValue, setTabValue }) => {
         textColor='primary'
         variant='fullWidth'
       >
-        <Tab label='New' {...a11yProps(0)} />
+        <Tab label='Scale' {...a11yProps(0)} />
         <Tab label='Grid' {...a11yProps(1)} />
         <Tab label='Chart' {...a11yProps(2)} />
       </Tabs>

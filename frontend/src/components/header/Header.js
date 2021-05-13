@@ -52,7 +52,7 @@ export const Header = ({ token, setToken, alert, setAlert, profile, setProfile, 
     setProfile(null);
     history.push('/');
     setTabValue(0);
-    handleSuccessAlert('Signed out.', alert, setAlert);
+    handleSuccessAlert('Until next time!', alert, setAlert);
   }
 
   const styles = {
