@@ -2,11 +2,20 @@ import '../../assets/styles/Header.css';
 import logo from '../../assets/img/scale.svg';
 import user from '../../assets/img/user.svg';
 import { useState } from 'react';
-import { handleSuccessAlert, removeTokenFromStorage } from '../../util/helpers';
 import { Link, useHistory } from 'react-router-dom';
-import { AppBar, Toolbar, Button, Avatar, Menu, MenuItem, ButtonGroup, withStyles } from '@material-ui/core';
-import { Skeleton } from '@material-ui/lab';
 import { Navbar } from './Navbar';
+import {
+  withStyles,
+  AppBar,
+  Toolbar,
+  Button,
+  ButtonGroup,
+  Avatar,
+  Menu,
+  MenuItem
+} from '@material-ui/core';
+import { Skeleton } from '@material-ui/lab';
+import { handleSuccessAlert, removeTokenFromStorage } from '../../util/helpers';
 
 const StyledMenu = withStyles({
   paper: {

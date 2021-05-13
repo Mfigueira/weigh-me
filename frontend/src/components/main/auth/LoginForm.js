@@ -2,9 +2,15 @@ import '../../../assets/styles/AuthForms.css';
 import user from '../../../assets/img/user.svg';
 import key from '../../../assets/img/key.svg';
 import { useState } from 'react';
-import { handleErrorAlert, handleSuccessAlert, isPasswordValid, isUsernameValid, saveTokenInStorage } from '../../../util/helpers';
-import { loginUser } from '../../../util/requests';
 import { TextField, Grid, Button, CircularProgress } from '@material-ui/core';
+import {
+  handleErrorAlert,
+  handleSuccessAlert,
+  isPasswordValid,
+  isUsernameValid,
+  saveTokenInStorage
+} from '../../../util/helpers';
+import { loginUser } from '../../../util/requests';
 
 export const LoginForm = ({ setToken, alert, setAlert }) => {
   const [username, setUsername] = useState('');

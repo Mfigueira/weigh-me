@@ -1,11 +1,17 @@
 import '../../../assets/styles/AuthForms.css';
-import { useState } from 'react';
-import { handleErrorAlert, handleSuccessAlert, isPasswordValid, isUsernameValid, saveTokenInStorage } from '../../../util/helpers';
-import { registerUser } from '../../../util/requests';
-import { TextField, Button, Grid, CircularProgress } from '@material-ui/core';
 import user from '../../../assets/img/user.svg';
 import key from '../../../assets/img/key.svg';
 import doubleKey from '../../../assets/img/double-key.svg';
+import { useState } from 'react';
+import { TextField, Button, Grid, CircularProgress } from '@material-ui/core';
+import {
+  handleErrorAlert,
+  handleSuccessAlert,
+  isPasswordValid,
+  isUsernameValid,
+  saveTokenInStorage
+} from '../../../util/helpers';
+import { registerUser } from '../../../util/requests';
 
 export const RegisterForm = ({ setToken, alert, setAlert }) => {
   const [username, setUsername] = useState('');

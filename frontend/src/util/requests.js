@@ -28,8 +28,7 @@ const postWithToken = (token, data, endpoint) =>
         }
     });
 
-const postUser = (user, endpoint) =>
-    axios.post(API_BASE_URL + endpoint, user, HTTP_HEADERS);
+const postUser = (user, endpoint) => axios.post(API_BASE_URL + endpoint, user, HTTP_HEADERS);
 
 export const getProfile = token => getWithToken(token, '/profile');
 

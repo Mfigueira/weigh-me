@@ -1,14 +1,14 @@
 import '../../assets/styles/WeighingsGrid.css';
-import { getMonthFromDate, formatDateTimeOrGetToday } from '../../util/helpers';
+import { EditWeighing } from './custom/EditWeighing';
+import { NoWeighingsOverlay } from './custom/NoWeighingsOverlay';
+import { monthsFilterOperators } from './custom/MonthsFilter.js';
 import {
   DataGrid,
   GridToolbarContainer,
   GridFilterToolbarButton,
   GridToolbarExport
 } from '@material-ui/data-grid';
-import { monthsFilterOperators } from './custom/MonthsFilter.js';
-import { NoWeighingsOverlay } from './custom/NoWeighingsOverlay';
-import { EditWeighing } from './custom/EditWeighing';
+import { getMonthFromDate, formatDateTimeOrGetToday } from '../../util/helpers';
 
 export const WeighingsGrid = (
   {

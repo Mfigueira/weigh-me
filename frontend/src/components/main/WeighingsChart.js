@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
 import '../../assets/styles/WeighingsChart.css';
+import { useState, useEffect } from 'react';
 import {
   VictoryChart,
   VictoryZoomContainer,

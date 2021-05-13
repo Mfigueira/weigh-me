@@ -3,6 +3,7 @@ import scale from '../../assets/img/bg-scale.svg';
 import add from '../../assets/img/add.svg';
 import addDisabled from '../../assets/img/add-disabled.svg';
 import { useState } from 'react';
+import { TextField, InputAdornment, Input, FormControl, Fab, CircularProgress } from '@material-ui/core';
 import {
   formatDateTimeOrGetToday,
   extractSecsFromTime,
@@ -11,7 +12,6 @@ import {
   handleErrorAlert
 } from '../../util/helpers';
 import { createWeighing } from '../../util/requests';
-import { TextField, InputAdornment, Input, FormControl, Fab, CircularProgress } from '@material-ui/core';
 
 export const WeighingForm = ({ token, addWeighingToState, alert, setAlert }) => {
   const [weight, setWeight] = useState('');
@@ -107,7 +107,10 @@ export const WeighingForm = ({ token, addWeighingToState, alert, setAlert }) => 
               :
               <img
                 src={(!weight || !datetime) ? addDisabled : add} alt='Add'
-                style={(!weight || !datetime || ajaxLoading) ? ({ width: '100%', opacity: '0.5' }) : ({ width: '100%' })}
+                style={
+                  (!weight || !datetime || ajaxLoading) ?
+                    ({ width: '100%', opacity: '0.5' }) : ({ width: '100%' })
+                }
               />}
           </Fab>
         </form>

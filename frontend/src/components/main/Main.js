@@ -3,8 +3,8 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import { LoginForm } from './auth/LoginForm';
 import { RegisterForm } from './auth/RegisterForm';
 import { WeighingForm } from './WeighingForm';
-import { WeighingsChart } from './WeighingsChart';
 import { WeighingsGrid } from './WeighingsGrid';
+import { WeighingsChart } from './WeighingsChart';
 
 export const Main = (
   {

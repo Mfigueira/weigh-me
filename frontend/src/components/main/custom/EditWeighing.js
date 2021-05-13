@@ -1,11 +1,23 @@
-import { useState } from 'react';
 import editIcon from '../../../assets/img/edit.svg';
-import { makeStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
-import { Button, CircularProgress, FormControl, Input, InputAdornment, TextField } from '@material-ui/core';
-import { extractSecsFromTime, handleErrorAlert, handleSuccessAlert, isWeightValid } from '../../../util/helpers';
+import { useState } from 'react';
+import {
+  makeStyles,
+  Modal,
+  Backdrop,
+  Fade,
+  Button,
+  CircularProgress,
+  FormControl,
+  Input,
+  InputAdornment,
+  TextField
+} from '@material-ui/core';
+import {
+  extractSecsFromTime,
+  handleErrorAlert,
+  handleSuccessAlert,
+  isWeightValid
+} from '../../../util/helpers';
 import { updateWeighing, deleteWeighing } from '../../../util/requests';
 
 const useStyles = makeStyles((theme) => ({
