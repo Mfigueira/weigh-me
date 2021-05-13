@@ -19,7 +19,6 @@ export const AppSnackbar = ({ open, setAlert, message, severity }) => {
     const footer = document.getElementsByTagName('footer')[0];
     let h = 12;
     if (footer) h += footer.clientHeight;
-    console.log(window.screen.width)
     return `${h}px`;
   }
 
