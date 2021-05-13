@@ -3,6 +3,10 @@
   width: 100%;
 }
 
+.MuiDataGridPanel-root {
+  max-width: 90%;
+}
+
 .weighing-grid-th {
   background-color: #3f51b5;
   color: #fff;
