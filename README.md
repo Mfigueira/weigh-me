@@ -20,6 +20,7 @@ The App is simple:
 * In the SCALE tab add your weight and the time of the weighing
 * In the GRID tab you can see by filters, update, delete, and even export your weighings
 * And in the CHART tab you can see a Graph with your weight over time
+
 All of your weighings are persistently stored in a database
 
 ## OK Great! Can I see it? Can I use it??
