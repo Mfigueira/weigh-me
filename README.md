@@ -23,7 +23,7 @@ The App is simple:
 
 All of your weighings are persistently stored in a database
 
-## OK Great! Can I see it? Can I use it??
+## Can I see it? Can I use it??
 OF COURSE! Here's the link to the app: [WeighMe](https://weighme.herokuapp.com/).
 
 Enjoy your Weighings!
