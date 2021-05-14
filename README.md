@@ -16,12 +16,12 @@ Project stack:
 
 ## How does it work?
 The App is simple:
-* Create a NEW USER or sign in with an existing one
+* Create a NEW USER
 * In the SCALE tab add your weight and the time of the weighing
 * In the GRID tab you can see by filters, update, delete, and even export your weighings
 * And in the CHART tab you can see a Graph with your weight over time
 
-All of your weighings are persistently stored in a database
+All of this is persistently stored in a relational database, so you can come back anytime and keep recording your weights.
 
 ## Can I see it? Can I use it??
 OF COURSE! Here's the link to the app: [WeighMe](https://weighme.herokuapp.com/).
