@@ -3,25 +3,35 @@ import scale from '../../assets/img/bg-scale.svg';
 import add from '../../assets/img/add.svg';
 import addDisabled from '../../assets/img/add-disabled.svg';
 import { useState } from 'react';
-import { TextField, InputAdornment, Input, FormControl, Fab, CircularProgress } from '@material-ui/core';
 import {
-  formatDateTimeOrGetToday,
+  TextField,
+  InputAdornment,
+  Input,
+  FormControl,
+  Fab,
+  CircularProgress,
+} from '@material-ui/core';
+import {
+  formatDateTimeOrGetNow,
   extractSecsFromTime,
   isWeightValid,
   handleSuccessAlert,
-  handleErrorAlert
+  handleErrorAlert,
 } from '../../util/helpers';
 import { createWeighing } from '../../util/requests';
 
-export const WeighingForm = ({ token, addWeighingToState, alert, setAlert }) => {
+export const WeighingForm = ({
+  token,
+  addWeighingToState,
+  alert,
+  setAlert,
+}) => {
   const [weight, setWeight] = useState('');
-  const [datetime, setDateTime] = useState(formatDateTimeOrGetToday);
+  const [datetime, setDateTime] = useState(formatDateTimeOrGetNow);
   const [ajaxLoading, setAjaxLoading] = useState(false);
 
-  const handleWeightChange = e => {
-    let value = e.target.value;
-    if (isWeightValid(value.toString())) setWeight(value);
-  }
+  const handleWeightChange = e =>
+    isWeightValid(`${e.target.value}`) && setWeight(e.target.value);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -30,14 +40,14 @@ export const WeighingForm = ({ token, addWeighingToState, alert, setAlert }) => 
     createWeighing(token, JSON.stringify(weighing))
       .then(res => {
         weighing.id = res.data.id;
-        addWeighingToState({ ...weighing, weight: Number(weighing.weight) });
+        addWeighingToState({ ...weighing, weight: +weighing.weight });
         setWeight('');
-        setDateTime(formatDateTimeOrGetToday);
+        setDateTime(formatDateTimeOrGetNow);
         handleSuccessAlert('Weighing added!', alert, setAlert);
       })
       .catch(err => handleErrorAlert(err, alert, setAlert))
       .finally(setAjaxLoading(false));
-  }
+  };
 
   const styles = {
     container: {
@@ -49,34 +59,45 @@ export const WeighingForm = ({ token, addWeighingToState, alert, setAlert }) => 
       padding: '2rem',
       width: '300px',
       height: '300px',
-      boxSizing: 'border-box'
+      boxSizing: 'border-box',
     },
     form: {
       paddingTop: '7rem',
-      position: 'relative'
-    }
-  }
+      position: 'relative',
+    },
+  };
 
   return (
     <>
-      <h2>Let's <p><b>Weigh Me!</b></p></h2>
+      <h2>
+        Let's{' '}
+        <p>
+          <b>Weigh Me!</b>
+        </p>
+      </h2>
 
-      <div id='addWeighingForm' style={styles.container}>
+      <div id="addWeighingForm" style={styles.container}>
         <form onSubmit={handleSubmit} style={styles.form}>
           <div style={{ marginBottom: '1.2rem' }}>
             <FormControl>
               <Input
-                id='addWeighingFormWeight'
+                id="addWeighingFormWeight"
                 value={weight}
-                type='number'
+                type="number"
                 inputProps={{ step: 0.01, min: 0, max: 999.99 }}
-                autoComplete='off'
-                placeholder='0.00'
+                autoComplete="off"
+                placeholder="0.00"
                 onChange={handleWeightChange}
                 onKeyDown={e => e.key === 'e' && e.preventDefault()}
                 endAdornment={
-                  <InputAdornment position='end'>
-                    <span style={{ color: '#fff', fontSize: '1rem', marginTop: '2rem' }}>
+                  <InputAdornment position="end">
+                    <span
+                      style={{
+                        color: '#fff',
+                        fontSize: '1rem',
+                        marginTop: '2rem',
+                      }}
+                    >
                       Kg
                     </span>
                   </InputAdornment>
@@ -87,34 +108,39 @@ export const WeighingForm = ({ token, addWeighingToState, alert, setAlert }) => 
           </div>
           <div>
             <TextField
-              id='addWeighingFormDatepicker'
-              label='When?'
-              type='datetime-local'
-              autoComplete='off'
+              id="addWeighingFormDatepicker"
+              label="When?"
+              type="datetime-local"
+              autoComplete="off"
               value={datetime}
               InputLabelProps={{
-                shrink: true
+                shrink: true,
               }}
               onChange={e => setDateTime(extractSecsFromTime(e.target.value))}
             />
           </div>
           <Fab
-            id='addWeighingFormAddButton' aria-label='Add' type='submit'
-            disabled={(!weight || !datetime || ajaxLoading)}
+            id="addWeighingFormAddButton"
+            aria-label="Add"
+            type="submit"
+            disabled={!weight || !datetime || ajaxLoading}
           >
-            {ajaxLoading ?
+            {ajaxLoading ? (
               <CircularProgress style={{ height: '25px', width: '25px' }} />
-              :
+            ) : (
               <img
-                src={(!weight || !datetime) ? addDisabled : add} alt='Add'
+                src={!weight || !datetime ? addDisabled : add}
+                alt="Add"
                 style={
-                  (!weight || !datetime || ajaxLoading) ?
-                    ({ width: '100%', opacity: '0.5' }) : ({ width: '100%' })
+                  !weight || !datetime || ajaxLoading
+                    ? { width: '100%', opacity: '0.5' }
+                    : { width: '100%' }
                 }
-              />}
+              />
+            )}
           </Fab>
         </form>
       </div>
     </>
-  )
-}
+  );
+};

@@ -11,9 +11,9 @@ export const Navbar = ({ tabValue, setTabValue }) => {
       id: `full-width-tab-${index}`,
       'aria-controls': `full-width-tabpanel-${index}`,
     };
-  }
+  };
 
-  const handleChange = (e, newValue) => {
+  const handleChange = (_e, newValue) => {
     history.push(getRouteByTab(newValue));
     setTabValue(newValue);
   };
@@ -23,14 +23,14 @@ export const Navbar = ({ tabValue, setTabValue }) => {
       <Tabs
         value={tabValue}
         onChange={handleChange}
-        indicatorColor='primary'
-        textColor='primary'
-        variant='fullWidth'
+        indicatorColor="primary"
+        textColor="primary"
+        variant="fullWidth"
       >
-        <Tab label='Scale' {...a11yProps(0)} />
-        <Tab label='Grid' {...a11yProps(1)} />
-        <Tab label='Chart' {...a11yProps(2)} />
+        <Tab label="Scale" {...a11yProps(0)} />
+        <Tab label="Grid" {...a11yProps(1)} />
+        <Tab label="Chart" {...a11yProps(2)} />
       </Tabs>
     </nav>
   );
-}
+};

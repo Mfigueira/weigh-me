@@ -2,25 +2,22 @@ import '../../../assets/styles/AppSnackbar.css';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 
-const Alert = props => <MuiAlert elevation={6} variant='filled' {...props} />;
+const Alert = props => <MuiAlert elevation={6} variant="filled" {...props} />;
 
 export const AppSnackbar = ({ open, setAlert, message, severity }) => {
-
-  const handleClose = (e, reason) => {
+  const handleClose = (_e, reason) => {
     if (reason === 'clickaway') return;
     setAlert({
       open: false,
       message: message,
-      severity: severity
+      severity: severity,
     });
   };
 
   const setTopPosition = () => {
-    const footer = document.getElementsByTagName('footer')[0];
-    let h = 12;
-    if (footer) h += footer.clientHeight;
-    return `${h}px`;
-  }
+    const footer = document.querySelector('footer');
+    return `${12 + (footer?.clientHeight ?? 0)}px`;
+  };
 
   return (
     <Snackbar
@@ -39,4 +36,4 @@ export const AppSnackbar = ({ open, setAlert, message, severity }) => {
       </Alert>
     </Snackbar>
   );
-}
+};

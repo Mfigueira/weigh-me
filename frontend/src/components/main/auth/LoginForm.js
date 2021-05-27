@@ -8,7 +8,7 @@ import {
   handleSuccessAlert,
   isPasswordValid,
   isUsernameValid,
-  saveTokenInStorage
+  saveTokenInStorage,
 } from '../../../util/helpers';
 import { loginUser } from '../../../util/requests';
 
@@ -20,19 +20,15 @@ export const LoginForm = ({ setToken, alert, setAlert }) => {
   const styles = {
     icon: {
       width: '1.5rem',
-      margin: '0 0.5rem 0.5rem 0'
-    }
-  }
+      margin: '0 0.5rem 0.5rem 0',
+    },
+  };
 
-  const handleUsernameChange = e => {
-    let value = e.target.value;
-    if (isUsernameValid(value)) setUsername(value)
-  }
+  const handleUsernameChange = e =>
+    isUsernameValid(e.target.value) && setUsername(e.target.value);
 
-  const handlePasswordChange = e => {
-    let value = e.target.value;
-    if (isPasswordValid(value)) setPassword(value)
-  }
+  const handlePasswordChange = e =>
+    isPasswordValid(e.target.value) && setPassword(e.target.value);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -42,43 +38,38 @@ export const LoginForm = ({ setToken, alert, setAlert }) => {
       .then(res => {
         saveTokenInStorage(res.data.access_token);
         setToken(res.data.access_token);
-        handleSuccessAlert(`Hi ${username}!`, alert, setAlert);
+        handleSuccessAlert(`Hi, ${username}!`, alert, setAlert);
       })
       .catch(err => handleErrorAlert(err, alert, setAlert))
       .finally(setAjaxLoading(false));
-  }
+  };
 
   return (
-    <section className='auth-form-section'>
-      <h2>Sign <b>Me</b> in</h2>
+    <section className="auth-form-section">
+      <h2>
+        Sign <b>Me</b> in
+      </h2>
 
       <form onSubmit={handleSubmit}>
         <div style={{ marginBottom: '1rem' }}>
           <Grid container alignItems="flex-end">
             <Grid item>
-              <img
-                src={user}
-                style={styles.icon}
-                alt='user'
-              />
+              <img src={user} style={styles.icon} alt="user" />
             </Grid>
             <Grid item>
               <TextField
                 label="Username"
                 autoComplete="off"
                 value={username}
-                onChange={handleUsernameChange} />
+                onChange={handleUsernameChange}
+              />
             </Grid>
           </Grid>
         </div>
         <div style={{ marginBottom: '2rem' }}>
           <Grid container alignItems="flex-end">
             <Grid item>
-              <img
-                src={key}
-                style={styles.icon}
-                alt='password'
-              />
+              <img src={key} style={styles.icon} alt="password" />
             </Grid>
             <Grid item>
               <TextField
@@ -86,20 +77,24 @@ export const LoginForm = ({ setToken, alert, setAlert }) => {
                 label="Password"
                 autoComplete="off"
                 value={password}
-                onChange={handlePasswordChange} />
+                onChange={handlePasswordChange}
+              />
             </Grid>
           </Grid>
         </div>
         <Button
-          variant="contained" color="primary" type="submit"
-          disabled={(!username || !password || ajaxLoading)}
+          variant="contained"
+          color="primary"
+          type="submit"
+          disabled={!username || !password || ajaxLoading}
         >
-          {ajaxLoading ?
+          {ajaxLoading ? (
             <CircularProgress style={{ height: '25px', width: '25px' }} />
-            :
-            'Sign In'}
+          ) : (
+            'Sign In'
+          )}
         </Button>
       </form>
     </section>
-  )
-}
+  );
+};

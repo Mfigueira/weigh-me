@@ -6,37 +6,50 @@ import {
   DataGrid,
   GridToolbarContainer,
   GridFilterToolbarButton,
-  GridToolbarExport
+  GridToolbarExport,
 } from '@material-ui/data-grid';
-import { getMonthFromDate, formatDateTimeOrGetToday } from '../../util/helpers';
+import { getMonthFromDate, formatDateTimeOrGetNow } from '../../util/helpers';
 
-export const WeighingsGrid = (
-  {
-    token, alert, setAlert, weighings,
-    editWeighingFromState, removeWeighingFromState
-  }) => {
-
-  const rows = weighings.map(weighing => (
-    {
-      ...weighing,
-      datetime: new Date(weighing.datetime),
-      month: getMonthFromDate(weighing.datetime)
-    }
-  ));
+export const WeighingsGrid = ({
+  token,
+  alert,
+  setAlert,
+  weighings,
+  editWeighingFromState,
+  removeWeighingFromState,
+}) => {
+  const rows = weighings.map(weighing => ({
+    ...weighing,
+    datetime: new Date(weighing.datetime),
+    month: getMonthFromDate(weighing.datetime),
+  }));
 
   const columns = [
     {
-      field: 'datetime', type: 'dateTime', headerName: 'Date & Time', flex: 1.5,
-      headerClassName: 'weighing-grid-th'
+      field: 'datetime',
+      type: 'dateTime',
+      headerName: 'Date & Time',
+      flex: 1.5,
+      headerClassName: 'weighing-grid-th',
     },
     {
-      field: 'month', type: 'string', headerName: 'Month', hide: true,
-      headerClassName: 'weighing-grid-th', filterOperators: monthsFilterOperators
+      field: 'month',
+      type: 'string',
+      headerName: 'Month',
+      hide: true,
+      headerClassName: 'weighing-grid-th',
+      filterOperators: monthsFilterOperators,
     },
     {
-      field: 'weight', type: 'string', headerName: 'Weight (kg)', flex: 1,
-      headerClassName: 'weighing-grid-th', renderCell: (params) => (
-        <div style={{ textAlign: 'center', width: '100%', position: 'relative' }}>
+      field: 'weight',
+      type: 'string',
+      headerName: 'Weight (kg)',
+      flex: 1,
+      headerClassName: 'weighing-grid-th',
+      renderCell: params => (
+        <div
+          style={{ textAlign: 'center', width: '100%', position: 'relative' }}
+        >
           {params.value}
           <EditWeighing
             token={token}
@@ -44,7 +57,7 @@ export const WeighingsGrid = (
             setAlert={setAlert}
             id={params.id}
             weight={params.value}
-            datetime={formatDateTimeOrGetToday(params.row.datetime)}
+            datetime={formatDateTimeOrGetNow(params.row.datetime)}
             editWeighingFromState={editWeighingFromState}
             removeWeighingFromState={removeWeighingFromState}
           />
@@ -60,7 +73,7 @@ export const WeighingsGrid = (
         <GridToolbarExport />
       </GridToolbarContainer>
     );
-  }
+  };
 
   return (
     <>
@@ -76,12 +89,12 @@ export const WeighingsGrid = (
         disableSelectionOnClick
         components={{
           NoRowsOverlay: NoWeighingsOverlay,
-          Toolbar: CustomToolbar
+          Toolbar: CustomToolbar,
         }}
         pagination
         pageSize={25}
         className={!weighings.length && 'zero-state-grid'}
       />
     </>
-  )
-}
+  );
+};

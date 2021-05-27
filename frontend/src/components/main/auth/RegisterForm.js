@@ -9,7 +9,7 @@ import {
   handleSuccessAlert,
   isPasswordValid,
   isUsernameValid,
-  saveTokenInStorage
+  saveTokenInStorage,
 } from '../../../util/helpers';
 import { registerUser } from '../../../util/requests';
 
@@ -22,24 +22,18 @@ export const RegisterForm = ({ setToken, alert, setAlert }) => {
   const styles = {
     icon: {
       width: '1.5rem',
-      margin: '0 0.5rem 1.85rem 0'
-    }
-  }
+      margin: '0 0.5rem 1.85rem 0',
+    },
+  };
 
-  const handleUsernameChange = e => {
-    let value = e.target.value;
-    if (isUsernameValid(value)) setUsername(value);
-  }
+  const handleUsernameChange = e =>
+    isUsernameValid(e.target.value) && setUsername(e.target.value);
 
-  const handlePasswordChange = e => {
-    let value = e.target.value;
-    if (isPasswordValid(value)) setPassword(value);
-  }
+  const handlePasswordChange = e =>
+    isPasswordValid(e.target.value) && setPassword(e.target.value);
 
-  const handleConfirmationChange = e => {
-    let value = e.target.value;
-    if (isPasswordValid(value)) setConfirmation(value);
-  }
+  const handleConfirmationChange = e =>
+    isPasswordValid(e.target.value) && setConfirmation(e.target.value);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -49,25 +43,23 @@ export const RegisterForm = ({ setToken, alert, setAlert }) => {
       .then(res => {
         saveTokenInStorage(res.data.access_token);
         setToken(res.data.access_token);
-        handleSuccessAlert(`Wellcome ${username}!`, alert, setAlert);
+        handleSuccessAlert(`Wellcome, ${username}!`, alert, setAlert);
       })
       .catch(err => handleErrorAlert(err, alert, setAlert))
       .finally(setAjaxLoading(false));
-  }
+  };
 
   return (
-    <section className='auth-form-section'>
-      <h2>Register <b>Me</b></h2>
+    <section className="auth-form-section">
+      <h2>
+        Register <b>Me</b>
+      </h2>
 
       <form onSubmit={handleSubmit}>
         <div style={{ marginBottom: '1rem' }}>
           <Grid container alignItems="flex-end">
             <Grid item>
-              <img
-                src={user}
-                style={styles.icon}
-                alt='user'
-              />
+              <img src={user} style={styles.icon} alt="user" />
             </Grid>
             <Grid item>
               <TextField
@@ -76,18 +68,15 @@ export const RegisterForm = ({ setToken, alert, setAlert }) => {
                 autoComplete="off"
                 required
                 value={username}
-                onChange={handleUsernameChange} />
+                onChange={handleUsernameChange}
+              />
             </Grid>
           </Grid>
         </div>
         <div style={{ marginBottom: '1rem' }}>
           <Grid container alignItems="flex-end">
             <Grid item>
-              <img
-                src={key}
-                style={styles.icon}
-                alt='password'
-              />
+              <img src={key} style={styles.icon} alt="password" />
             </Grid>
             <Grid item>
               <TextField
@@ -97,18 +86,15 @@ export const RegisterForm = ({ setToken, alert, setAlert }) => {
                 autoComplete="off"
                 required
                 value={password}
-                onChange={handlePasswordChange} />
+                onChange={handlePasswordChange}
+              />
             </Grid>
           </Grid>
         </div>
         <div style={{ marginBottom: '1.5rem' }}>
           <Grid container alignItems="flex-end">
             <Grid item>
-              <img
-                src={doubleKey}
-                style={styles.icon}
-                alt='confirm'
-              />
+              <img src={doubleKey} style={styles.icon} alt="confirm" />
             </Grid>
             <Grid item>
               <TextField
@@ -118,20 +104,24 @@ export const RegisterForm = ({ setToken, alert, setAlert }) => {
                 autoComplete="off"
                 required
                 value={confirmation}
-                onChange={handleConfirmationChange} />
+                onChange={handleConfirmationChange}
+              />
             </Grid>
           </Grid>
         </div>
         <Button
-          variant="contained" color="primary" type="submit"
-          disabled={(!username || !password || !confirmation || ajaxLoading)}
+          variant="contained"
+          color="primary"
+          type="submit"
+          disabled={!username || !password || !confirmation || ajaxLoading}
         >
-          {ajaxLoading ?
+          {ajaxLoading ? (
             <CircularProgress style={{ height: '25px', width: '25px' }} />
-            :
-            'Sign Un'}
+          ) : (
+            'Sign Un'
+          )}
         </Button>
       </form>
     </section>
-  )
-}
+  );
+};

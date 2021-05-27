@@ -6,26 +6,32 @@ import { WeighingForm } from './WeighingForm';
 import { WeighingsGrid } from './WeighingsGrid';
 import { WeighingsChart } from './WeighingsChart';
 
-export const Main = (
-  {
-    token, setToken, alert, setAlert, weighings, addWeighingToState,
-    editWeighingFromState, removeWeighingFromState
-  }) => {
+export const Main = ({
+  token,
+  setToken,
+  alert,
+  setAlert,
+  weighings,
+  addWeighingToState,
+  editWeighingFromState,
+  removeWeighingFromState,
+}) => {
   const setPaddingTop = () => {
-    const header = document.getElementsByTagName('header')[0];
-    const nav = document.getElementsByTagName('nav')[0];
-    let h = 40;
-    if (header) h += header.clientHeight;
-    if (nav) h += nav.clientHeight;
-    h = Math.max(h, 104);
-    return `${h}px`;
-  }
+    const header = document.querySelector('header');
+    const nav = document.querySelector('nav');
+    return `${Math.max(
+      40 + (header?.clientHeight ?? 0) + (nav?.clientHeight ?? 0),
+      104
+    )}px`;
+  };
 
   return (
     <main style={{ paddingTop: setPaddingTop() }}>
-      {token ?
+      {token ? (
         <Switch>
-          <Route path='/' exact
+          <Route
+            path="/"
+            exact
             render={props => (
               <WeighingForm
                 {...props}
@@ -36,7 +42,8 @@ export const Main = (
               />
             )}
           />
-          <Route path='/grid'
+          <Route
+            path="/grid"
             render={props => (
               <WeighingsGrid
                 {...props}
@@ -49,19 +56,19 @@ export const Main = (
               />
             )}
           />
-          <Route path='/chart'
+          <Route
+            path="/chart"
             render={props => (
-              <WeighingsChart
-                {...props}
-                weighings={weighings}
-              />
+              <WeighingsChart {...props} weighings={weighings} />
             )}
           />
-          <Redirect to='/' />
+          <Redirect to="/" />
         </Switch>
-        :
+      ) : (
         <Switch>
-          <Route path='/' exact
+          <Route
+            path="/"
+            exact
             render={props => (
               <LoginForm
                 {...props}
@@ -71,7 +78,8 @@ export const Main = (
               />
             )}
           />
-          <Route path='/register'
+          <Route
+            path="/register"
             render={props => (
               <RegisterForm
                 {...props}
@@ -81,9 +89,9 @@ export const Main = (
               />
             )}
           />
-          <Redirect to='/' />
+          <Redirect to="/" />
         </Switch>
-      }
+      )}
     </main>
   );
-}
+};

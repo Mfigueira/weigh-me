@@ -2,10 +2,10 @@ import PropTypes from 'prop-types';
 import { InputLabel, FormControl, Select } from '@material-ui/core';
 import { monthNames } from '../../../util/helpers';
 
-const MonthsFilter = (props) => {
+const MonthsFilter = props => {
   const { item, applyValue } = props;
 
-  const handleChangeMultiple = (event) => {
+  const handleChangeMultiple = event => {
     const { options } = event.target;
     const value = [];
     for (let i = 0, l = options.length; i < l; i += 1) {
@@ -20,7 +20,7 @@ const MonthsFilter = (props) => {
     <FormControl>
       <InputLabel shrink htmlFor="custom-months-filter">
         Select month/s
-        </InputLabel>
+      </InputLabel>
       <Select
         multiple
         native
@@ -30,7 +30,7 @@ const MonthsFilter = (props) => {
           id: 'custom-months-filter',
         }}
       >
-        {monthNames.map((name) => (
+        {monthNames.map(name => (
           <option key={name} value={name}>
             {name}
           </option>
@@ -38,7 +38,7 @@ const MonthsFilter = (props) => {
       </Select>
     </FormControl>
   );
-}
+};
 
 MonthsFilter.propTypes = {
   applyValue: PropTypes.func.isRequired,
@@ -63,7 +63,7 @@ export const monthsFilterOperators = [
         return null;
       }
 
-      return (params) => {
+      return params => {
         const rowValue = column.valueGetter
           ? column.valueGetter(params)
           : params.value;
@@ -72,5 +72,5 @@ export const monthsFilterOperators = [
     },
     InputComponent: MonthsFilter,
     InputComponentProps: { type: 'array' },
-  }
+  },
 ];

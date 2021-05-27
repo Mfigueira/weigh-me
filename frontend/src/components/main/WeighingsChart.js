@@ -9,7 +9,7 @@ import {
   VictoryAxis,
   VictoryTheme,
   VictoryScatter,
-  VictoryLabel
+  VictoryLabel,
 } from 'victory';
 
 export const WeighingsChart = ({ weighings }) => {
@@ -25,7 +25,10 @@ export const WeighingsChart = ({ weighings }) => {
     return () => window.removeEventListener('resize', updateWidth);
   }, []);
 
-  const data = weighings.map(weighing => ({ x: new Date(weighing.datetime), y: weighing.weight }));
+  const data = weighings.map(weighing => ({
+    x: new Date(weighing.datetime),
+    y: weighing.weight,
+  }));
 
   const handleZoom = domain => setSelectedDomain(domain);
 
@@ -35,20 +38,31 @@ export const WeighingsChart = ({ weighings }) => {
     <>
       <h2 style={{ marginBottom: '1rem' }}>Time Graph</h2>
 
-      {weighings.length < 2 ?
-        <div style={
-          { display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }
-        }>
-          <img src={graph} alt='graph' style={{ margin: '30px', width: '180px' }} />
-          <i style={{ lineHeight: '1.5rem' }}>Add at least 2 Weighings to see the Chart</i>
+      {weighings.length < 2 ? (
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <img
+            src={graph}
+            alt="graph"
+            style={{ margin: '30px', width: '180px' }}
+          />
+          <i style={{ lineHeight: '1.5rem' }}>
+            Add at least 2 Weighings to see the Chart
+          </i>
         </div>
-        :
+      ) : (
         <>
           <VictoryChart
             width={width}
             theme={VictoryTheme.material}
             height={300}
-            scale={{ x: "time" }}
+            scale={{ x: 'time' }}
             domainPadding={{ y: 20, x: 20 }}
             containerComponent={
               <VictoryZoomContainer
@@ -64,31 +78,31 @@ export const WeighingsChart = ({ weighings }) => {
               x={13}
               y={25}
               style={{ fill: 'rgb(69, 90, 100)', fontStyle: 'italic' }}
-              text={"Weight (kg)"}
+              text={'Weight (kg)'}
             />
             <VictoryLine
               data={data}
               animate={{
-                onLoad: { duration: 1200 }
+                onLoad: { duration: 1200 },
               }}
               style={{
-                data: { stroke: "tomato" }
+                data: { stroke: 'tomato' },
               }}
             />
             <VictoryScatter
               data={data}
               size={4}
               animate={{
-                onLoad: { duration: 1200 }
+                onLoad: { duration: 1200 },
               }}
-              style={{ data: { fill: "tomato" } }}
+              style={{ data: { fill: 'tomato' } }}
             />
           </VictoryChart>
 
           <VictoryChart
             width={width}
             height={90}
-            scale={{ x: "time" }}
+            scale={{ x: 'time' }}
             domainPadding={{ y: 5, x: 19 }}
             padding={{ top: 5, left: 50, right: 50, bottom: 30 }}
             containerComponent={
@@ -105,15 +119,15 @@ export const WeighingsChart = ({ weighings }) => {
             <VictoryLine
               data={data}
               animate={{
-                onLoad: { duration: 1200 }
+                onLoad: { duration: 1200 },
               }}
               style={{
-                data: { stroke: "tomato" }
+                data: { stroke: 'tomato' },
               }}
             />
           </VictoryChart>
         </>
-      }
+      )}
     </>
   );
-}
+};
