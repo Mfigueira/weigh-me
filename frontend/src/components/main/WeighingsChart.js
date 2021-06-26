@@ -1,4 +1,4 @@
-import '../../assets/styles/WeighingsChart.css';
+import './WeighingsChart.scss';
 import graph from '../../assets/img/graph.svg';
 import { useState, useEffect } from 'react';
 import {

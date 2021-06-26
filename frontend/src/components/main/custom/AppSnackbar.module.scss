@@ -1,0 +1,10 @@
+.snackbar {
+  right: 10px !important;
+
+  @media (min-width: 900px) {
+    transform: translateX(-50%) !important;
+    left: 50% !important;
+    right: 0 !important;
+    justify-content: center !important;
+  }
+}

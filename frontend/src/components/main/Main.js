@@ -1,4 +1,4 @@
-import '../../assets/styles/Main.css';
+import classes from './Main.module.scss';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { LoginForm } from './auth/LoginForm';
 import { RegisterForm } from './auth/RegisterForm';
@@ -26,7 +26,7 @@ export const Main = ({
   };
 
   return (
-    <main style={{ paddingTop: setPaddingTop() }}>
+    <main className={classes.main} style={{ paddingTop: setPaddingTop() }}>
       {token ? (
         <Switch>
           <Route

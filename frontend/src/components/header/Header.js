@@ -1,4 +1,4 @@
-import '../../assets/styles/Header.css';
+import classes from './Header.module.scss';
 import logo from '../../assets/img/scale.svg';
 import user from '../../assets/img/user.svg';
 import { useState } from 'react';
@@ -94,7 +94,7 @@ export const Header = ({
       }}
     >
       <AppBar position="static">
-        <Toolbar>
+        <Toolbar className={classes.toolbar}>
           <img src={logo} style={styles.icon} alt="scale" />
           <h1>WeighMe</h1>
           {token ? (

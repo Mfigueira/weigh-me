@@ -1,4 +1,4 @@
-import '../../assets/styles/WeighingForm.css';
+import './WeighingForm.scss';
 import scale from '../../assets/img/bg-scale.svg';
 import add from '../../assets/img/add.svg';
 import addDisabled from '../../assets/img/add-disabled.svg';

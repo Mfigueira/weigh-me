@@ -1,4 +1,4 @@
-import '../../../assets/styles/AuthForms.css';
+import './AuthForms.scss';
 import user from '../../../assets/img/user.svg';
 import key from '../../../assets/img/key.svg';
 import { useState } from 'react';

@@ -1,8 +1,8 @@
-import '../../assets/styles/Footer.css';
+import classes from './Footer.module.scss';
 
 export const Footer = () => {
   return (
-    <footer>
+    <footer className={classes.footer}>
       <p>Developed by Manuel Figueira - 2021</p>
       <p>
         <span>Icons made by </span>

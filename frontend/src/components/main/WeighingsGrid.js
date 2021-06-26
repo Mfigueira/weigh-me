@@ -1,4 +1,4 @@
-import '../../assets/styles/WeighingsGrid.css';
+import './WeighingsGrid.scss';
 import { EditWeighing } from './custom/EditWeighing';
 import { NoWeighingsOverlay } from './custom/NoWeighingsOverlay';
 import { monthsFilterOperators } from './custom/MonthsFilter.js';

@@ -1,4 +1,3 @@
-import '../../assets/styles/Header.css';
 import { useHistory } from 'react-router-dom';
 import { Tabs, Tab } from '@material-ui/core';
 import { getRouteByTab } from '../../util/helpers';

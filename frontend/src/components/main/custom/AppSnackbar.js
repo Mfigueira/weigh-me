@@ -1,4 +1,4 @@
-import '../../../assets/styles/AppSnackbar.css';
+import classes from './AppSnackbar.module.scss';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 
@@ -21,6 +21,7 @@ export const AppSnackbar = ({ open, setAlert, message, severity }) => {
 
   return (
     <Snackbar
+      className={classes.snackbar}
       open={open}
       autoHideDuration={4000}
       anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}

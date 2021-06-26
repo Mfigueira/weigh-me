@@ -1,5 +1,5 @@
 // Core
-import './App.css';
+import './App.scss';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
