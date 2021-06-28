@@ -3,19 +3,16 @@ import classes from './AppSnackbar.module.scss';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { useContext } from 'react';
-import AppContext from '../../../store/app-context';
+import { AppContext } from '../../../store/app-context';
 
 const Alert = props => <MuiAlert elevation={6} variant="filled" {...props} />;
 
 export const AppSnackbar = () => {
-  const ctx = useContext(AppContext);
+  const appCtx = useContext(AppContext);
 
   const handleClose = (_, reason) => {
     if (reason === 'clickaway') return;
-    ctx.setAlert(alert => ({
-      ...alert,
-      open: false,
-    }));
+    appCtx.onCloseAlert();
   };
 
   const setTopPosition = () => {
@@ -26,7 +23,7 @@ export const AppSnackbar = () => {
   return ReactDOM.createPortal(
     <Snackbar
       className={classes.snackbar}
-      open={ctx.alert.open}
+      open={appCtx.alert.open}
       autoHideDuration={4000}
       anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
       onClose={handleClose}
@@ -34,10 +31,10 @@ export const AppSnackbar = () => {
     >
       <Alert
         onClose={handleClose}
-        severity={ctx.alert.severity}
+        severity={appCtx.alert.severity}
         style={{ fontSize: '1rem' }}
       >
-        {ctx.alert.message}
+        {appCtx.alert.message}
       </Alert>
     </Snackbar>,
     document.getElementById('modals-root')

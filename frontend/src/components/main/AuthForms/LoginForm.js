@@ -5,10 +5,13 @@ import { useContext, useState } from 'react';
 import { TextField, Grid, Button, CircularProgress } from '@material-ui/core';
 import { isPasswordValid, isUsernameValid } from '../../../util/helpers';
 import { loginUser } from '../../../util/requests';
-import AppContext from '../../../store/app-context';
+import { AuthContext } from '../../../store/auth-context';
+import { AppContext } from '../../../store/app-context';
 
 export const LoginForm = () => {
-  const ctx = useContext(AppContext);
+  const authCtx = useContext(AuthContext);
+  const appCtx = useContext(AppContext);
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [ajaxLoading, setAjaxLoading] = useState(false);
@@ -32,10 +35,10 @@ export const LoginForm = () => {
     const user = { username, password };
     loginUser(JSON.stringify(user))
       .then(res => {
-        ctx.onLogin(res.data.access_token, username);
-        ctx.onSuccessAlert(`Hi, ${username}!`);
+        authCtx.onLogin(res.data.access_token, username);
+        appCtx.onSuccessAlert(`Hi, ${username}!`);
       })
-      .catch(err => ctx.onErrorAlert(err))
+      .catch(err => appCtx.onErrorAlert(err))
       .finally(setAjaxLoading(false));
   };
 

@@ -11,10 +11,11 @@ import {
   VictoryScatter,
   VictoryLabel,
 } from 'victory';
-import AppContext from '../../store/app-context';
+import { AppContext } from '../../store/app-context';
 
 export const WeighingsChart = () => {
-  const ctx = useContext(AppContext);
+  const appCtx = useContext(AppContext);
+
   const [selectedDomain, setSelectedDomain] = useState({});
   const [zoomDomain, setZoomDomain] = useState({});
   const [width, setWidth] = useState(window.innerWidth);
@@ -27,7 +28,7 @@ export const WeighingsChart = () => {
     return () => window.removeEventListener('resize', updateWidth);
   }, []);
 
-  const data = ctx.weighings.map(weighing => ({
+  const data = appCtx.weighings.map(weighing => ({
     x: new Date(weighing.datetime),
     y: weighing.weight,
   }));
@@ -40,7 +41,7 @@ export const WeighingsChart = () => {
     <>
       <h2 style={{ marginBottom: '1rem' }}>Time Graph</h2>
 
-      {ctx.weighings.length < 2 ? (
+      {appCtx.weighings.length < 2 ? (
         <div
           style={{
             display: 'flex',

@@ -17,10 +17,13 @@ import {
   isWeightValid,
 } from '../../util/helpers';
 import { createWeighing } from '../../util/requests';
-import AppContext from '../../store/app-context';
+import { AuthContext } from '../../store/auth-context';
+import { AppContext } from '../../store/app-context';
 
 export const WeighingForm = () => {
-  const ctx = useContext(AppContext);
+  const authCtx = useContext(AuthContext);
+  const appCtx = useContext(AppContext);
+
   const [weight, setWeight] = useState('');
   const [datetime, setDateTime] = useState(formatDateTimeOrGetNow);
   const [ajaxLoading, setAjaxLoading] = useState(false);
@@ -32,15 +35,15 @@ export const WeighingForm = () => {
     e.preventDefault();
     setAjaxLoading(true);
     let weighing = { weight, datetime };
-    createWeighing(ctx.token, JSON.stringify(weighing))
+    createWeighing(authCtx.token, JSON.stringify(weighing))
       .then(res => {
         weighing.id = res.data.id;
-        ctx.onAddWeighing({ ...weighing, weight: +weighing.weight });
+        appCtx.onAddWeighing({ ...weighing, weight: +weighing.weight });
         setWeight('');
         setDateTime(formatDateTimeOrGetNow);
-        ctx.onSuccessAlert('Weighing added!');
+        appCtx.onSuccessAlert('Weighing added!');
       })
-      .catch(err => ctx.onErrorAlert(err))
+      .catch(err => appCtx.onErrorAlert(err))
       .finally(setAjaxLoading(false));
   };
 

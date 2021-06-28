@@ -1,12 +1,17 @@
-import { useHistory } from 'react-router-dom';
+import { useContext, useState } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
+import { AuthContext } from '../../store/auth-context';
 import { Tabs, Tab } from '@material-ui/core';
-import { getRouteByTab } from '../../util/helpers';
-import { useContext } from 'react';
-import AppContext from '../../store/app-context';
+import { getRouteByPath, getRouteByTab } from '../../util/helpers';
 
 export const Navbar = () => {
-  const ctx = useContext(AppContext);
+  const authCtx = useContext(AuthContext);
   const history = useHistory();
+  const location = useLocation();
+
+  const [tabValue, setTabValue] = useState(() =>
+    getRouteByPath(location.pathname)
+  );
 
   const a11yProps = index => {
     return {
@@ -17,13 +22,13 @@ export const Navbar = () => {
 
   const handleChange = (_, newValue) => {
     history.push(getRouteByTab(newValue));
-    ctx.setTabValue(newValue);
+    setTabValue(newValue);
   };
 
   return (
     <nav style={{ backgroundColor: '#a8dac5' }}>
       <Tabs
-        value={ctx.tabValue}
+        value={authCtx.token ? tabValue : 0}
         onChange={handleChange}
         indicatorColor="primary"
         textColor="primary"

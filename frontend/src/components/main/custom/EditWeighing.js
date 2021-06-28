@@ -14,7 +14,8 @@ import {
 } from '@material-ui/core';
 import { extractSecsFromTime, isWeightValid } from '../../../util/helpers';
 import { updateWeighing, deleteWeighing } from '../../../util/requests';
-import AppContext from '../../../store/app-context';
+import { AuthContext } from '../../../store/auth-context';
+import { AppContext } from '../../../store/app-context';
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -35,7 +36,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export const EditWeighing = ({ id, weight, datetime }) => {
-  const ctx = useContext(AppContext);
+  const authCtx = useContext(AuthContext);
+  const appCtx = useContext(AppContext);
 
   const classes = useStyles();
   const [open, setOpen] = useState(false);
@@ -68,26 +70,26 @@ export const EditWeighing = ({ id, weight, datetime }) => {
       weight: editingWeight ? `${editWeight}` : `${weight}`,
       datetime: editingDateTime ? editDateTime : datetime,
     };
-    updateWeighing(ctx.token, JSON.stringify(weighing))
+    updateWeighing(authCtx.token, JSON.stringify(weighing))
       .then(_res => {
         handleClose();
-        ctx.onEditWeighing({ ...weighing, weight: +weighing.weight });
-        ctx.onSuccessAlert('Weighing updated.');
+        appCtx.onEditWeighing({ ...weighing, weight: +weighing.weight });
+        appCtx.onSuccessAlert('Weighing updated.');
       })
-      .catch(err => ctx.onErrorAlert(err))
+      .catch(err => appCtx.onErrorAlert(err))
       .finally(setUpdateLoading(false));
   };
 
   const handleDelete = () => {
     setDeleteLoading(true);
     const weighing = { id };
-    deleteWeighing(ctx.token, JSON.stringify(weighing))
-      .then(_res => {
+    deleteWeighing(authCtx.token, JSON.stringify(weighing))
+      .then(_ => {
         handleClose();
-        ctx.onRemoveWeighing(weighing.id);
-        ctx.onSuccessAlert('Weighing deleted.');
+        appCtx.onRemoveWeighing(weighing.id);
+        appCtx.onSuccessAlert('Weighing deleted.');
       })
-      .catch(err => ctx.onErrorAlert(err))
+      .catch(err => appCtx.onErrorAlert(err))
       .finally(setDeleteLoading(false));
   };
 

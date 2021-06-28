@@ -1,15 +1,15 @@
 import classes from './Main.module.scss';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import { LoginForm } from './auth/LoginForm';
-import { RegisterForm } from './auth/RegisterForm';
+import { LoginForm } from './AuthForms/LoginForm';
+import { RegisterForm } from './AuthForms/RegisterForm';
 import { WeighingForm } from './WeighingForm';
 import { WeighingsGrid } from './WeighingsGrid';
 import { WeighingsChart } from './WeighingsChart';
 import { useContext } from 'react';
-import AppContext from '../../store/app-context';
+import { AuthContext } from '../../store/auth-context';
 
 export const Main = () => {
-  const ctx = useContext(AppContext);
+  const authCtx = useContext(AuthContext);
 
   const setPaddingTop = () => {
     const header = document.querySelector('header');
@@ -22,7 +22,7 @@ export const Main = () => {
 
   return (
     <main className={classes.main} style={{ paddingTop: setPaddingTop() }}>
-      {ctx.token ? (
+      {authCtx.token ? (
         <Switch>
           <Route path="/" exact>
             <WeighingForm />

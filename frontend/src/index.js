@@ -1,14 +1,17 @@
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import { AppContextProvider } from './store/app-context';
+import { AppContextProvider } from './store/AppContextProvider';
+import { AuthContextProvider } from './store/AuthContextProvider';
 import { App } from './App';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <BrowserRouter>
-    <AppContextProvider>
-      <App />
-    </AppContextProvider>
+    <AuthContextProvider>
+      <AppContextProvider>
+        <App />
+      </AppContextProvider>
+    </AuthContextProvider>
   </BrowserRouter>,
   document.getElementById('root')
 );

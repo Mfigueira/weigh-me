@@ -1,3 +1,16 @@
+.container {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  max-width: 900px;
+  z-index: 999;
+}
+
+.icon {
+  width: 1.75rem;
+  margin-right: 0.5rem;
+}
+
 .toolbar {
   @media (max-width: 330px) {
     padding-right: 2px !important;

@@ -1,4 +1,10 @@
-import { navTabs } from '../config/navTabs.js';
+import { navTabs } from '../config/nav-tabs.js';
+
+export const getRouteByPath = path =>
+  navTabs.find(route => route.path === path)?.tab ?? 0;
+
+export const getRouteByTab = tab =>
+  navTabs.find(route => route.tab === tab)?.path ?? 0;
 
 export const formatDateTimeOrGetNow = dt => {
   const now = dt ? new Date(dt) : new Date();
@@ -10,29 +16,12 @@ export const formatDateTimeOrGetNow = dt => {
   return `${year}-${month}-${day}T${hours}:${minutes}`;
 };
 
-export const getRouteByPath = path =>
-  navTabs.find(route => route.path === path)?.tab ?? 0;
-
-export const getRouteByTab = tab =>
-  navTabs.find(route => route.tab === tab)?.path ?? 0;
-
 export const extractSecsFromTime = time =>
   time.split(':').length > 2 ? time.slice(0, time.lastIndexOf(':')) : time;
 
-export const monthNames = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
-];
+export const monthNames = Array.from({ length: 12 }, (_, i) =>
+  new Date(0, i).toLocaleString('en-US', { month: 'long' })
+);
 
 export const getMonthFromDate = date => monthNames[new Date(date).getMonth()];
 

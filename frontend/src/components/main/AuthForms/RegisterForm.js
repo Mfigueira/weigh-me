@@ -6,10 +6,13 @@ import { useContext, useState } from 'react';
 import { TextField, Button, Grid, CircularProgress } from '@material-ui/core';
 import { isPasswordValid, isUsernameValid } from '../../../util/helpers';
 import { registerUser } from '../../../util/requests';
-import AppContext from '../../../store/app-context';
+import { AuthContext } from '../../../store/auth-context';
+import { AppContext } from '../../../store/app-context';
 
 export const RegisterForm = () => {
-  const ctx = useContext(AppContext);
+  const authCtx = useContext(AuthContext);
+  const appCtx = useContext(AppContext);
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmation, setConfirmation] = useState('');
@@ -37,10 +40,10 @@ export const RegisterForm = () => {
     const user = { username, password, confirmation };
     registerUser(JSON.stringify(user))
       .then(res => {
-        ctx.onLogin(res.data.access_token, username);
-        ctx.onSuccessAlert(`Wellcome, ${username}!`);
+        authCtx.onLogin(res.data.access_token, username);
+        appCtx.onSuccessAlert(`Wellcome, ${username}!`);
       })
-      .catch(err => ctx.onErrorAlert(err))
+      .catch(err => appCtx.onErrorAlert(err))
       .finally(setAjaxLoading(false));
   };
 

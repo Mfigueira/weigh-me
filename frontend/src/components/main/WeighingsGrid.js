@@ -1,7 +1,7 @@
 import './WeighingsGrid.scss';
-import { EditWeighing } from './custom/EditWeighing';
-import { NoWeighingsOverlay } from './custom/NoWeighingsOverlay';
-import { monthsFilterOperators } from './custom/MonthsFilter.js';
+import { EditWeighing } from './Custom/EditWeighing';
+import { NoWeighingsOverlay } from './Custom/NoWeighingsOverlay';
+import { monthsFilterOperators } from './Custom/MonthsFilter.js';
 import {
   DataGrid,
   GridToolbarContainer,
@@ -10,11 +10,12 @@ import {
 } from '@material-ui/data-grid';
 import { getMonthFromDate, formatDateTimeOrGetNow } from '../../util/helpers';
 import { useContext } from 'react';
-import AppContext from '../../store/app-context';
+import { AppContext } from '../../store/app-context';
 
 export const WeighingsGrid = () => {
-  const ctx = useContext(AppContext);
-  const rows = ctx.weighings.map(weighing => ({
+  const appCtx = useContext(AppContext);
+
+  const rows = appCtx.weighings.map(weighing => ({
     ...weighing,
     datetime: new Date(weighing.datetime),
     month: getMonthFromDate(weighing.datetime),
@@ -84,7 +85,7 @@ export const WeighingsGrid = () => {
         }}
         pagination
         pageSize={25}
-        className={!ctx.weighings.length ? 'zero-state-grid' : ''}
+        className={!appCtx.weighings.length ? 'zero-state-grid' : ''}
       />
     </>
   );

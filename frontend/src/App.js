@@ -1,8 +1,8 @@
 import './App.scss';
-import { Header } from './components/header/Header';
-import { Main } from './components/main/Main';
-import { Footer } from './components/footer/Footer';
-import { AppSnackbar } from './components/main/custom/AppSnackbar';
+import { Header } from './components/Header/Header';
+import { Main } from './components/Main/Main';
+import { Footer } from './components/Footer/Footer';
+import { AppSnackbar } from './components/Main/Custom/AppSnackbar';
 
 export const App = () => (
   <>
