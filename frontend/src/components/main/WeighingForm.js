@@ -2,7 +2,7 @@ import './WeighingForm.scss';
 import scale from '../../assets/img/bg-scale.svg';
 import add from '../../assets/img/add.svg';
 import addDisabled from '../../assets/img/add-disabled.svg';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import {
   TextField,
   InputAdornment,
@@ -15,17 +15,12 @@ import {
   formatDateTimeOrGetNow,
   extractSecsFromTime,
   isWeightValid,
-  handleSuccessAlert,
-  handleErrorAlert,
 } from '../../util/helpers';
 import { createWeighing } from '../../util/requests';
+import AppContext from '../../store/app-context';
 
-export const WeighingForm = ({
-  token,
-  addWeighingToState,
-  alert,
-  setAlert,
-}) => {
+export const WeighingForm = () => {
+  const ctx = useContext(AppContext);
   const [weight, setWeight] = useState('');
   const [datetime, setDateTime] = useState(formatDateTimeOrGetNow);
   const [ajaxLoading, setAjaxLoading] = useState(false);
@@ -37,15 +32,15 @@ export const WeighingForm = ({
     e.preventDefault();
     setAjaxLoading(true);
     let weighing = { weight, datetime };
-    createWeighing(token, JSON.stringify(weighing))
+    createWeighing(ctx.token, JSON.stringify(weighing))
       .then(res => {
         weighing.id = res.data.id;
-        addWeighingToState({ ...weighing, weight: +weighing.weight });
+        ctx.onAddWeighing({ ...weighing, weight: +weighing.weight });
         setWeight('');
         setDateTime(formatDateTimeOrGetNow);
-        handleSuccessAlert('Weighing added!', alert, setAlert);
+        ctx.onSuccessAlert('Weighing added!');
       })
-      .catch(err => handleErrorAlert(err, alert, setAlert))
+      .catch(err => ctx.onErrorAlert(err))
       .finally(setAjaxLoading(false));
   };
 

@@ -2,18 +2,14 @@ import './AuthForms.scss';
 import user from '../../../assets/img/user.svg';
 import key from '../../../assets/img/key.svg';
 import doubleKey from '../../../assets/img/double-key.svg';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { TextField, Button, Grid, CircularProgress } from '@material-ui/core';
-import {
-  handleErrorAlert,
-  handleSuccessAlert,
-  isPasswordValid,
-  isUsernameValid,
-  saveTokenInStorage,
-} from '../../../util/helpers';
+import { isPasswordValid, isUsernameValid } from '../../../util/helpers';
 import { registerUser } from '../../../util/requests';
+import AppContext from '../../../store/app-context';
 
-export const RegisterForm = ({ setToken, alert, setAlert }) => {
+export const RegisterForm = () => {
+  const ctx = useContext(AppContext);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmation, setConfirmation] = useState('');
@@ -41,11 +37,10 @@ export const RegisterForm = ({ setToken, alert, setAlert }) => {
     const user = { username, password, confirmation };
     registerUser(JSON.stringify(user))
       .then(res => {
-        saveTokenInStorage(res.data.access_token);
-        setToken(res.data.access_token);
-        handleSuccessAlert(`Wellcome, ${username}!`, alert, setAlert);
+        ctx.onLogin(res.data.access_token, username);
+        ctx.onSuccessAlert(`Wellcome, ${username}!`);
       })
-      .catch(err => handleErrorAlert(err, alert, setAlert))
+      .catch(err => ctx.onErrorAlert(err))
       .finally(setAjaxLoading(false));
   };
 

@@ -1,5 +1,5 @@
 import editIcon from '../../../assets/img/edit.svg';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import {
   makeStyles,
   Modal,
@@ -12,13 +12,9 @@ import {
   InputAdornment,
   TextField,
 } from '@material-ui/core';
-import {
-  extractSecsFromTime,
-  handleErrorAlert,
-  handleSuccessAlert,
-  isWeightValid,
-} from '../../../util/helpers';
+import { extractSecsFromTime, isWeightValid } from '../../../util/helpers';
 import { updateWeighing, deleteWeighing } from '../../../util/requests';
+import AppContext from '../../../store/app-context';
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -38,16 +34,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export const EditWeighing = ({
-  token,
-  alert,
-  setAlert,
-  id,
-  weight,
-  datetime,
-  editWeighingFromState,
-  removeWeighingFromState,
-}) => {
+export const EditWeighing = ({ id, weight, datetime }) => {
+  const ctx = useContext(AppContext);
+
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [editWeight, setEditWeight] = useState('');
@@ -58,7 +47,6 @@ export const EditWeighing = ({
   const [deleteLoading, setDeleteLoading] = useState(false);
 
   const handleOpen = () => setOpen(true);
-
   const handleClose = () => setOpen(false);
 
   const handleWeightChange = e => {
@@ -80,26 +68,26 @@ export const EditWeighing = ({
       weight: editingWeight ? `${editWeight}` : `${weight}`,
       datetime: editingDateTime ? editDateTime : datetime,
     };
-    updateWeighing(token, JSON.stringify(weighing))
+    updateWeighing(ctx.token, JSON.stringify(weighing))
       .then(_res => {
         handleClose();
-        editWeighingFromState({ ...weighing, weight: +weighing.weight });
-        handleSuccessAlert('Weighing updated.', alert, setAlert);
+        ctx.onEditWeighing({ ...weighing, weight: +weighing.weight });
+        ctx.onSuccessAlert('Weighing updated.');
       })
-      .catch(err => handleErrorAlert(err, alert, setAlert))
+      .catch(err => ctx.onErrorAlert(err))
       .finally(setUpdateLoading(false));
   };
 
   const handleDelete = () => {
     setDeleteLoading(true);
     const weighing = { id };
-    deleteWeighing(token, JSON.stringify(weighing))
+    deleteWeighing(ctx.token, JSON.stringify(weighing))
       .then(_res => {
         handleClose();
-        removeWeighingFromState(weighing.id);
-        handleSuccessAlert('Weighing deleted.', alert, setAlert);
+        ctx.onRemoveWeighing(weighing.id);
+        ctx.onSuccessAlert('Weighing deleted.');
       })
-      .catch(err => handleErrorAlert(err, alert, setAlert))
+      .catch(err => ctx.onErrorAlert(err))
       .finally(setDeleteLoading(false));
   };
 

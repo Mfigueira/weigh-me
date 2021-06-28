@@ -1,8 +1,8 @@
 import classes from './Header.module.scss';
 import logo from '../../assets/img/scale.svg';
 import user from '../../assets/img/user.svg';
-import { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Navbar } from './Navbar';
 import {
   withStyles,
@@ -15,7 +15,7 @@ import {
   MenuItem,
 } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
-import { handleSuccessAlert, removeTokenFromStorage } from '../../util/helpers';
+import AppContext from '../../store/app-context';
 
 const StyledMenu = withStyles({
   paper: {
@@ -37,31 +37,16 @@ const StyledMenu = withStyles({
   />
 ));
 
-export const Header = ({
-  token,
-  setToken,
-  alert,
-  setAlert,
-  profile,
-  setProfile,
-  tabValue,
-  setTabValue,
-}) => {
+export const Header = () => {
+  const ctx = useContext(AppContext);
   const [anchorEl, setAnchorEl] = useState(null);
-  const history = useHistory();
 
   const handleClick = event => setAnchorEl(event.currentTarget);
-
   const handleClose = () => setAnchorEl(null);
 
   const logout = () => {
     handleClose();
-    removeTokenFromStorage();
-    setToken(null);
-    setProfile(null);
-    history.push('/');
-    setTabValue(0);
-    handleSuccessAlert('Until next time!', alert, setAlert);
+    ctx.onLogout();
   };
 
   const styles = {
@@ -97,8 +82,8 @@ export const Header = ({
         <Toolbar className={classes.toolbar}>
           <img src={logo} style={styles.icon} alt="scale" />
           <h1>WeighMe</h1>
-          {token ? (
-            profile ? (
+          {ctx.token ? (
+            ctx.profile ? (
               <>
                 <Button
                   aria-controls="simple-menu"
@@ -111,7 +96,7 @@ export const Header = ({
                   }}
                 >
                   <img src={user} style={styles.icon} alt="user" />
-                  {profile.name}
+                  {ctx.profile.name}
                 </Button>
                 <StyledMenu
                   anchorEl={anchorEl}
@@ -168,7 +153,7 @@ export const Header = ({
           )}
         </Toolbar>
       </AppBar>
-      {token ? <Navbar tabValue={tabValue} setTabValue={setTabValue} /> : <></>}
+      {ctx.token && <Navbar />}
     </div>
   );
 };

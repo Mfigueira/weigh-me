@@ -9,16 +9,12 @@ import {
   GridToolbarExport,
 } from '@material-ui/data-grid';
 import { getMonthFromDate, formatDateTimeOrGetNow } from '../../util/helpers';
+import { useContext } from 'react';
+import AppContext from '../../store/app-context';
 
-export const WeighingsGrid = ({
-  token,
-  alert,
-  setAlert,
-  weighings,
-  editWeighingFromState,
-  removeWeighingFromState,
-}) => {
-  const rows = weighings.map(weighing => ({
+export const WeighingsGrid = () => {
+  const ctx = useContext(AppContext);
+  const rows = ctx.weighings.map(weighing => ({
     ...weighing,
     datetime: new Date(weighing.datetime),
     month: getMonthFromDate(weighing.datetime),
@@ -52,14 +48,9 @@ export const WeighingsGrid = ({
         >
           {params.value}
           <EditWeighing
-            token={token}
-            alert={alert}
-            setAlert={setAlert}
             id={params.id}
             weight={params.value}
             datetime={formatDateTimeOrGetNow(params.row.datetime)}
-            editWeighingFromState={editWeighingFromState}
-            removeWeighingFromState={removeWeighingFromState}
           />
         </div>
       ),
@@ -93,7 +84,7 @@ export const WeighingsGrid = ({
         }}
         pagination
         pageSize={25}
-        className={!weighings.length && 'zero-state-grid'}
+        className={!ctx.weighings.length ? 'zero-state-grid' : ''}
       />
     </>
   );

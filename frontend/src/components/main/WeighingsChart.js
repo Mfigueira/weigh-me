@@ -1,6 +1,6 @@
 import './WeighingsChart.scss';
 import graph from '../../assets/img/graph.svg';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import {
   VictoryChart,
   VictoryZoomContainer,
@@ -11,8 +11,10 @@ import {
   VictoryScatter,
   VictoryLabel,
 } from 'victory';
+import AppContext from '../../store/app-context';
 
-export const WeighingsChart = ({ weighings }) => {
+export const WeighingsChart = () => {
+  const ctx = useContext(AppContext);
   const [selectedDomain, setSelectedDomain] = useState({});
   const [zoomDomain, setZoomDomain] = useState({});
   const [width, setWidth] = useState(window.innerWidth);
@@ -25,7 +27,7 @@ export const WeighingsChart = ({ weighings }) => {
     return () => window.removeEventListener('resize', updateWidth);
   }, []);
 
-  const data = weighings.map(weighing => ({
+  const data = ctx.weighings.map(weighing => ({
     x: new Date(weighing.datetime),
     y: weighing.weight,
   }));
@@ -38,7 +40,7 @@ export const WeighingsChart = ({ weighings }) => {
     <>
       <h2 style={{ marginBottom: '1rem' }}>Time Graph</h2>
 
-      {weighings.length < 2 ? (
+      {ctx.weighings.length < 2 ? (
         <div
           style={{
             display: 'flex',

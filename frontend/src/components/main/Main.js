@@ -5,17 +5,12 @@ import { RegisterForm } from './auth/RegisterForm';
 import { WeighingForm } from './WeighingForm';
 import { WeighingsGrid } from './WeighingsGrid';
 import { WeighingsChart } from './WeighingsChart';
+import { useContext } from 'react';
+import AppContext from '../../store/app-context';
 
-export const Main = ({
-  token,
-  setToken,
-  alert,
-  setAlert,
-  weighings,
-  addWeighingToState,
-  editWeighingFromState,
-  removeWeighingFromState,
-}) => {
+export const Main = () => {
+  const ctx = useContext(AppContext);
+
   const setPaddingTop = () => {
     const header = document.querySelector('header');
     const nav = document.querySelector('nav');
@@ -27,68 +22,27 @@ export const Main = ({
 
   return (
     <main className={classes.main} style={{ paddingTop: setPaddingTop() }}>
-      {token ? (
+      {ctx.token ? (
         <Switch>
-          <Route
-            path="/"
-            exact
-            render={props => (
-              <WeighingForm
-                {...props}
-                token={token}
-                alert={alert}
-                setAlert={setAlert}
-                addWeighingToState={addWeighingToState}
-              />
-            )}
-          />
-          <Route
-            path="/grid"
-            render={props => (
-              <WeighingsGrid
-                {...props}
-                token={token}
-                alert={alert}
-                setAlert={setAlert}
-                weighings={weighings}
-                editWeighingFromState={editWeighingFromState}
-                removeWeighingFromState={removeWeighingFromState}
-              />
-            )}
-          />
-          <Route
-            path="/chart"
-            render={props => (
-              <WeighingsChart {...props} weighings={weighings} />
-            )}
-          />
+          <Route path="/" exact>
+            <WeighingForm />
+          </Route>
+          <Route path="/grid">
+            <WeighingsGrid />
+          </Route>
+          <Route path="/chart">
+            <WeighingsChart />
+          </Route>
           <Redirect to="/" />
         </Switch>
       ) : (
         <Switch>
-          <Route
-            path="/"
-            exact
-            render={props => (
-              <LoginForm
-                {...props}
-                setToken={setToken}
-                alert={alert}
-                setAlert={setAlert}
-              />
-            )}
-          />
-          <Route
-            path="/register"
-            render={props => (
-              <RegisterForm
-                {...props}
-                setToken={setToken}
-                alert={alert}
-                setAlert={setAlert}
-              />
-            )}
-          />
+          <Route path="/" exact>
+            <LoginForm />
+          </Route>
+          <Route path="/register">
+            <RegisterForm />
+          </Route>
           <Redirect to="/" />
         </Switch>
       )}

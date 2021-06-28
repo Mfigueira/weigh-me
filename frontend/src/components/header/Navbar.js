@@ -1,8 +1,11 @@
 import { useHistory } from 'react-router-dom';
 import { Tabs, Tab } from '@material-ui/core';
 import { getRouteByTab } from '../../util/helpers';
+import { useContext } from 'react';
+import AppContext from '../../store/app-context';
 
-export const Navbar = ({ tabValue, setTabValue }) => {
+export const Navbar = () => {
+  const ctx = useContext(AppContext);
   const history = useHistory();
 
   const a11yProps = index => {
@@ -12,15 +15,15 @@ export const Navbar = ({ tabValue, setTabValue }) => {
     };
   };
 
-  const handleChange = (_e, newValue) => {
+  const handleChange = (_, newValue) => {
     history.push(getRouteByTab(newValue));
-    setTabValue(newValue);
+    ctx.setTabValue(newValue);
   };
 
   return (
     <nav style={{ backgroundColor: '#a8dac5' }}>
       <Tabs
-        value={tabValue}
+        value={ctx.tabValue}
         onChange={handleChange}
         indicatorColor="primary"
         textColor="primary"
