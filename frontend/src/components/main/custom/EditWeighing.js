@@ -14,8 +14,9 @@ import {
 } from '@material-ui/core';
 import { extractSecsFromTime, isWeightValid } from '../../../util/helpers';
 import { updateWeighing, deleteWeighing } from '../../../util/requests';
-import { AuthContext } from '../../../store/auth-context';
-import { AppContext } from '../../../store/app-context';
+import { useNotifications } from '../../../store/NotificationsContext';
+import { AuthContext } from '../../../store/AuthContext';
+import { UserDataContext } from '../../../store/UserDataContext';
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -36,8 +37,9 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export const EditWeighing = ({ id, weight, datetime }) => {
-  const authCtx = useContext(AuthContext);
-  const appCtx = useContext(AppContext);
+  const { token } = useContext(AuthContext);
+  const { onEditWeighing, onRemoveWeighing } = useContext(UserDataContext);
+  const { onSuccessAlert, onErrorAlert } = useNotifications();
 
   const classes = useStyles();
   const [open, setOpen] = useState(false);
@@ -70,26 +72,26 @@ export const EditWeighing = ({ id, weight, datetime }) => {
       weight: editingWeight ? `${editWeight}` : `${weight}`,
       datetime: editingDateTime ? editDateTime : datetime,
     };
-    updateWeighing(authCtx.token, JSON.stringify(weighing))
+    updateWeighing(token, JSON.stringify(weighing))
       .then(_res => {
         handleClose();
-        appCtx.onEditWeighing({ ...weighing, weight: +weighing.weight });
-        appCtx.onSuccessAlert('Weighing updated.');
+        onEditWeighing({ ...weighing, weight: +weighing.weight });
+        onSuccessAlert('Weighing updated.');
       })
-      .catch(err => appCtx.onErrorAlert(err))
+      .catch(err => onErrorAlert(err))
       .finally(setUpdateLoading(false));
   };
 
   const handleDelete = () => {
     setDeleteLoading(true);
     const weighing = { id };
-    deleteWeighing(authCtx.token, JSON.stringify(weighing))
+    deleteWeighing(token, JSON.stringify(weighing))
       .then(_ => {
         handleClose();
-        appCtx.onRemoveWeighing(weighing.id);
-        appCtx.onSuccessAlert('Weighing deleted.');
+        onRemoveWeighing(weighing.id);
+        onSuccessAlert('Weighing deleted.');
       })
-      .catch(err => appCtx.onErrorAlert(err))
+      .catch(err => onErrorAlert(err))
       .finally(setDeleteLoading(false));
   };
 

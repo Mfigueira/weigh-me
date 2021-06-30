@@ -6,12 +6,12 @@ import { useContext, useState } from 'react';
 import { TextField, Button, Grid, CircularProgress } from '@material-ui/core';
 import { isPasswordValid, isUsernameValid } from '../../../util/helpers';
 import { registerUser } from '../../../util/requests';
-import { AuthContext } from '../../../store/auth-context';
-import { AppContext } from '../../../store/app-context';
+import { AuthContext } from '../../../store/AuthContext';
+import { useNotifications } from '../../../store/NotificationsContext';
 
 export const RegisterForm = () => {
-  const authCtx = useContext(AuthContext);
-  const appCtx = useContext(AppContext);
+  const { onLogin } = useContext(AuthContext);
+  const { onSuccessAlert, onErrorAlert } = useNotifications();
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -40,10 +40,10 @@ export const RegisterForm = () => {
     const user = { username, password, confirmation };
     registerUser(JSON.stringify(user))
       .then(res => {
-        authCtx.onLogin(res.data.access_token, username);
-        appCtx.onSuccessAlert(`Wellcome, ${username}!`);
+        onLogin(res.data.access_token, username);
+        onSuccessAlert(`Wellcome, ${username}!`);
       })
-      .catch(err => appCtx.onErrorAlert(err))
+      .catch(err => onErrorAlert(err))
       .finally(setAjaxLoading(false));
   };
 

@@ -10,12 +10,12 @@ import {
 } from '@material-ui/data-grid';
 import { getMonthFromDate, formatDateTimeOrGetNow } from '../../util/helpers';
 import { useContext } from 'react';
-import { AppContext } from '../../store/app-context';
+import { UserDataContext } from '../../store/UserDataContext';
 
 export const WeighingsGrid = () => {
-  const appCtx = useContext(AppContext);
+  const { weighings } = useContext(UserDataContext);
 
-  const rows = appCtx.weighings.map(weighing => ({
+  const rows = weighings.map(weighing => ({
     ...weighing,
     datetime: new Date(weighing.datetime),
     month: getMonthFromDate(weighing.datetime),
@@ -85,7 +85,7 @@ export const WeighingsGrid = () => {
         }}
         pagination
         pageSize={25}
-        className={!appCtx.weighings.length ? 'zero-state-grid' : ''}
+        className={!weighings.length ? 'zero-state-grid' : ''}
       />
     </>
   );

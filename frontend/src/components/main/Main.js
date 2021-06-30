@@ -6,10 +6,10 @@ import { WeighingForm } from './WeighingForm';
 import { WeighingsGrid } from './WeighingsGrid';
 import { WeighingsChart } from './WeighingsChart';
 import { useContext } from 'react';
-import { AuthContext } from '../../store/auth-context';
+import { AuthContext } from '../../store/AuthContext';
 
 export const Main = () => {
-  const authCtx = useContext(AuthContext);
+  const { token } = useContext(AuthContext);
 
   const setPaddingTop = () => {
     const header = document.querySelector('header');
@@ -22,7 +22,7 @@ export const Main = () => {
 
   return (
     <main className={classes.main} style={{ paddingTop: setPaddingTop() }}>
-      {authCtx.token ? (
+      {token ? (
         <Switch>
           <Route path="/" exact>
             <WeighingForm />

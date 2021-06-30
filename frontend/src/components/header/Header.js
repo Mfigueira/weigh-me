@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { AuthContext } from '../../store/auth-context';
+import { AuthContext } from '../../store/AuthContext';
 import { Navbar } from './Navbar';
 import { ProfileMenu } from './Menu/ProfileMenu';
 import { AuthenticationMenu } from './Menu/AuthenticationMenu';
@@ -8,7 +8,7 @@ import classes from './Header.module.scss';
 import logo from '../../assets/img/scale.svg';
 
 export const Header = () => {
-  const authCtx = useContext(AuthContext);
+  const { token, onLogout } = useContext(AuthContext);
 
   return (
     <div className={classes.container}>
@@ -17,11 +17,11 @@ export const Header = () => {
           <img src={logo} className={classes.icon} alt="scale" />
           <h1>WeighMe</h1>
 
-          {authCtx.token && <ProfileMenu onLogout={authCtx.onLogout} />}
-          {!authCtx.token && <AuthenticationMenu />}
+          {token && <ProfileMenu onLogout={onLogout} />}
+          {!token && <AuthenticationMenu />}
         </Toolbar>
       </AppBar>
-      {authCtx.token && <Navbar />}
+      {token && <Navbar />}
     </div>
   );
 };

@@ -1,9 +1,10 @@
 import { useContext, useState } from 'react';
-import { AppContext } from '../../../store/app-context';
+import { UserDataContext } from '../../../store/UserDataContext';
 import { withStyles, Button, Menu, MenuItem } from '@material-ui/core';
 import user from '../../../assets/img/user.svg';
 import classes from './ProfileMenu.module.scss';
 import { ProfileSkeleton } from './ProfileSkeleton';
+import { useNotifications } from '../../../store/NotificationsContext';
 
 const StyledMenu = withStyles({
   paper: {
@@ -26,7 +27,9 @@ const StyledMenu = withStyles({
 ));
 
 export const ProfileMenu = ({ onLogout }) => {
-  const appCtx = useContext(AppContext);
+  const { profile } = useContext(UserDataContext);
+  const { onSuccessAlert } = useNotifications();
+
   const [menuOpen, setMenuOpen] = useState(null);
 
   const handleOpenMenu = event => setMenuOpen(event.currentTarget);
@@ -35,10 +38,10 @@ export const ProfileMenu = ({ onLogout }) => {
   const handleLogout = () => {
     handleCloseMenu();
     onLogout();
-    appCtx.onSuccessAlert('Logged out, bye!');
+    onSuccessAlert('Logged out, bye!');
   };
 
-  return !appCtx.profile ? (
+  return !profile ? (
     <ProfileSkeleton />
   ) : (
     <>
@@ -53,7 +56,7 @@ export const ProfileMenu = ({ onLogout }) => {
         }}
       >
         <img src={user} className={classes.icon} alt="user" />
-        {appCtx.profile.name}
+        {profile.name}
       </Button>
       <StyledMenu
         anchorEl={menuOpen}
