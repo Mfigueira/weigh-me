@@ -6,11 +6,11 @@ import { TextField, Grid, Button, CircularProgress } from '@material-ui/core';
 import { isPasswordValid, isUsernameValid } from '../../../util/helpers';
 import { loginUser } from '../../../util/requests';
 import { AuthContext } from '../../../store/AuthContext';
-import { useNotifications } from '../../../store/NotificationsContext';
+import { NotificationsContext } from '../../../store/NotificationsContext';
 
 export const LoginForm = () => {
   const { onLogin } = useContext(AuthContext);
-  const { onSuccessAlert, onErrorAlert } = useNotifications();
+  const { onSuccessAlert, onErrorAlert } = useContext(NotificationsContext);
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -29,17 +29,18 @@ export const LoginForm = () => {
   const handlePasswordChange = e =>
     isPasswordValid(e.target.value) && setPassword(e.target.value);
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
     setAjaxLoading(true);
-    const user = { username, password };
-    loginUser(JSON.stringify(user))
-      .then(res => {
-        onLogin(res.data.access_token, username);
-        onSuccessAlert(`Hi, ${username}!`);
-      })
-      .catch(err => onErrorAlert(err))
-      .finally(setAjaxLoading(false));
+    try {
+      const user = { username, password };
+      const res = await loginUser(JSON.stringify(user));
+      onLogin(res.data.access_token, username);
+      onSuccessAlert(`Hi, ${username}!`);
+    } catch (err) {
+      onErrorAlert(err);
+    }
+    setAjaxLoading(false);
   };
 
   return (

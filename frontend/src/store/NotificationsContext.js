@@ -67,5 +67,3 @@ export const NotificationsContextProvider = ({ children }) => {
     </NotificationsContext.Provider>
   );
 };
-
-export const useNotifications = () => React.useContext(NotificationsContext);

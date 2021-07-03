@@ -8,7 +8,7 @@ import classes from './Header.module.scss';
 import logo from '../../assets/img/scale.svg';
 
 export const Header = () => {
-  const { token, onLogout } = useContext(AuthContext);
+  const { token } = useContext(AuthContext);
 
   return (
     <div className={classes.container}>
@@ -17,7 +17,7 @@ export const Header = () => {
           <img src={logo} className={classes.icon} alt="scale" />
           <h1>WeighMe</h1>
 
-          {token && <ProfileMenu onLogout={onLogout} />}
+          {token && <ProfileMenu />}
           {!token && <AuthenticationMenu />}
         </Toolbar>
       </AppBar>

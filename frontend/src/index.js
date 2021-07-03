@@ -2,7 +2,6 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { NotificationsContextProvider } from './store/NotificationsContext';
 import { AuthContextProvider } from './store/AuthContext';
-import { UserDataContextProvider } from './store/UserDataContext';
 import { App } from './App';
 import reportWebVitals from './reportWebVitals';
 
@@ -10,9 +9,7 @@ ReactDOM.render(
   <BrowserRouter>
     <NotificationsContextProvider>
       <AuthContextProvider>
-        <UserDataContextProvider>
-          <App />
-        </UserDataContextProvider>
+        <App />
       </AuthContextProvider>
     </NotificationsContextProvider>
   </BrowserRouter>,

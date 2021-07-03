@@ -1,5 +1,5 @@
 import './WeighingsChart.scss';
-import graph from '../../assets/img/graph.svg';
+import graph from '../../../assets/img/graph.svg';
 import { useState, useEffect, useContext } from 'react';
 import {
   VictoryChart,
@@ -11,10 +11,10 @@ import {
   VictoryScatter,
   VictoryLabel,
 } from 'victory';
-import { UserDataContext } from '../../store/UserDataContext';
+import { WeighingsContext } from '../../../store/WeighingsContext';
 
 export const WeighingsChart = () => {
-  const { weighings } = useContext(UserDataContext);
+  const { weighings } = useContext(WeighingsContext);
 
   const [selectedDomain, setSelectedDomain] = useState({});
   const [zoomDomain, setZoomDomain] = useState({});
@@ -34,7 +34,6 @@ export const WeighingsChart = () => {
   }));
 
   const handleZoom = domain => setSelectedDomain(domain);
-
   const handleBrush = domain => setZoomDomain(domain);
 
   return (

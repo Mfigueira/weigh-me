@@ -1,10 +1,11 @@
-import { useContext, useState } from 'react';
-import { UserDataContext } from '../../../store/UserDataContext';
+import { useContext, useEffect, useState } from 'react';
 import { withStyles, Button, Menu, MenuItem } from '@material-ui/core';
 import user from '../../../assets/img/user.svg';
 import classes from './ProfileMenu.module.scss';
 import { ProfileSkeleton } from './ProfileSkeleton';
-import { useNotifications } from '../../../store/NotificationsContext';
+import { getProfile } from '../../../util/requests';
+import { NotificationsContext } from '../../../store/NotificationsContext';
+import { AuthContext } from '../../../store/AuthContext';
 
 const StyledMenu = withStyles({
   paper: {
@@ -26,11 +27,25 @@ const StyledMenu = withStyles({
   />
 ));
 
-export const ProfileMenu = ({ onLogout }) => {
-  const { profile } = useContext(UserDataContext);
-  const { onSuccessAlert } = useNotifications();
-
+export const ProfileMenu = () => {
+  const [profile, setProfile] = useState({});
   const [menuOpen, setMenuOpen] = useState(null);
+
+  const { onSuccessAlert, onErrorAlert } = useContext(NotificationsContext);
+  const { token, onLogout } = useContext(AuthContext);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const profileRes = await getProfile(token);
+        setProfile(profileRes.data);
+      } catch (err) {
+        setProfile({});
+        onLogout();
+        onErrorAlert('Could not get profile data');
+      }
+    })();
+  }, [token, onLogout, onErrorAlert]);
 
   const handleOpenMenu = event => setMenuOpen(event.currentTarget);
   const handleCloseMenu = () => setMenuOpen(null);

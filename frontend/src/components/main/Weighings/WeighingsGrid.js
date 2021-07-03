@@ -1,19 +1,22 @@
 import './WeighingsGrid.scss';
-import { EditWeighing } from './Custom/EditWeighing';
-import { NoWeighingsOverlay } from './Custom/NoWeighingsOverlay';
-import { monthsFilterOperators } from './Custom/MonthsFilter.js';
+import { EditWeighingButton } from './EditWeighingButton';
+import { NoWeighingsOverlay } from '../Custom/NoWeighingsOverlay';
+import { monthsFilterOperators } from '../Custom/MonthsFilter.js';
 import {
   DataGrid,
   GridToolbarContainer,
   GridFilterToolbarButton,
   GridToolbarExport,
 } from '@material-ui/data-grid';
-import { getMonthFromDate, formatDateTimeOrGetNow } from '../../util/helpers';
+import {
+  getMonthFromDate,
+  formatDateTimeOrGetNow,
+} from '../../../util/helpers';
 import { useContext } from 'react';
-import { UserDataContext } from '../../store/UserDataContext';
+import { WeighingsContext } from '../../../store/WeighingsContext';
 
 export const WeighingsGrid = () => {
-  const { weighings } = useContext(UserDataContext);
+  const { weighings } = useContext(WeighingsContext);
 
   const rows = weighings.map(weighing => ({
     ...weighing,
@@ -48,7 +51,7 @@ export const WeighingsGrid = () => {
           style={{ textAlign: 'center', width: '100%', position: 'relative' }}
         >
           {params.value}
-          <EditWeighing
+          <EditWeighingButton
             id={params.id}
             weight={params.value}
             datetime={formatDateTimeOrGetNow(params.row.datetime)}

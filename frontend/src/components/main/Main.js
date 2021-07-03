@@ -1,12 +1,9 @@
 import classes from './Main.module.scss';
-import { Switch, Route, Redirect } from 'react-router-dom';
-import { LoginForm } from './AuthForms/LoginForm';
-import { RegisterForm } from './AuthForms/RegisterForm';
-import { WeighingForm } from './WeighingForm';
-import { WeighingsGrid } from './WeighingsGrid';
-import { WeighingsChart } from './WeighingsChart';
 import { useContext } from 'react';
 import { AuthContext } from '../../store/AuthContext';
+import { Weighings } from './Weighings/Weighings';
+import { AuthForms } from './AuthForms/AuthForms';
+import { WeighingsContextProvider } from '../../store/WeighingsContext';
 
 export const Main = () => {
   const { token } = useContext(AuthContext);
@@ -23,28 +20,11 @@ export const Main = () => {
   return (
     <main className={classes.main} style={{ paddingTop: setPaddingTop() }}>
       {token ? (
-        <Switch>
-          <Route path="/" exact>
-            <WeighingForm />
-          </Route>
-          <Route path="/grid">
-            <WeighingsGrid />
-          </Route>
-          <Route path="/chart">
-            <WeighingsChart />
-          </Route>
-          <Redirect to="/" />
-        </Switch>
+        <WeighingsContextProvider>
+          <Weighings token={token} />
+        </WeighingsContextProvider>
       ) : (
-        <Switch>
-          <Route path="/" exact>
-            <LoginForm />
-          </Route>
-          <Route path="/register">
-            <RegisterForm />
-          </Route>
-          <Redirect to="/" />
-        </Switch>
+        <AuthForms />
       )}
     </main>
   );

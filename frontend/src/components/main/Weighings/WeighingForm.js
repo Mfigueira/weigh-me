@@ -1,7 +1,7 @@
 import './WeighingForm.scss';
-import scale from '../../assets/img/bg-scale.svg';
-import add from '../../assets/img/add.svg';
-import addDisabled from '../../assets/img/add-disabled.svg';
+import scale from '../../../assets/img/bg-scale.svg';
+import add from '../../../assets/img/add.svg';
+import addDisabled from '../../../assets/img/add-disabled.svg';
 import { useContext, useState } from 'react';
 import {
   TextField,
@@ -15,16 +15,16 @@ import {
   formatDateTimeOrGetNow,
   extractSecsFromTime,
   isWeightValid,
-} from '../../util/helpers';
-import { createWeighing } from '../../util/requests';
-import { useNotifications } from '../../store/NotificationsContext';
-import { AuthContext } from '../../store/AuthContext';
-import { UserDataContext } from '../../store/UserDataContext';
+} from '../../../util/helpers';
+import { createWeighing } from '../../../util/requests';
+import { NotificationsContext } from '../../../store/NotificationsContext';
+import { AuthContext } from '../../../store/AuthContext';
+import { WeighingsContext } from '../../../store/WeighingsContext';
 
 export const WeighingForm = () => {
   const { token } = useContext(AuthContext);
-  const { onAddWeighing } = useContext(UserDataContext);
-  const { onSuccessAlert, onErrorAlert } = useNotifications();
+  const { onAddWeighing } = useContext(WeighingsContext);
+  const { onSuccessAlert, onErrorAlert } = useContext(NotificationsContext);
 
   const [weight, setWeight] = useState('');
   const [datetime, setDateTime] = useState(formatDateTimeOrGetNow);
@@ -33,20 +33,21 @@ export const WeighingForm = () => {
   const handleWeightChange = e =>
     isWeightValid(`${e.target.value}`) && setWeight(e.target.value);
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
     setAjaxLoading(true);
-    let weighing = { weight, datetime };
-    createWeighing(token, JSON.stringify(weighing))
-      .then(res => {
-        weighing.id = res.data.id;
-        onAddWeighing({ ...weighing, weight: +weighing.weight });
-        setWeight('');
-        setDateTime(formatDateTimeOrGetNow);
-        onSuccessAlert('Weighing added!');
-      })
-      .catch(err => onErrorAlert(err))
-      .finally(setAjaxLoading(false));
+    try {
+      let weighing = { weight, datetime };
+      const res = await createWeighing(token, JSON.stringify(weighing));
+      weighing.id = res.data.id;
+      onAddWeighing({ ...weighing, weight: +weighing.weight });
+      setWeight('');
+      setDateTime(formatDateTimeOrGetNow);
+      onSuccessAlert('Weighing added!');
+    } catch (err) {
+      onErrorAlert(err);
+    }
+    setAjaxLoading(false);
   };
 
   const styles = {
