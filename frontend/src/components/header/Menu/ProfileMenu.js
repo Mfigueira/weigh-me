@@ -3,7 +3,7 @@ import { withStyles, Button, Menu, MenuItem } from '@material-ui/core';
 import user from '../../../assets/img/user.svg';
 import classes from './ProfileMenu.module.scss';
 import ProfileSkeleton from './ProfileSkeleton';
-import { getProfile } from '../../../util/requests';
+import { getProfile } from '../../../util/http';
 import { NotificationsContext } from '../../../store/NotificationsContext';
 import { AuthContext } from '../../../store/AuthContext';
 

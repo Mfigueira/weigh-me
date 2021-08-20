@@ -16,7 +16,7 @@ import {
   extractSecsFromTime,
   isWeightValid,
 } from '../../../util/helpers';
-import { createWeighing } from '../../../util/requests';
+import { createWeighing } from '../../../util/http';
 import { NotificationsContext } from '../../../store/NotificationsContext';
 import { AuthContext } from '../../../store/AuthContext';
 import { WeighingsContext } from '../../../store/WeighingsContext';

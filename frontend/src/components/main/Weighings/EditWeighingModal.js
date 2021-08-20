@@ -12,7 +12,7 @@ import {
   TextField,
 } from '@material-ui/core';
 import { extractSecsFromTime, isWeightValid } from '../../../util/helpers';
-import { updateWeighing, deleteWeighing } from '../../../util/requests';
+import { updateWeighing, deleteWeighing } from '../../../util/http';
 import { NotificationsContext } from '../../../store/NotificationsContext';
 import { AuthContext } from '../../../store/AuthContext';
 import { WeighingsContext } from '../../../store/WeighingsContext';

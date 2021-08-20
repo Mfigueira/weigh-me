@@ -3,7 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import WeighingForm from './WeighingForm';
 import WeighingsGrid from './WeighingsGrid';
 import WeighingsChart from './WeighingsChart';
-import { getWeighings } from '../../../util/requests';
+import { getWeighings } from '../../../util/http';
 import { NotificationsContext } from '../../../store/NotificationsContext';
 import { AuthContext } from '../../../store/AuthContext';
 import { WeighingsContext } from '../../../store/WeighingsContext';

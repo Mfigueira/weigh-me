@@ -4,7 +4,7 @@ import key from '../../../assets/img/key.svg';
 import { useContext, useState } from 'react';
 import { TextField, Grid, Button, CircularProgress } from '@material-ui/core';
 import { isPasswordValid, isUsernameValid } from '../../../util/helpers';
-import { loginUser } from '../../../util/requests';
+import { loginUser } from '../../../util/http';
 import { AuthContext } from '../../../store/AuthContext';
 import { NotificationsContext } from '../../../store/NotificationsContext';
 

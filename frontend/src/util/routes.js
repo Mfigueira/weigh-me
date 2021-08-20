@@ -1,4 +1,4 @@
-export const navTabs = [
+export const routes = [
   {
     path: '/',
     tab: 0,
