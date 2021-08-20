@@ -1,12 +1,12 @@
 import os
-from flask import Flask, request, jsonify, send_from_directory
+from flask import Flask, request, jsonify, render_template, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, JWTManager
 from datetime import datetime
 from helpers import new_weighing_dict, is_username_valid, is_password_valid, is_weight_valid, is_datetime_valid
 
 
-app = Flask(__name__, static_url_path='', static_folder='../frontend/build')
+app = Flask(__name__)
 app.config.from_object(os.environ['APP_SETTINGS'])
 jwt = JWTManager(app)
 db = SQLAlchemy(app)
@@ -24,14 +24,14 @@ from models import Person, Weighing
 # db.create_all()
 
 
-@app.route('/', defaults={'path':''})
-def serve(path):
-    return send_from_directory(app.static_folder,'index.html')
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 
 @app.errorhandler(404)
 def not_found_redirect(error):
-    return send_from_directory(app.static_folder,'index.html')
+    return redirect(url_for('index'))
 
 
 @app.route('/api/login', methods=['POST'])
@@ -72,6 +72,43 @@ def register():
 
     access_token = create_access_token(identity=new_person.id)
     return jsonify(access_token=access_token)
+    
+
+@app.route('/api/profile')
+@jwt_required()
+def get_profile():
+    try:
+        user_id = get_jwt_identity()
+        person = Person.query.filter_by(id=user_id).one_or_none()
+        return jsonify(
+            name=person.name,
+            height=person.height,
+            target=person.target,
+            email=person.email,
+        ), 200
+    except:
+        return jsonify(msg='Could not get profile data.'), 500
+
+
+@app.route('/api/weighings')
+@jwt_required()
+def get_weighings():
+    try:
+        user_id = get_jwt_identity()
+        db_weighings = Weighing.query.filter_by(person_id=user_id).order_by(Weighing.datetime.desc()).all()
+        weighings = []
+        if db_weighings:
+            for weighing in db_weighings:
+                weighings.append(
+                    new_weighing_dict(
+                        weighing.id,
+                        float(weighing.weight), 
+                        weighing.datetime.isoformat()
+                    )
+                )
+        return jsonify(weighings), 200
+    except:
+        return jsonify(msg='Could not get weighings.'), 500
 
 
 @app.route('/api/add_weighing', methods=['POST'])
@@ -143,43 +180,6 @@ def delete_weighing():
 
     return jsonify(msg='Weighing deleted.'), 200
 
-
-@app.route('/api/weighings')
-@jwt_required()
-def get_weighings():
-    try:
-        user_id = get_jwt_identity()
-        db_weighings = Weighing.query.filter_by(person_id=user_id).order_by(Weighing.datetime.desc()).all()
-        weighings = []
-        if db_weighings:
-            for weighing in db_weighings:
-                weighings.append(
-                    new_weighing_dict(
-                        weighing.id,
-                        float(weighing.weight), 
-                        weighing.datetime.isoformat()
-                    )
-                )
-        return jsonify(weighings), 200
-    except:
-        return jsonify(msg='Could not get weighings.'), 500
-
-
-@app.route('/api/profile')
-@jwt_required()
-def get_profile():
-    try:
-        user_id = get_jwt_identity()
-        person = Person.query.filter_by(id=user_id).one_or_none()
-        return jsonify(
-            name=person.name,
-            height=person.height,
-            target=person.target,
-            email=person.email,
-        ), 200
-    except:
-        return jsonify(msg='Could not get profile data.'), 500
-    
 
 if __name__ == '__main__':
     app.run()
