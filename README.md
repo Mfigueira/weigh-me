@@ -127,11 +127,6 @@ Finally, init the React App from the frontend folder:
   $ npm start
 ```
 
-And change API_BASE_URL constant in frontend/src/util/helpers.js:
-
-// LOCAL URL
-// const API_BASE_URL = 'http://localhost:5000/api';
-
 ## Can I see it? Can I use it??
 
 OF COURSE! Here's the link to the app: [WeighMe](https://weighme.herokuapp.com/).
