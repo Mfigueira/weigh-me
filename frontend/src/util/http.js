@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const API_BASE_URL =
   process.env.NODE_ENV === 'production'
-    ? 'https://weighme.herokuapp.com/api'
+    ? 'https://weighme-api.herokuapp.com/api'
     : 'http://localhost:5000/api';
 
 const HTTP_HEADERS = {
