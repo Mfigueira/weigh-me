@@ -5,7 +5,7 @@ const API_BASE_URL =
     ? process.env.API_PROD_URL
     : 'http://localhost:5000/api';
 
-console.log(process.env.NODE_ENV, process.env.API_PROD_URL);
+console.log(process.env.NODE_ENV, process.env);
 
 const HTTP_HEADERS = {
   headers: {
