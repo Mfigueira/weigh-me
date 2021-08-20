@@ -5,7 +5,7 @@ import WeighingsGrid from './WeighingsGrid';
 import WeighingsChart from './WeighingsChart';
 import { getWeighings } from '../../../util/http';
 import { NotificationsContext } from '../../../store/NotificationsContext';
-import { AuthContext } from '../../../store/AuthContext';
+import { AuthContext } from '../../../store/authContext';
 import { WeighingsContext } from '../../../store/WeighingsContext';
 
 const Weighings = () => {

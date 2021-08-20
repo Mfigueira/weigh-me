@@ -5,7 +5,7 @@ import { useContext, useState } from 'react';
 import { TextField, Grid, Button, CircularProgress } from '@material-ui/core';
 import { isPasswordValid, isUsernameValid } from '../../../util/helpers';
 import { loginUser } from '../../../util/http';
-import { AuthContext } from '../../../store/AuthContext';
+import { AuthContext } from '../../../store/authContext';
 import { NotificationsContext } from '../../../store/NotificationsContext';
 
 const LoginForm = () => {

@@ -1,24 +1,38 @@
 import React, { useCallback, useState } from 'react';
 
-const DEFAULT_ALERT = {
+interface Alert {
+  open: boolean;
+  message: string;
+  severity: string;
+}
+
+interface NotificationsContextObj {
+  alert: Alert | {};
+  onCloseAlert: () => void;
+  onSuccessAlert: (message: string) => void;
+  onErrorAlert: (err: string) => void;
+}
+
+export const NotificationsContext =
+  React.createContext<NotificationsContextObj>({
+    alert: {},
+    onCloseAlert: () => {},
+    onSuccessAlert: () => {},
+    onErrorAlert: () => {},
+  });
+
+const defaultAlert: Alert = {
   open: false,
   message: '',
   severity: 'success',
 };
 
-export const NotificationsContext = React.createContext({
-  alert: {},
-  onCloseAlert: () => {},
-  onSuccessAlert: () => {},
-  onErrorAlert: () => {},
-});
-
-export const NotificationsContextProvider = ({ children }) => {
-  const [alert, setAlert] = useState(DEFAULT_ALERT);
+export const NotificationsContextProvider: React.FC = ({ children }) => {
+  const [alert, setAlert] = useState(defaultAlert);
 
   const handleCloseAlert = useCallback(
     () =>
-      setAlert(alert => ({
+      setAlert((alert) => ({
         ...alert,
         open: false,
       })),
@@ -26,7 +40,7 @@ export const NotificationsContextProvider = ({ children }) => {
   );
 
   const handleSuccessAlert = useCallback(
-    message => {
+    (message) => {
       handleCloseAlert();
       setTimeout(() => {
         setAlert({
@@ -40,7 +54,7 @@ export const NotificationsContextProvider = ({ children }) => {
   );
 
   const handleErrorAlert = useCallback(
-    err => {
+    (err) => {
       console.error(err);
       handleCloseAlert();
       setTimeout(() => {

@@ -14,7 +14,7 @@ import {
 import { extractSecsFromTime, isWeightValid } from '../../../util/helpers';
 import { updateWeighing, deleteWeighing } from '../../../util/http';
 import { NotificationsContext } from '../../../store/NotificationsContext';
-import { AuthContext } from '../../../store/AuthContext';
+import { AuthContext } from '../../../store/authContext';
 import { WeighingsContext } from '../../../store/WeighingsContext';
 import classes from './EditWeighingModal.module.scss';
 

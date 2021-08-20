@@ -5,7 +5,7 @@ import classes from './ProfileMenu.module.scss';
 import ProfileSkeleton from './ProfileSkeleton';
 import { getProfile } from '../../../util/http';
 import { NotificationsContext } from '../../../store/NotificationsContext';
-import { AuthContext } from '../../../store/AuthContext';
+import { AuthContext } from '../../../store/authContext';
 
 const StyledMenu = withStyles({
   paper: {

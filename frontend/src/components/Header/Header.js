@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { AuthContext } from '../../store/AuthContext';
+import { AuthContext } from '../../store/authContext';
 import { AppBar, Toolbar } from '@material-ui/core';
 import Navbar from './Navbar';
 import ProfileMenu from './Menu/ProfileMenu';

@@ -17,9 +17,9 @@ import {
   isWeightValid,
 } from '../../../util/helpers';
 import { createWeighing } from '../../../util/http';
-import { NotificationsContext } from '../../../store/NotificationsContext';
-import { AuthContext } from '../../../store/AuthContext';
-import { WeighingsContext } from '../../../store/WeighingsContext';
+import { NotificationsContext } from '../../../store/notificationsContext';
+import { AuthContext } from '../../../store/authContext';
+import { WeighingsContext } from '../../../store/weighingsContext';
 
 const WeighingForm = () => {
   const { token } = useContext(AuthContext);
