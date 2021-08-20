@@ -1,7 +1,42 @@
+@font-face {
+  font-family: 'Maven Pro';
+  src: url('./MavenPro-VariableFont_wght.ttf');
+}
+
 *,
 *::before,
 *::after {
   margin: 0;
   padding: 0;
   box-sizing: inherit;
+}
+
+html {
+  font-size: 62.5%;
+  background-image: linear-gradient(#a4dad2, #bce08a);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  min-height: 100%;
+  font-size: 100%;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Maven Pro', sans-serif;
+  text-align: center;
+  min-width: 320px;
+  padding-top: 20px;
+}
+
+h1, h2, h3, p {
+  margin-bottom: 20px;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  border-top: 1px solid grey;
+  padding-top: 20px;
 }
