@@ -30,15 +30,13 @@ export const AuthContextProvider: React.FC = ({ children }) => {
     setToken(null);
   }, []);
 
+  const ctxValue = {
+    token,
+    onLogin: handleLogin,
+    onLogout: handleLogout,
+  };
+
   return (
-    <AuthContext.Provider
-      value={{
-        token,
-        onLogin: handleLogin,
-        onLogout: handleLogout,
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={ctxValue}>{children}</AuthContext.Provider>
   );
 };

@@ -6,7 +6,7 @@ import { useContext, useState } from 'react';
 import { TextField, Button, Grid, CircularProgress } from '@material-ui/core';
 import { isPasswordValid, isUsernameValid } from '../../../util/helpers';
 import { registerUser } from '../../../util/http';
-import { AuthContext } from '../../../store/authContext';
+import { AuthContext } from '../../../store/AuthContext';
 import { NotificationsContext } from '../../../store/NotificationsContext';
 
 const RegisterForm = () => {

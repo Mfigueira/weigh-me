@@ -1,6 +1,6 @@
 import classes from './Main.module.scss';
 import { useContext } from 'react';
-import { AuthContext } from '../../store/authContext';
+import { AuthContext } from '../../store/AuthContext';
 import Weighings from './Weighings/Weighings';
 import AuthForms from './AuthForms/AuthForms';
 import { WeighingsContextProvider } from '../../store/WeighingsContext';

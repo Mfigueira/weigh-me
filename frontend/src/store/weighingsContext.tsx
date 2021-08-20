@@ -1,45 +1,59 @@
-import React, { useState } from 'react';
+import React, { useState, Dispatch, SetStateAction } from 'react';
 
-export const WeighingsContext = React.createContext({
+interface Weighing {
+  id?: number;
+  weight: number;
+  datetime: string;
+}
+
+interface WeighingsContextObj {
+  weighings: Weighing[];
+  setWeighings: Dispatch<SetStateAction<Weighing[]>>;
+  onAddWeighing: (weighing: Weighing) => void;
+  onEditWeighing: (weighing: Weighing) => void;
+  onRemoveWeighing: (id: number) => void;
+}
+
+export const WeighingsContext = React.createContext<WeighingsContextObj>({
   weighings: [],
-  setWeighings: () => {},
+  setWeighings: () => [],
   onAddWeighing: () => {},
   onEditWeighing: () => {},
   onRemoveWeighing: () => {},
 });
 
-export const WeighingsContextProvider = ({ children }) => {
-  const [weighings, setWeighings] = useState([]);
+export const WeighingsContextProvider: React.FC = ({ children }) => {
+  const [weighings, setWeighings] = useState<Weighing[]>([]);
 
-  const handleAddWeighing = weighing =>
-    setWeighings(currWeighings =>
+  const handleAddWeighing = (weighing: Weighing) =>
+    setWeighings((currWeighings) =>
       [...currWeighings, weighing].sort(
-        (a, b) => new Date(b.datetime) - new Date(a.datetime)
+        (a, b) => Number(new Date(b.datetime)) - Number(new Date(a.datetime))
       )
     );
 
-  const handleEditWeighing = weighing =>
-    setWeighings(currWeighings =>
-      currWeighings.map(currWeighing =>
+  const handleEditWeighing = (weighing: Weighing) =>
+    setWeighings((currWeighings) =>
+      currWeighings.map((currWeighing) =>
         currWeighing.id === weighing.id ? weighing : currWeighing
       )
     );
 
-  const handleRemoveWeighing = id =>
-    setWeighings(currWeighings =>
-      currWeighings.filter(currWeighing => currWeighing.id !== id)
+  const handleRemoveWeighing = (id: number) =>
+    setWeighings((currWeighings) =>
+      currWeighings.filter((currWeighing) => currWeighing.id !== id)
     );
 
+  const ctxValue = {
+    weighings,
+    setWeighings,
+    onAddWeighing: handleAddWeighing,
+    onEditWeighing: handleEditWeighing,
+    onRemoveWeighing: handleRemoveWeighing,
+  };
+
   return (
-    <WeighingsContext.Provider
-      value={{
-        weighings,
-        setWeighings: setWeighings,
-        onAddWeighing: handleAddWeighing,
-        onEditWeighing: handleEditWeighing,
-        onRemoveWeighing: handleRemoveWeighing,
-      }}
-    >
+    <WeighingsContext.Provider value={ctxValue}>
       {children}
     </WeighingsContext.Provider>
   );

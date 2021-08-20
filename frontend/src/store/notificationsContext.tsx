@@ -68,15 +68,15 @@ export const NotificationsContextProvider: React.FC = ({ children }) => {
     [handleCloseAlert]
   );
 
+  const ctxValue = {
+    alert,
+    onCloseAlert: handleCloseAlert,
+    onSuccessAlert: handleSuccessAlert,
+    onErrorAlert: handleErrorAlert,
+  };
+
   return (
-    <NotificationsContext.Provider
-      value={{
-        alert,
-        onCloseAlert: handleCloseAlert,
-        onSuccessAlert: handleSuccessAlert,
-        onErrorAlert: handleErrorAlert,
-      }}
-    >
+    <NotificationsContext.Provider value={ctxValue}>
       {children}
     </NotificationsContext.Provider>
   );
