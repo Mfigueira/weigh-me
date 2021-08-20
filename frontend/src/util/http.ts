@@ -11,7 +11,7 @@ const HTTP_HEADERS = {
   },
 };
 
-const getWithToken = (token, endpoint) =>
+const getWithToken = (token: string, endpoint: string) =>
   axios.get(API_BASE_URL + endpoint, {
     headers: {
       ...HTTP_HEADERS.headers,
@@ -19,7 +19,7 @@ const getWithToken = (token, endpoint) =>
     },
   });
 
-const postWithToken = (token, data, endpoint) =>
+const postWithToken = (token: string, data: any, endpoint: string) =>
   axios.post(API_BASE_URL + endpoint, data, {
     headers: {
       ...HTTP_HEADERS.headers,
@@ -27,25 +27,26 @@ const postWithToken = (token, data, endpoint) =>
     },
   });
 
-const postUser = (user, endpoint) =>
+const postUser = (user: string, endpoint: string) =>
   axios.post(API_BASE_URL + endpoint, user, HTTP_HEADERS);
 
-export const getProfile = (token) => getWithToken(token, '/profile');
+export const getProfile = (token: string) => getWithToken(token, '/profile');
 
-export const updateProfile = (token, profile) =>
+export const updateProfile = (token: string, profile: any) =>
   postWithToken(token, profile, '/profile');
 
-export const getWeighings = (token) => getWithToken(token, '/weighings');
+export const getWeighings = (token: string) =>
+  getWithToken(token, '/weighings');
 
-export const createWeighing = (token, weighing) =>
+export const createWeighing = (token: string, weighing: any) =>
   postWithToken(token, weighing, '/add_weighing');
 
-export const updateWeighing = (token, weighing) =>
+export const updateWeighing = (token: string, weighing: any) =>
   postWithToken(token, weighing, '/update_weighing');
 
-export const deleteWeighing = (token, weighing) =>
+export const deleteWeighing = (token: string, weighing: any) =>
   postWithToken(token, weighing, '/delete_weighing');
 
-export const loginUser = (user) => postUser(user, '/login');
+export const loginUser = (user: any) => postUser(user, '/login');
 
-export const registerUser = (user) => postUser(user, '/register');
+export const registerUser = (user: any) => postUser(user, '/register');

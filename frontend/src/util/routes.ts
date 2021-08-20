@@ -1,4 +1,9 @@
-export const routes = [
+interface Route {
+  path: string;
+  tab: number;
+}
+
+export const routes: Route[] = [
   {
     path: '/',
     tab: 0,
