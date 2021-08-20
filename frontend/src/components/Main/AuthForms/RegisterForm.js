@@ -117,7 +117,7 @@ const RegisterForm = () => {
           {ajaxLoading ? (
             <CircularProgress style={{ height: '25px', width: '25px' }} />
           ) : (
-            'Sign Un'
+            'Sign Up'
           )}
         </Button>
       </form>
