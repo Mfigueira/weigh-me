@@ -21,7 +21,7 @@ export const Main = () => {
     <main className={classes.main} style={{ paddingTop: setPaddingTop() }}>
       {token ? (
         <WeighingsContextProvider>
-          <Weighings token={token} />
+          <Weighings />
         </WeighingsContextProvider>
       ) : (
         <AuthForms />
