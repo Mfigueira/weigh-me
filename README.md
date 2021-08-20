@@ -12,10 +12,9 @@ Here's a short video [presentation](https://www.youtube.com/watch?v=r1dwkZt882o)
 
 Project stack:
 
-- Backend/API: Python with Flask
-- DB: PostgreSQL
-- Frontend: React and Material-UI
-- Deployment: Heroku
+- Backend (API): Python with Flask - Deployed to Heroku
+- DB: PostgreSQL (remotely integrated in Heroku)
+- Frontend: React - Deployed to Vercel
 
 ## How does it work?
 
@@ -129,6 +128,10 @@ Finally, init the React App from the frontend folder:
 
 ## Can I see it? Can I use it??
 
-OF COURSE! Here's the link to the app: [WeighMe](https://weighme.herokuapp.com/).
+OF COURSE!
+
+Here's the link to the latest version of the App: [WeighMe](https://weighme.vercel.app/) (React frontend deployed in Vercel, decoupled from [the API](https://weighme-api.herokuapp.com/) in Heroku).
 
 Enjoy your Weighings!
+
+_And in case you were using the first version, [here it is](https://weighme.herokuapp.com/) deployed altogether in Heroku._
