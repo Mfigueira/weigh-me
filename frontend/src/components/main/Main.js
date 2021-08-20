@@ -1,11 +1,11 @@
 import classes from './Main.module.scss';
 import { useContext } from 'react';
 import { AuthContext } from '../../store/AuthContext';
-import { Weighings } from './Weighings/Weighings';
-import { AuthForms } from './AuthForms/AuthForms';
+import Weighings from './Weighings/Weighings';
+import AuthForms from './AuthForms/AuthForms';
 import { WeighingsContextProvider } from '../../store/WeighingsContext';
 
-export const Main = () => {
+const Main = () => {
   const { token } = useContext(AuthContext);
 
   const setPaddingTop = () => {
@@ -29,3 +29,5 @@ export const Main = () => {
     </main>
   );
 };
+
+export default Main;

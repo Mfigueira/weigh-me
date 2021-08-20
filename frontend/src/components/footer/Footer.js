@@ -1,6 +1,6 @@
 import classes from './Footer.module.scss';
 
-export const Footer = () => (
+const Footer = () => (
   <footer className={classes.footer}>
     <p>Developed by Manuel Figueira - 2021</p>
     <p>
@@ -15,3 +15,5 @@ export const Footer = () => (
     </p>
   </footer>
 );
+
+export default Footer;

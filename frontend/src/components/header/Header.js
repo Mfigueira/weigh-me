@@ -1,13 +1,13 @@
 import { useContext } from 'react';
 import { AuthContext } from '../../store/AuthContext';
-import { Navbar } from './Navbar';
-import { ProfileMenu } from './Menu/ProfileMenu';
-import { AuthenticationMenu } from './Menu/AuthenticationMenu';
 import { AppBar, Toolbar } from '@material-ui/core';
+import Navbar from './Navbar';
+import ProfileMenu from './Menu/ProfileMenu';
+import AuthenticationMenu from './Menu/AuthenticationMenu';
 import classes from './Header.module.scss';
 import logo from '../../assets/img/scale.svg';
 
-export const Header = () => {
+const Header = () => {
   const { token } = useContext(AuthContext);
 
   return (
@@ -25,3 +25,5 @@ export const Header = () => {
     </div>
   );
 };
+
+export default Header;

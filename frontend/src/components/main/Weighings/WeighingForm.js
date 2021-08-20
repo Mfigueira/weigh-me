@@ -21,7 +21,7 @@ import { NotificationsContext } from '../../../store/NotificationsContext';
 import { AuthContext } from '../../../store/AuthContext';
 import { WeighingsContext } from '../../../store/WeighingsContext';
 
-export const WeighingForm = () => {
+const WeighingForm = () => {
   const { token } = useContext(AuthContext);
   const { onAddWeighing } = useContext(WeighingsContext);
   const { onSuccessAlert, onErrorAlert } = useContext(NotificationsContext);
@@ -30,10 +30,10 @@ export const WeighingForm = () => {
   const [datetime, setDateTime] = useState(formatDateTimeOrGetNow);
   const [ajaxLoading, setAjaxLoading] = useState(false);
 
-  const handleWeightChange = e =>
+  const handleWeightChange = (e) =>
     isWeightValid(`${e.target.value}`) && setWeight(e.target.value);
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setAjaxLoading(true);
     try {
@@ -89,7 +89,7 @@ export const WeighingForm = () => {
                 autoComplete="off"
                 placeholder="0.00"
                 onChange={handleWeightChange}
-                onKeyDown={e => e.key === 'e' && e.preventDefault()}
+                onKeyDown={(e) => e.key === 'e' && e.preventDefault()}
                 endAdornment={
                   <InputAdornment position="end">
                     <span
@@ -117,7 +117,7 @@ export const WeighingForm = () => {
               InputLabelProps={{
                 shrink: true,
               }}
-              onChange={e => setDateTime(extractSecsFromTime(e.target.value))}
+              onChange={(e) => setDateTime(extractSecsFromTime(e.target.value))}
             />
           </div>
           <Fab
@@ -145,3 +145,5 @@ export const WeighingForm = () => {
     </>
   );
 };
+
+export default WeighingForm;

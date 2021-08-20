@@ -1,6 +1,7 @@
 import './WeighingsGrid.scss';
-import { EditWeighingButton } from './EditWeighingButton';
-import { NoWeighingsOverlay } from '../Custom/NoWeighingsOverlay';
+import { useContext } from 'react';
+import EditWeighingButton from './EditWeighingButton';
+import NoWeighingsOverlay from '../Custom/NoWeighingsOverlay';
 import { monthsFilterOperators } from '../Custom/MonthsFilter.js';
 import {
   DataGrid,
@@ -12,13 +13,12 @@ import {
   getMonthFromDate,
   formatDateTimeOrGetNow,
 } from '../../../util/helpers';
-import { useContext } from 'react';
 import { WeighingsContext } from '../../../store/WeighingsContext';
 
-export const WeighingsGrid = () => {
+const WeighingsGrid = () => {
   const { weighings } = useContext(WeighingsContext);
 
-  const rows = weighings.map(weighing => ({
+  const rows = weighings.map((weighing) => ({
     ...weighing,
     datetime: new Date(weighing.datetime),
     month: getMonthFromDate(weighing.datetime),
@@ -46,7 +46,7 @@ export const WeighingsGrid = () => {
       headerName: 'Weight (kg)',
       flex: 1,
       headerClassName: 'weighing-grid-th',
-      renderCell: params => (
+      renderCell: (params) => (
         <div
           style={{ textAlign: 'center', width: '100%', position: 'relative' }}
         >
@@ -93,3 +93,5 @@ export const WeighingsGrid = () => {
     </>
   );
 };
+
+export default WeighingsGrid;

@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { Button } from '@material-ui/core';
-import { EditWeighingModal } from './EditWeighingModal';
+import EditWeighingModal from './EditWeighingModal';
 import classes from './EditWeighingButton.module.scss';
 import editIcon from '../../../assets/img/edit.svg';
 
-export const EditWeighingButton = ({ id, weight, datetime }) => {
+const EditWeighingButton = ({ id, weight, datetime }) => {
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(true);
@@ -30,3 +30,5 @@ export const EditWeighingButton = ({ id, weight, datetime }) => {
     </>
   );
 };
+
+export default EditWeighingButton;

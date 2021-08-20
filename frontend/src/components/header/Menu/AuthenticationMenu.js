@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { Button, ButtonGroup } from '@material-ui/core';
 import classes from './AuthenticationMenu.module.scss';
 
-export const AuthenticationMenu = () => (
+const AuthenticationMenu = () => (
   <ButtonGroup variant="text" aria-label="authentication">
     <Button className={classes.btn}>
       <Link to="/" className={classes.link}>
@@ -16,3 +16,5 @@ export const AuthenticationMenu = () => (
     </Button>
   </ButtonGroup>
 );
+
+export default AuthenticationMenu;

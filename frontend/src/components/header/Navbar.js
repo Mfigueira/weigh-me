@@ -3,12 +3,12 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { Tabs, Tab } from '@material-ui/core';
 import { getRouteByPath, getRouteByTab } from '../../util/helpers';
 
-export const Navbar = () => {
+const Navbar = () => {
   const history = useHistory();
   const location = useLocation();
   const [tabValue, setTabValue] = useState(getRouteByPath(location.pathname));
 
-  const a11yProps = index => {
+  const a11yProps = (index) => {
     return {
       id: `full-width-tab-${index}`,
       'aria-controls': `full-width-tabpanel-${index}`,
@@ -36,3 +36,5 @@ export const Navbar = () => {
     </nav>
   );
 };
+
+export default Navbar;

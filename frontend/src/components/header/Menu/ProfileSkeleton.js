@@ -1,7 +1,7 @@
 import { Avatar } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
 
-export const ProfileSkeleton = () => (
+const ProfileSkeleton = () => (
   <div style={{ display: 'flex', alignItems: 'center' }}>
     <Skeleton
       width="26px"
@@ -25,3 +25,5 @@ export const ProfileSkeleton = () => (
     />
   </div>
 );
+
+export default ProfileSkeleton;

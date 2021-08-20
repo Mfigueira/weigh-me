@@ -13,14 +13,14 @@ import {
 } from 'victory';
 import { WeighingsContext } from '../../../store/WeighingsContext';
 
-export const WeighingsChart = () => {
+const WeighingsChart = () => {
   const { weighings } = useContext(WeighingsContext);
 
   const [selectedDomain, setSelectedDomain] = useState({});
   const [zoomDomain, setZoomDomain] = useState({});
   const [width, setWidth] = useState(window.innerWidth);
 
-  const updateWidth = e => setWidth(e.target.innerWidth);
+  const updateWidth = (e) => setWidth(e.target.innerWidth);
 
   useEffect(() => {
     window.addEventListener('resize', updateWidth);
@@ -28,13 +28,13 @@ export const WeighingsChart = () => {
     return () => window.removeEventListener('resize', updateWidth);
   }, []);
 
-  const data = weighings.map(weighing => ({
+  const data = weighings.map((weighing) => ({
     x: new Date(weighing.datetime),
     y: weighing.weight,
   }));
 
-  const handleZoom = domain => setSelectedDomain(domain);
-  const handleBrush = domain => setZoomDomain(domain);
+  const handleZoom = (domain) => setSelectedDomain(domain);
+  const handleBrush = (domain) => setZoomDomain(domain);
 
   return (
     <>
@@ -133,3 +133,5 @@ export const WeighingsChart = () => {
     </>
   );
 };
+
+export default WeighingsChart;

@@ -5,9 +5,9 @@ import MuiAlert from '@material-ui/lab/Alert';
 import { useContext } from 'react';
 import { NotificationsContext } from '../../../store/NotificationsContext';
 
-const Alert = props => <MuiAlert elevation={6} variant="filled" {...props} />;
+const Alert = (props) => <MuiAlert elevation={6} variant="filled" {...props} />;
 
-export const AppNotification = () => {
+const AppNotification = () => {
   const { alert, onCloseAlert } = useContext(NotificationsContext);
 
   const handleClose = (_, reason) => {
@@ -40,3 +40,5 @@ export const AppNotification = () => {
     document.getElementById('modals-root')
   );
 };
+
+export default AppNotification;

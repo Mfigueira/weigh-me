@@ -18,7 +18,7 @@ import { AuthContext } from '../../../store/AuthContext';
 import { WeighingsContext } from '../../../store/WeighingsContext';
 import classes from './EditWeighingModal.module.scss';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   modal: {
     display: 'flex',
     alignItems: 'center',
@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export const EditWeighingModal = ({ id, weight, datetime, open, onClose }) => {
+const EditWeighingModal = ({ id, weight, datetime, open, onClose }) => {
   const { token } = useContext(AuthContext);
   const { onEditWeighing, onRemoveWeighing } = useContext(WeighingsContext);
   const { onSuccessAlert, onErrorAlert } = useContext(NotificationsContext);
@@ -52,14 +52,14 @@ export const EditWeighingModal = ({ id, weight, datetime, open, onClose }) => {
   const [updateLoading, setUpdateLoading] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
 
-  const handleWeightChange = e => {
+  const handleWeightChange = (e) => {
     if (isWeightValid(`${e.target.value}`)) {
       setEditWeight(e.target.value);
       !editingWeight && setEditingWeight(true);
     }
   };
 
-  const handleDatetimeChange = e => {
+  const handleDatetimeChange = (e) => {
     setEditDateTime(extractSecsFromTime(e.target.value));
     !editingDateTime && setEditingDateTime(true);
   };
@@ -109,7 +109,7 @@ export const EditWeighingModal = ({ id, weight, datetime, open, onClose }) => {
       <Fade in={open}>
         <div className={matClasses.paper}>
           <h2>Edit Weighing</h2>
-          <form onSubmit={e => e.preventDefault()}>
+          <form onSubmit={(e) => e.preventDefault()}>
             <div style={{ marginBottom: '1.2rem', textAlign: 'center' }}>
               <FormControl>
                 <Input
@@ -120,7 +120,7 @@ export const EditWeighingModal = ({ id, weight, datetime, open, onClose }) => {
                   autoComplete="off"
                   placeholder="0.00"
                   onChange={handleWeightChange}
-                  onKeyDown={e => e.key === 'e' && e.preventDefault()}
+                  onKeyDown={(e) => e.key === 'e' && e.preventDefault()}
                   endAdornment={
                     <InputAdornment position="end">
                       <span style={{ fontSize: '1rem', marginTop: '2rem' }}>
@@ -182,3 +182,5 @@ export const EditWeighingModal = ({ id, weight, datetime, open, onClose }) => {
     </Modal>
   );
 };
+
+export default EditWeighingModal;

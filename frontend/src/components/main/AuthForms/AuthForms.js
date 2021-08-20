@@ -1,8 +1,8 @@
 import { Switch, Route, Redirect } from 'react-router-dom';
-import { LoginForm } from './LoginForm';
-import { RegisterForm } from './RegisterForm';
+import LoginForm from './LoginForm';
+import RegisterForm from './RegisterForm';
 
-export const AuthForms = () => {
+const AuthForms = () => {
   return (
     <Switch>
       <Route path="/" exact>
@@ -15,3 +15,5 @@ export const AuthForms = () => {
     </Switch>
   );
 };
+
+export default AuthForms;

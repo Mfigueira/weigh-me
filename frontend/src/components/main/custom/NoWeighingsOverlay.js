@@ -1,7 +1,7 @@
 import alert from '../../../assets/img/alert.svg';
 import { GridOverlay } from '@material-ui/data-grid';
 
-export const NoWeighingsOverlay = () => (
+const NoWeighingsOverlay = () => (
   <GridOverlay style={{ display: 'flex', justifyContent: 'center' }}>
     <img
       src={alert}
@@ -11,3 +11,5 @@ export const NoWeighingsOverlay = () => (
     <i>No Weighings to show</i>
   </GridOverlay>
 );
+
+export default NoWeighingsOverlay;

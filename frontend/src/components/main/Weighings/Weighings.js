@@ -1,14 +1,14 @@
 import { useEffect, useContext } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import { WeighingForm } from './WeighingForm';
-import { WeighingsGrid } from './WeighingsGrid';
-import { WeighingsChart } from './WeighingsChart';
+import WeighingForm from './WeighingForm';
+import WeighingsGrid from './WeighingsGrid';
+import WeighingsChart from './WeighingsChart';
 import { getWeighings } from '../../../util/requests';
 import { NotificationsContext } from '../../../store/NotificationsContext';
 import { AuthContext } from '../../../store/AuthContext';
 import { WeighingsContext } from '../../../store/WeighingsContext';
 
-export const Weighings = () => {
+const Weighings = () => {
   const { onErrorAlert } = useContext(NotificationsContext);
   const { token, onLogout } = useContext(AuthContext);
   const { setWeighings } = useContext(WeighingsContext);
@@ -41,3 +41,5 @@ export const Weighings = () => {
     </Switch>
   );
 };
+
+export default Weighings;

@@ -8,7 +8,7 @@ import { loginUser } from '../../../util/requests';
 import { AuthContext } from '../../../store/AuthContext';
 import { NotificationsContext } from '../../../store/NotificationsContext';
 
-export const LoginForm = () => {
+const LoginForm = () => {
   const { onLogin } = useContext(AuthContext);
   const { onSuccessAlert, onErrorAlert } = useContext(NotificationsContext);
 
@@ -23,13 +23,13 @@ export const LoginForm = () => {
     },
   };
 
-  const handleUsernameChange = e =>
+  const handleUsernameChange = (e) =>
     isUsernameValid(e.target.value) && setUsername(e.target.value);
 
-  const handlePasswordChange = e =>
+  const handlePasswordChange = (e) =>
     isPasswordValid(e.target.value) && setPassword(e.target.value);
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setAjaxLoading(true);
     try {
@@ -97,3 +97,5 @@ export const LoginForm = () => {
     </section>
   );
 };
+
+export default LoginForm;
