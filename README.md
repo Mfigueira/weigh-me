@@ -1,4 +1,4 @@
-# WeighMe App
+# WeighMe App v2.0
 
 ## What is this?
 
@@ -134,4 +134,4 @@ Here's the link to the latest version of the App: [WeighMe](https://weighme.verc
 
 Enjoy your Weighings!
 
-_And in case you were using the first version, [here it is](https://weighme.herokuapp.com/) deployed altogether in Heroku._
+_If you were using the version 1.0, [here it is](https://weighme.herokuapp.com/), deployed altogether in Heroku - NOT MANTEINED -._
