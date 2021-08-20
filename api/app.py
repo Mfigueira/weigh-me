@@ -2,18 +2,23 @@ import os
 from flask import Flask, request, jsonify, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, JWTManager
-from flask_cors import CORS #comment this on deployment
 from datetime import datetime
 from helpers import new_weighing_dict, is_username_valid, is_password_valid, is_weight_valid, is_datetime_valid
 
 
 app = Flask(__name__, static_url_path='', static_folder='../frontend/build')
 app.config.from_object(os.environ['APP_SETTINGS'])
-CORS(app) #comment this on deployment
 jwt = JWTManager(app)
 db = SQLAlchemy(app)
 
+
+if os.environ.get('FLASK_ENV') == 'development':
+    from flask_cors import CORS
+    CORS(app)
+
+
 from models import Person, Weighing
+
 
 # Create DB tables ONLY the first time
 # db.create_all()

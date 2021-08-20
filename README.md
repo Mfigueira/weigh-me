@@ -108,13 +108,10 @@ To work with python, in the api folder of the project you need to create a virtu
   $ brew services stop postgresql
 ```
 
+- To create local DB:
+  Uncomment this line in **app.py**: db.create_all() >>> ONLY ONCE!! - THEN COMMENT OUT AGAIN
+
 4. To init dev environment:
-
-Uncomment this lines in **app.py**:
-
-- from flask_cors import CORS
-- CORS(app)
-- db.create_all() >>> ONLY ONCE TO CREATE LOCAL DB - THEN COMMENT OUT AGAIN!!
 
 In the api folder, run:
 
