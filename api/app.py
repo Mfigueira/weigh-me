@@ -2,6 +2,7 @@ import os
 from flask import Flask, request, jsonify, render_template, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, JWTManager
+from flask_cors import CORS
 from datetime import datetime
 from helpers import new_weighing_dict, is_username_valid, is_password_valid, is_weight_valid, is_datetime_valid
 
@@ -13,8 +14,9 @@ db = SQLAlchemy(app)
 
 
 if os.environ.get('FLASK_ENV') == 'development':
-    from flask_cors import CORS
     CORS(app)
+else:
+    CORS(app, origins=["https://weigh-me.vercel.app/"])
 
 
 from models import Person, Weighing
