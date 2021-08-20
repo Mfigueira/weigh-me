@@ -34,7 +34,7 @@ For local development it's required:
 
 1. Python virtual environment (https://docs.python-guide.org/dev/virtualenvs/).
 
-To work with python, in the root folder of the project you need to create a virtual environment to isolate dependencies from the rest of the machine.
+To work with python, in the api folder of the project you need to create a virtual environment to isolate dependencies from the rest of the machine.
 
 - Install virtualenv via pip which creates a 'venv/' dir or whatever you call it:
 
@@ -52,7 +52,7 @@ To work with python, in the root folder of the project you need to create a virt
 - Create a virtual environment for a project:
 
 ```bash
-  $ cd {{project_root}}
+  $ cd {{api_folder}}
   $ virtualenv venv
 ```
 
@@ -74,7 +74,7 @@ To work with python, in the root folder of the project you need to create a virt
   $ deactivate
 ```
 
-2. Create a .envrc file also on the root dir with configuration for environment variables, such as:
+2. Create a .envrc file also on the api folder with configuration for environment variables, such as:
 
 ```
   export FLASK_ENV=development
@@ -116,13 +116,13 @@ Uncomment this lines in **app.py**:
 - CORS(app)
 - db.create_all() >>> ONLY ONCE TO CREATE LOCAL DB - THEN COMMENT OUT AGAIN!!
 
-In the root folder, run:
+In the api folder, run:
 
 ```bash
   $ flask run
 ```
 
-Finally, init the Front End:
+Finally, init the React App from the frontend folder:
 
 ```bash
   $ cd frontend
@@ -130,7 +130,7 @@ Finally, init the Front End:
   $ npm start
 ```
 
-And change API_BASE_URL constant in _frontend/src/util/helpers.js_:
+And change API_BASE_URL constant in frontend/src/util/helpers.js:
 
 // LOCAL URL
 // const API_BASE_URL = 'http://localhost:5000/api';
