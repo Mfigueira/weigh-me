@@ -16,7 +16,7 @@ db = SQLAlchemy(app)
 if os.environ.get('FLASK_ENV') == 'development':
     CORS(app)
 else:
-    CORS(app, origins=["https://weigh-me.vercel.app/"])
+    CORS(app, origins=[os.environ.get('FRONTEND_PROD_URL')])
 
 
 from models import Person, Weighing
