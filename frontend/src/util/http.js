@@ -1,8 +1,10 @@
 import axios from 'axios';
 
 // LOCAL/PROD URL
-const API_BASE_URL = 'http://localhost:5000/api';
-// const API_BASE_URL = 'https://weighme.herokuapp.com/api';
+const API_BASE_URL =
+  process.env.NODE_ENV === 'production'
+    ? 'https://weighme.herokuapp.com/api'
+    : 'http://localhost:5000/api';
 
 const HTTP_HEADERS = {
   headers: {
@@ -29,12 +31,12 @@ const postWithToken = (token, data, endpoint) =>
 const postUser = (user, endpoint) =>
   axios.post(API_BASE_URL + endpoint, user, HTTP_HEADERS);
 
-export const getProfile = token => getWithToken(token, '/profile');
+export const getProfile = (token) => getWithToken(token, '/profile');
 
 export const updateProfile = (token, profile) =>
   postWithToken(token, profile, '/profile');
 
-export const getWeighings = token => getWithToken(token, '/weighings');
+export const getWeighings = (token) => getWithToken(token, '/weighings');
 
 export const createWeighing = (token, weighing) =>
   postWithToken(token, weighing, '/add_weighing');
@@ -45,6 +47,6 @@ export const updateWeighing = (token, weighing) =>
 export const deleteWeighing = (token, weighing) =>
   postWithToken(token, weighing, '/delete_weighing');
 
-export const loginUser = user => postUser(user, '/login');
+export const loginUser = (user) => postUser(user, '/login');
 
-export const registerUser = user => postUser(user, '/register');
+export const registerUser = (user) => postUser(user, '/register');
