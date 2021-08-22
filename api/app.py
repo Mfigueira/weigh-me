@@ -83,7 +83,7 @@ def get_profile():
         user_id = get_jwt_identity()
         person = Person.query.filter_by(id=user_id).one_or_none()
         return jsonify(
-            name=person.name,
+            username=person.name,
             height=person.height,
             target=person.target,
             email=person.email,

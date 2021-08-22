@@ -71,7 +71,7 @@ const ProfileMenu = () => {
         }}
       >
         <img src={user} className={classes.icon} alt="user" />
-        {profile.name}
+        {profile.username}
       </Button>
       <StyledMenu
         anchorEl={menuOpen}

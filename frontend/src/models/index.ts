@@ -3,3 +3,13 @@ export interface Weighing {
   weight: number;
   datetime: string;
 }
+
+export interface User {
+  username: string;
+  password: string;
+  confirmation?: string;
+}
+
+export interface Profile {
+  username: string;
+}
