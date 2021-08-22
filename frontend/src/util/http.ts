@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Weighing } from '../models';
 
 const API_BASE_URL =
   process.env.NODE_ENV === 'production'
@@ -38,14 +39,14 @@ export const updateProfile = (token: string, profile: any) =>
 export const getWeighings = (token: string) =>
   getWithToken(token, '/weighings');
 
-export const createWeighing = (token: string, weighing: any) =>
+export const createWeighing = (token: string, weighing: Weighing) =>
   postWithToken(token, weighing, '/add_weighing');
 
-export const updateWeighing = (token: string, weighing: any) =>
+export const updateWeighing = (token: string, weighing: Weighing) =>
   postWithToken(token, weighing, '/update_weighing');
 
-export const deleteWeighing = (token: string, weighing: any) =>
-  postWithToken(token, weighing, '/delete_weighing');
+export const deleteWeighing = (token: string, id: string) =>
+  postWithToken(token, id, '/delete_weighing');
 
 export const loginUser = (user: any) => postUser(user, '/login');
 

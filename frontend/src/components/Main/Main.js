@@ -1,8 +1,8 @@
 import classes from './Main.module.scss';
 import { useContext } from 'react';
 import { AuthContext } from '../../store/AuthContext';
-import Weighings from './Weighings/Weighings';
-import AuthForms from './AuthForms/AuthForms';
+import Weighings from './weighings/Weighings';
+import AuthForms from './auth/AuthForms';
 import { WeighingsContextProvider } from '../../store/WeighingsContext';
 
 const Main = () => {

@@ -3,7 +3,7 @@ import classes from './AppNotification.module.scss';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { useContext } from 'react';
-import { NotificationsContext } from '../../../store/NotificationsContext';
+import { NotificationsContext } from '../../store/NotificationsContext';
 
 const Alert = (props) => <MuiAlert elevation={6} variant="filled" {...props} />;
 

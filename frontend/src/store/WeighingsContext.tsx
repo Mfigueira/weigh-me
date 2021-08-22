@@ -1,10 +1,5 @@
 import React, { useState, Dispatch, SetStateAction } from 'react';
-
-interface Weighing {
-  id?: number;
-  weight: number;
-  datetime: string;
-}
+import { Weighing } from '../models';
 
 interface WeighingsContextObj {
   weighings: Weighing[];
