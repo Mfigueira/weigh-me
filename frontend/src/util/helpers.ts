@@ -4,7 +4,7 @@ export const getRouteByPath = (path: string) =>
   routes.find((route) => route.path === path)?.tab ?? 0;
 
 export const getRouteByTab = (tab: number) =>
-  routes.find((route) => route.tab === tab)?.path ?? 0;
+  routes.find((route) => route.tab === tab)?.path ?? '';
 
 export const formatDateTimeOrGetNow = (dt: string) => {
   const now = dt ? new Date(dt) : new Date();

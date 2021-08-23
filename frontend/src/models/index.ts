@@ -16,7 +16,7 @@ export interface Profile {
   username: string;
 }
 
-export interface Alert {
+export interface Notification {
   open: boolean;
   message: string;
   severity: Color;

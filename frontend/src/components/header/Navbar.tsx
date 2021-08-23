@@ -3,19 +3,19 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { Tabs, Tab } from '@material-ui/core';
 import { getRouteByPath, getRouteByTab } from '../../util/helpers';
 
-const Navbar = () => {
+const Navbar: React.FC = () => {
   const history = useHistory();
   const location = useLocation();
   const [tabValue, setTabValue] = useState(getRouteByPath(location.pathname));
 
-  const a11yProps = (index) => {
+  const a11yProps = (index: number) => {
     return {
       id: `full-width-tab-${index}`,
       'aria-controls': `full-width-tabpanel-${index}`,
     };
   };
 
-  const handleChange = (_, newValue) => {
+  const handleChange = (_: React.ChangeEvent<{}>, newValue: number) => {
     history.push(getRouteByTab(newValue));
     setTabValue(newValue);
   };

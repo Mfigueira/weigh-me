@@ -7,7 +7,7 @@ import AuthenticationMenu from './profile/AuthenticationMenu';
 import classes from './Header.module.scss';
 import logo from '../../assets/img/scale.svg';
 
-const Header = () => {
+const Header: React.FC = () => {
   const { token } = useContext(AuthContext);
 
   return (

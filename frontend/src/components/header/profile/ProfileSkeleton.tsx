@@ -1,7 +1,7 @@
 import { Avatar } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
 
-const ProfileSkeleton = () => (
+const ProfileSkeleton: React.FC = () => (
   <div style={{ display: 'flex', alignItems: 'center' }}>
     <Skeleton
       width="26px"

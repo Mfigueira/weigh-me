@@ -1,14 +1,14 @@
 import React, { useCallback, useState } from 'react';
-import { Alert } from '../models';
+import { Notification } from '../models';
 
 interface NotificationsContextObj {
-  alert: Alert;
+  alert: Notification;
   onCloseAlert: () => void;
   onSuccessAlert: (message: string) => void;
   onErrorAlert: (err: string) => void;
 }
 
-const defaultAlert: Alert = {
+const defaultAlert: Notification = {
   open: false,
   message: '',
   severity: 'success',
