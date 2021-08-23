@@ -2,7 +2,7 @@ import './WeighingsGrid.scss';
 import { useContext } from 'react';
 import EditWeighingButton from './EditWeighingButton';
 import NoWeighingsOverlay from './NoWeighingsOverlay';
-import { monthsFilterOperators } from './MonthsFilter.js';
+import { monthsFilterOperators } from './MonthsFilter';
 import {
   DataGrid,
   GridToolbarContainer,
