@@ -1,13 +1,17 @@
-.link {
-  display: inline-block;
-  color: inherit;
-  line-height: 1rem;
-  text-decoration: none;
-  padding: 0.4rem 0.8rem;
-}
+.group {
+  .btn {
+    color: #fff;
+    padding: 0;
+    &:not(:last-child) {
+      border-color: #fff;
+    }
+  }
 
-.btn {
-  color: #fff !important;
-  border-color: #fff !important;
-  padding: 0;
+  .link {
+    display: inline-block;
+    color: inherit;
+    line-height: 1rem;
+    text-decoration: none;
+    padding: 0.4rem 0.8rem;
+  }
 }

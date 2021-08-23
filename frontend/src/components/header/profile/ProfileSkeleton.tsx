@@ -1,16 +1,14 @@
 import { Avatar } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
+import classes from './ProfileSkeleton.module.scss';
 
 const ProfileSkeleton: React.FC = () => (
-  <div style={{ display: 'flex', alignItems: 'center' }}>
+  <div className={classes.skeleton}>
     <Skeleton
       width="26px"
       height="26px"
       variant="circle"
-      style={{
-        backgroundColor: 'rgba(203, 213, 224, 0.7)',
-        marginRight: '10px',
-      }}
+      className={classes.avatar}
     >
       <Avatar />
     </Skeleton>
@@ -18,10 +16,7 @@ const ProfileSkeleton: React.FC = () => (
       width="100px"
       height="16px"
       variant="rect"
-      style={{
-        backgroundColor: 'rgba(203, 213, 224, 0.7)',
-        borderRadius: '2px',
-      }}
+      className={classes.profile}
     />
   </div>
 );

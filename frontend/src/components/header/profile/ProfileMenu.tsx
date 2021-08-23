@@ -41,7 +41,7 @@ const ProfileMenu: React.FC = () => {
     onSuccessAlert('Logged out, bye!');
   };
 
-  return !profile ? (
+  return !profile.username ? (
     <ProfileSkeleton />
   ) : (
     <>
@@ -69,8 +69,9 @@ const ProfileMenu: React.FC = () => {
         keepMounted
         open={Boolean(menuOpen)}
         onClose={handleCloseMenu}
+        className={classes.menu}
       >
-        <MenuItem onClick={handleLogout} className={classes.menu}>
+        <MenuItem onClick={handleLogout}>
           <span className={classes.link}>Sign Out</span>
         </MenuItem>
       </Menu>

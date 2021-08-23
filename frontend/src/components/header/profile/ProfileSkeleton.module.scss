@@ -1,0 +1,14 @@
+.skeleton {
+  display: flex;
+  align-items: center;
+
+  .avatar {
+    background-color: rgba(203, 213, 224, 0.7);
+    margin-right: 10px;
+  }
+
+  .profile {
+    background-color: rgba(203, 213, 224, 0.7);
+    border-radius: 2px;
+  }
+}

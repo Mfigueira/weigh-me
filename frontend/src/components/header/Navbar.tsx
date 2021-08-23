@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { Tabs, Tab } from '@material-ui/core';
 import { getRouteByPath, getRouteByTab } from '../../util/helpers';
+import classes from './Navbar.module.scss';
 
 const Navbar: React.FC = () => {
   const history = useHistory();
@@ -21,7 +22,7 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <nav style={{ backgroundColor: '#a8dac5' }}>
+    <nav className={classes.nav}>
       <Tabs
         value={tabValue}
         onChange={handleChange}
