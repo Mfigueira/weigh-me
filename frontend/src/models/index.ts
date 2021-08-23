@@ -1,3 +1,5 @@
+import { Color } from '@material-ui/lab';
+
 export interface Weighing {
   id?: number;
   weight: number;
@@ -12,4 +14,10 @@ export interface User {
 
 export interface Profile {
   username: string;
+}
+
+export interface Alert {
+  open: boolean;
+  message: string;
+  severity: Color;
 }

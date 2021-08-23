@@ -5,12 +5,14 @@ import MuiAlert from '@material-ui/lab/Alert';
 import { useContext } from 'react';
 import { NotificationsContext } from '../../store/NotificationsContext';
 
-const Alert = (props) => <MuiAlert elevation={6} variant="filled" {...props} />;
+const Alert: React.FC<any> = (props) => (
+  <MuiAlert elevation={6} variant="filled" {...props} />
+);
 
-const AppNotification = () => {
+const AppNotification: React.FC = () => {
   const { alert, onCloseAlert } = useContext(NotificationsContext);
 
-  const handleClose = (_, reason) => {
+  const handleClose = (_: React.SyntheticEvent, reason: string) => {
     if (reason === 'clickaway') return;
     onCloseAlert();
   };
@@ -37,7 +39,7 @@ const AppNotification = () => {
         {alert.message}
       </Alert>
     </Snackbar>,
-    document.getElementById('modals-root')
+    document.getElementById('modals-root')!
   );
 };
 

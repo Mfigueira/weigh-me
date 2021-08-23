@@ -4,7 +4,7 @@ import Main from './main/Main';
 import Footer from './footer/Footer';
 import AppNotification from './notifications/AppNotification';
 
-const App = () => (
+const App: React.FC = () => (
   <>
     <Header />
     <Main />

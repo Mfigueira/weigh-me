@@ -1,31 +1,26 @@
 import React, { useCallback, useState } from 'react';
-
-interface Alert {
-  open: boolean;
-  message: string;
-  severity: string;
-}
+import { Alert } from '../models';
 
 interface NotificationsContextObj {
-  alert: Alert | {};
+  alert: Alert;
   onCloseAlert: () => void;
   onSuccessAlert: (message: string) => void;
   onErrorAlert: (err: string) => void;
 }
-
-export const NotificationsContext =
-  React.createContext<NotificationsContextObj>({
-    alert: {},
-    onCloseAlert: () => {},
-    onSuccessAlert: () => {},
-    onErrorAlert: () => {},
-  });
 
 const defaultAlert: Alert = {
   open: false,
   message: '',
   severity: 'success',
 };
+
+export const NotificationsContext =
+  React.createContext<NotificationsContextObj>({
+    alert: defaultAlert,
+    onCloseAlert: () => {},
+    onSuccessAlert: () => {},
+    onErrorAlert: () => {},
+  });
 
 export const NotificationsContextProvider: React.FC = ({ children }) => {
   const [alert, setAlert] = useState(defaultAlert);
