@@ -17,10 +17,11 @@ const MonthsFilter: React.FC<GridFilterInputValueProps> = ({
     <Select
       native
       value={item.value}
+      defaultValue=""
       onChange={(e: any) => applyValue({ ...item, value: e.target.value })}
       inputProps={{ id: 'custom-months-filter' }}
     >
-      <option value="" selected disabled>
+      <option value="" disabled>
         Select
       </option>
       {monthNames.map((month) => (

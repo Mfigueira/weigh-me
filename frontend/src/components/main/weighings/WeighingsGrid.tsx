@@ -17,6 +17,13 @@ import {
 } from '../../../util/helpers';
 import { WeighingsContext } from '../../../store/WeighingsContext';
 
+const CustomToolbar: React.FC = () => (
+  <GridToolbarContainer>
+    <GridFilterToolbarButton />
+    <GridToolbarExport />
+  </GridToolbarContainer>
+);
+
 const WeighingsGrid: React.FC = () => {
   const { weighings } = useContext(WeighingsContext);
 
@@ -63,15 +70,6 @@ const WeighingsGrid: React.FC = () => {
     },
   ];
 
-  const CustomToolbar = () => {
-    return (
-      <GridToolbarContainer>
-        <GridFilterToolbarButton />
-        <GridToolbarExport />
-      </GridToolbarContainer>
-    );
-  };
-
   return (
     <>
       <h2>My Weighings</h2>
@@ -81,8 +79,8 @@ const WeighingsGrid: React.FC = () => {
         rows={rows}
         rowHeight={35}
         columns={columns}
-        disableColumnMenu={true}
-        disableColumnSelector={true}
+        disableColumnMenu
+        disableColumnSelector
         disableSelectionOnClick
         components={{
           NoRowsOverlay: NoWeighingsOverlay,
