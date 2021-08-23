@@ -9,12 +9,10 @@ const Navbar: React.FC = () => {
   const location = useLocation();
   const [tabValue, setTabValue] = useState(getRouteByPath(location.pathname));
 
-  const a11yProps = (index: number) => {
-    return {
-      id: `full-width-tab-${index}`,
-      'aria-controls': `full-width-tabpanel-${index}`,
-    };
-  };
+  const a11yProps = (index: number) => ({
+    id: `full-width-tab-${index}`,
+    'aria-controls': `full-width-tabpanel-${index}`,
+  });
 
   const handleChange = (_: React.ChangeEvent<{}>, newValue: number) => {
     history.push(getRouteByTab(newValue));

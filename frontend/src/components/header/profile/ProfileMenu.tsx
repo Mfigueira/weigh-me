@@ -1,12 +1,13 @@
+import user from '../../../assets/img/user.svg';
+
 import { useContext, useEffect, useState } from 'react';
 import { Button, Menu, MenuItem } from '@material-ui/core';
-import user from '../../../assets/img/user.svg';
-import classes from './ProfileMenu.module.scss';
 import ProfileSkeleton from './ProfileSkeleton';
-import { getProfile } from '../../../util/http';
 import { NotificationsContext } from '../../../store/NotificationsContext';
 import { AuthContext } from '../../../store/AuthContext';
+import { getProfile } from '../../../util/http';
 import { Profile } from '../../../models';
+import classes from './ProfileMenu.module.scss';
 
 const defaultProfile: Profile = {
   username: '',

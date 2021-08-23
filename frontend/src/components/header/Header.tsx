@@ -1,11 +1,12 @@
+import logo from '../../assets/img/scale.svg';
+
 import { useContext } from 'react';
-import { AuthContext } from '../../store/AuthContext';
 import { AppBar, Toolbar } from '@material-ui/core';
 import Navbar from './Navbar';
 import ProfileMenu from './profile/ProfileMenu';
 import AuthenticationMenu from './profile/AuthenticationMenu';
+import { AuthContext } from '../../store/AuthContext';
 import classes from './Header.module.scss';
-import logo from '../../assets/img/scale.svg';
 
 const Header: React.FC = () => {
   const { token } = useContext(AuthContext);

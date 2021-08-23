@@ -1,9 +1,9 @@
+import { useContext } from 'react';
 import ReactDOM from 'react-dom';
-import classes from './AppNotification.module.scss';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-import { useContext } from 'react';
 import { NotificationsContext } from '../../store/NotificationsContext';
+import classes from './AppNotification.module.scss';
 
 const Alert: React.FC<any> = (props) => (
   <MuiAlert elevation={6} variant="filled" {...props} />
@@ -25,16 +25,15 @@ const AppNotification: React.FC = () => {
   return ReactDOM.createPortal(
     <Snackbar
       className={classes.snackbar}
+      style={{ bottom: setTopPosition() }}
       open={alert.open}
       autoHideDuration={4000}
-      anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
       onClose={handleClose}
-      style={{ bottom: setTopPosition(), position: 'fixed' }}
     >
       <Alert
-        onClose={handleClose}
+        className={classes.text}
         severity={alert.severity}
-        style={{ fontSize: '1rem' }}
+        onClose={handleClose}
       >
         {alert.message}
       </Alert>

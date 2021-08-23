@@ -1,10 +1,14 @@
-.snackbar {
-  right: 10px !important;
+div {
+  .snackbar {
+    @media (max-width: 900px) {
+      position: fixed;
+      left: auto;
+      right: 10px;
+      transform: initial;
+    }
+  }
 
-  @media (min-width: 900px) {
-    transform: translateX(-50%) !important;
-    left: 50% !important;
-    right: 0 !important;
-    justify-content: center !important;
+  .text {
+    font-size: 1rem;
   }
 }
