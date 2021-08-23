@@ -1,15 +1,16 @@
-import './AuthForms.scss';
+import classes from './RegisterForm.module.scss';
 import user from '../../../assets/img/user.svg';
 import key from '../../../assets/img/key.svg';
 import doubleKey from '../../../assets/img/double-key.svg';
+
 import { useContext, useState } from 'react';
 import { TextField, Button, Grid } from '@material-ui/core';
-import { isPasswordValid, isUsernameValid } from '../../../util/helpers';
-import { registerUser } from '../../../util/http';
-import { AuthContext } from '../../../store/AuthContext';
-import { NotificationsContext } from '../../../store/NotificationsContext';
 import AppSpinner from '../../UI/AppSpinner';
 import AuthForm from '../../UI/AuthForm';
+import { AuthContext } from '../../../store/AuthContext';
+import { NotificationsContext } from '../../../store/NotificationsContext';
+import { isPasswordValid, isUsernameValid } from '../../../util/helpers';
+import { registerUser } from '../../../util/http';
 
 const RegisterForm: React.FC = () => {
   const { onLogin } = useContext(AuthContext);
@@ -19,13 +20,6 @@ const RegisterForm: React.FC = () => {
   const [password, setPassword] = useState('');
   const [confirmation, setConfirmation] = useState('');
   const [loading, setLoading] = useState(false);
-
-  const styles = {
-    icon: {
-      width: '1.5rem',
-      margin: '0 0.5rem 1.85rem 0',
-    },
-  };
 
   const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     isUsernameValid(event.target.value) && setUsername(event.target.value);
@@ -48,21 +42,21 @@ const RegisterForm: React.FC = () => {
       onSuccessAlert(`Wellcome, ${username}!`);
     } catch (err) {
       onErrorAlert(err);
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
-    <section className="auth-form-section">
+    <section>
       <h2>
         Register <b>Me</b>
       </h2>
 
       <AuthForm onSubmit={handleSubmit}>
-        <div style={{ marginBottom: '1rem' }}>
+        <div className={classes.mb1}>
           <Grid container alignItems="flex-end">
             <Grid item>
-              <img src={user} style={styles.icon} alt="user" />
+              <img src={user} className={classes.icon} alt="user" />
             </Grid>
             <Grid item>
               <TextField
@@ -76,10 +70,10 @@ const RegisterForm: React.FC = () => {
             </Grid>
           </Grid>
         </div>
-        <div style={{ marginBottom: '1rem' }}>
+        <div className={classes.mb1}>
           <Grid container alignItems="flex-end">
             <Grid item>
-              <img src={key} style={styles.icon} alt="password" />
+              <img src={key} className={classes.icon} alt="password" />
             </Grid>
             <Grid item>
               <TextField
@@ -94,10 +88,10 @@ const RegisterForm: React.FC = () => {
             </Grid>
           </Grid>
         </div>
-        <div style={{ marginBottom: '1.5rem' }}>
+        <div className={classes.mb2}>
           <Grid container alignItems="flex-end">
             <Grid item>
-              <img src={doubleKey} style={styles.icon} alt="confirm" />
+              <img src={doubleKey} className={classes.icon} alt="confirm" />
             </Grid>
             <Grid item>
               <TextField

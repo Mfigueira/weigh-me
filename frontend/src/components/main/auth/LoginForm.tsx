@@ -1,14 +1,15 @@
-import './AuthForms.scss';
+import classes from './LoginForm.module.scss';
 import user from '../../../assets/img/user.svg';
 import key from '../../../assets/img/key.svg';
+
 import { useContext, useState } from 'react';
 import { TextField, Grid, Button } from '@material-ui/core';
-import { isPasswordValid, isUsernameValid } from '../../../util/helpers';
-import { loginUser } from '../../../util/http';
+import AuthForm from '../../UI/AuthForm';
+import AppSpinner from '../../UI/AppSpinner';
 import { AuthContext } from '../../../store/AuthContext';
 import { NotificationsContext } from '../../../store/NotificationsContext';
-import AppSpinner from '../../UI/AppSpinner';
-import AuthForm from '../../UI/AuthForm';
+import { isPasswordValid, isUsernameValid } from '../../../util/helpers';
+import { loginUser } from '../../../util/http';
 
 const LoginForm: React.FC = () => {
   const { onLogin } = useContext(AuthContext);
@@ -17,13 +18,6 @@ const LoginForm: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-
-  const styles = {
-    icon: {
-      width: '1.5rem',
-      margin: '0 0.5rem 0.5rem 0',
-    },
-  };
 
   const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     isUsernameValid(event.target.value) && setUsername(event.target.value);
@@ -41,21 +35,21 @@ const LoginForm: React.FC = () => {
       onSuccessAlert(`Hi, ${username}!`);
     } catch (err) {
       onErrorAlert(err);
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
-    <section className="auth-form-section">
+    <section>
       <h2>
         Sign <b>Me</b> in
       </h2>
 
       <AuthForm onSubmit={handleSubmit}>
-        <div style={{ marginBottom: '1rem' }}>
+        <div className={classes.mb1}>
           <Grid container alignItems="flex-end">
             <Grid item>
-              <img src={user} style={styles.icon} alt="user" />
+              <img src={user} className={classes.icon} alt="user" />
             </Grid>
             <Grid item>
               <TextField
@@ -67,10 +61,10 @@ const LoginForm: React.FC = () => {
             </Grid>
           </Grid>
         </div>
-        <div style={{ marginBottom: '2rem' }}>
+        <div className={classes.mb2}>
           <Grid container alignItems="flex-end">
             <Grid item>
-              <img src={key} style={styles.icon} alt="password" />
+              <img src={key} className={classes.icon} alt="password" />
             </Grid>
             <Grid item>
               <TextField
