@@ -1,0 +1,64 @@
+.grid {
+  width: 90%;
+
+  &.zero {
+    height: 300px;
+  }
+
+  div.toolbar {
+    justify-content: space-between;
+    padding: 4px;
+
+    button {
+      font-size: 1rem;
+    }
+  }
+
+  div[role='row'] {
+    &:nth-child(odd) {
+      background-color: rgba(160, 200, 160, 0.5);
+    }
+    &:nth-child(even) {
+      background-color: rgba(200, 200, 255, 0.5);
+    }
+  }
+
+  div[role='columnheader'] > div > div {
+    justify-content: center;
+  }
+
+  div[role='cell'] {
+    text-align: center;
+    font-size: 1rem;
+    padding: 0 5px;
+
+    &:focus,
+    &:focus-within {
+      outline: 0;
+    }
+  }
+
+  .weight {
+    text-align: center;
+    width: 100%;
+    position: relative;
+  }
+
+  .th {
+    background-color: #3f51b5;
+    color: #fff;
+    font-size: 1rem;
+
+    path {
+      fill: #fff;
+    }
+  }
+}
+
+div[role='tooltip'] {
+  max-width: calc(90% - 32px) !important;
+  > div {
+    overflow-x: auto;
+    width: 100%;
+  }
+}

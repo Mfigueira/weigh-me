@@ -1,24 +1,23 @@
-import './WeighingsGrid.scss';
 import { useContext } from 'react';
-import EditWeighingButton from './EditWeighingButton';
-import NoWeighingsOverlay from './NoWeighingsOverlay';
-import { monthsFilterOperators } from './MonthsFilter';
 import {
   DataGrid,
   GridToolbarContainer,
   GridFilterToolbarButton,
   GridToolbarExport,
   GridCellParams,
-  GridColumns,
 } from '@material-ui/data-grid';
+import NoWeighingsOverlay from './NoWeighingsOverlay';
+import EditWeighingButton from './EditWeighingButton';
+import { monthsFilterOperators } from './MonthsFilter';
 import {
   getMonthFromDate,
   formatDateTimeOrGetNow,
 } from '../../../util/helpers';
 import { WeighingsContext } from '../../../store/WeighingsContext';
+import classes from './WeighingsGrid.module.scss';
 
 const CustomToolbar: React.FC = () => (
-  <GridToolbarContainer>
+  <GridToolbarContainer className={classes.toolbar}>
     <GridFilterToolbarButton />
     <GridToolbarExport />
   </GridToolbarContainer>
@@ -33,20 +32,20 @@ const WeighingsGrid: React.FC = () => {
     month: getMonthFromDate(weighing.datetime),
   }));
 
-  const columns: GridColumns = [
+  const columns = [
     {
       field: 'datetime',
       type: 'dateTime',
       headerName: 'Date & Time',
       flex: 1.5,
-      headerClassName: 'weighing-grid-th',
+      headerClassName: classes.th,
     },
     {
       field: 'month',
       type: 'string',
       headerName: 'Month',
       hide: true,
-      headerClassName: 'weighing-grid-th',
+      headerClassName: classes.th,
       filterOperators: monthsFilterOperators,
     },
     {
@@ -54,11 +53,9 @@ const WeighingsGrid: React.FC = () => {
       type: 'string',
       headerName: 'Weight (kg)',
       flex: 1,
-      headerClassName: 'weighing-grid-th',
+      headerClassName: classes.th,
       renderCell: (params: GridCellParams) => (
-        <div
-          style={{ textAlign: 'center', width: '100%', position: 'relative' }}
-        >
+        <div className={classes.weight}>
           {params.value}
           <EditWeighingButton
             id={params.id}
@@ -87,8 +84,8 @@ const WeighingsGrid: React.FC = () => {
           Toolbar: CustomToolbar,
         }}
         pagination
-        pageSize={25}
-        className={!weighings.length ? 'zero-state-grid' : ''}
+        pageSize={10}
+        className={`${classes.grid} ${!weighings.length ? classes.zero : ''}`}
       />
     </>
   );
