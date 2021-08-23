@@ -29,7 +29,7 @@ const postWithToken = (token: string, data: any, endpoint: string) =>
   });
 
 const postUser = (user: User, endpoint: string) =>
-  axios.post(API_BASE_URL + endpoint, user, HTTP_HEADERS);
+  axios.post(API_BASE_URL + endpoint, JSON.stringify(user), HTTP_HEADERS);
 
 export const loginUser = (user: User) => postUser(user, '/login');
 

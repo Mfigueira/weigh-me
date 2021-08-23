@@ -8,7 +8,7 @@ import { loginUser } from '../../../util/http';
 import { AuthContext } from '../../../store/AuthContext';
 import { NotificationsContext } from '../../../store/NotificationsContext';
 
-const LoginForm = () => {
+const LoginForm: React.FC = () => {
   const { onLogin } = useContext(AuthContext);
   const { onSuccessAlert, onErrorAlert } = useContext(NotificationsContext);
 
@@ -23,19 +23,19 @@ const LoginForm = () => {
     },
   };
 
-  const handleUsernameChange = (e) =>
-    isUsernameValid(e.target.value) && setUsername(e.target.value);
+  const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+    isUsernameValid(event.target.value) && setUsername(event.target.value);
 
-  const handlePasswordChange = (e) =>
-    isPasswordValid(e.target.value) && setPassword(e.target.value);
+  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+    isPasswordValid(event.target.value) && setPassword(event.target.value);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     setAjaxLoading(true);
     try {
       const user = { username, password };
-      const res = await loginUser(JSON.stringify(user));
-      onLogin(res.data.access_token, username);
+      const res = await loginUser(user);
+      onLogin(res.data.access_token);
       onSuccessAlert(`Hi, ${username}!`);
     } catch (err) {
       onErrorAlert(err);

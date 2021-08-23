@@ -5,7 +5,7 @@ import Weighings from './weighings/Weighings';
 import AuthForms from './auth/AuthForms';
 import { WeighingsContextProvider } from '../../store/WeighingsContext';
 
-const Main = () => {
+const Main: React.FC = () => {
   const { token } = useContext(AuthContext);
 
   const setPaddingTop = () => {

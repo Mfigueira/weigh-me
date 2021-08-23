@@ -9,7 +9,7 @@ import { registerUser } from '../../../util/http';
 import { AuthContext } from '../../../store/AuthContext';
 import { NotificationsContext } from '../../../store/NotificationsContext';
 
-const RegisterForm = () => {
+const RegisterForm: React.FC = () => {
   const { onLogin } = useContext(AuthContext);
   const { onSuccessAlert, onErrorAlert } = useContext(NotificationsContext);
 
@@ -25,22 +25,24 @@ const RegisterForm = () => {
     },
   };
 
-  const handleUsernameChange = (e) =>
-    isUsernameValid(e.target.value) && setUsername(e.target.value);
+  const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+    isUsernameValid(event.target.value) && setUsername(event.target.value);
 
-  const handlePasswordChange = (e) =>
-    isPasswordValid(e.target.value) && setPassword(e.target.value);
+  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+    isPasswordValid(event.target.value) && setPassword(event.target.value);
 
-  const handleConfirmationChange = (e) =>
-    isPasswordValid(e.target.value) && setConfirmation(e.target.value);
+  const handleConfirmationChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) =>
+    isPasswordValid(event.target.value) && setConfirmation(event.target.value);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     setAjaxLoading(true);
     try {
       const user = { username, password, confirmation };
-      const res = await registerUser(JSON.stringify(user));
-      onLogin(res.data.access_token, username);
+      const res = await registerUser(user);
+      onLogin(res.data.access_token);
       onSuccessAlert(`Wellcome, ${username}!`);
     } catch (err) {
       onErrorAlert(err);
