@@ -1,6 +1,12 @@
-.icon {
-  width: 1.75rem;
-  margin-right: 0.5rem;
+.btn {
+  color: #fff;
+  text-transform: none;
+  overflow: hidden;
+
+  & img {
+    width: 1.75rem;
+    margin-right: 0.5rem;
+  }
 }
 
 .link {
@@ -9,4 +15,8 @@
   line-height: 1rem;
   text-decoration: none;
   padding: 0.6rem 1.1rem;
+}
+
+.menu {
+  padding: 0;
 }

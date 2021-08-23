@@ -49,13 +49,9 @@ const ProfileMenu: React.FC = () => {
         aria-controls="simple-menu"
         aria-haspopup="true"
         onClick={handleOpenMenu}
-        style={{
-          color: '#fff',
-          textTransform: 'none',
-          overflow: 'hidden',
-        }}
+        className={classes.btn}
       >
-        <img src={user} className={classes.icon} alt="user" />
+        <img src={user} alt="user" />
         {profile.username}
       </Button>
       <Menu
@@ -73,9 +69,8 @@ const ProfileMenu: React.FC = () => {
         keepMounted
         open={Boolean(menuOpen)}
         onClose={handleCloseMenu}
-        style={{ border: '1px solid #d3d4d5' }}
       >
-        <MenuItem onClick={handleLogout} style={{ padding: '0' }}>
+        <MenuItem onClick={handleLogout} className={classes.menu}>
           <span className={classes.link}>Sign Out</span>
         </MenuItem>
       </Menu>

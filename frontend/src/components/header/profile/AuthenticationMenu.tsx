@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { Button, ButtonGroup } from '@material-ui/core';
 import classes from './AuthenticationMenu.module.scss';
 
-const AuthenticationMenu = () => (
+const AuthenticationMenu: React.FC = () => (
   <ButtonGroup variant="text" aria-label="authentication">
     <Button className={classes.btn}>
       <Link to="/" className={classes.link}>
