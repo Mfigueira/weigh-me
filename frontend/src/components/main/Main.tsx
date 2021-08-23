@@ -13,7 +13,7 @@ const Main: React.FC = () => {
     const nav = document.querySelector('nav');
     return `${Math.max(
       40 + (header?.clientHeight ?? 0) + (nav?.clientHeight ?? 0),
-      104
+      134
     )}px`;
   };
 
