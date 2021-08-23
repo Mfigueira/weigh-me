@@ -6,7 +6,7 @@ export const getRouteByPath = (path: string) =>
 export const getRouteByTab = (tab: number) =>
   routes.find((route) => route.tab === tab)?.path ?? '';
 
-export const formatDateTimeOrGetNow = (dt: string) => {
+export const formatDateTimeOrGetNow = (dt?: string) => {
   const now = dt ? new Date(dt) : new Date();
   const year = now.getFullYear();
   const month = `${now.getMonth() + 1}`.padStart(2, '0');
@@ -41,3 +41,6 @@ export const saveTokenInStorage = (token: string) =>
 export const getTokenFromStorage = () => localStorage.getItem('token');
 
 export const removeTokenFromStorage = () => localStorage.removeItem('token');
+
+export const inputNumberKeyInvalid = (key: string) =>
+  key === 'e' || key === 'E' || key === '+' || key === '-';

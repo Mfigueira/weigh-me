@@ -117,7 +117,7 @@ def get_weighings():
 @jwt_required()
 def add_weighing():
     weight = request.json.get('weight')
-    if not is_weight_valid(weight):
+    if not is_weight_valid(str(weight)):
         return jsonify(msg='Invalid weight.'), 400
 
     dt = request.json.get('datetime')
@@ -126,7 +126,7 @@ def add_weighing():
 
     try:
         user_id = get_jwt_identity()
-        new_weight = Weighing(user_id, float(weight), dt)
+        new_weight = Weighing(user_id, weight, dt)
         db.session.add(new_weight)
         db.session.commit()
     except:

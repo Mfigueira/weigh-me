@@ -3,12 +3,12 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import WeighingForm from './WeighingForm';
 import WeighingsGrid from './WeighingsGrid';
 import WeighingsChart from './WeighingsChart';
-import { getWeighings } from '../../../util/http';
 import { NotificationsContext } from '../../../store/NotificationsContext';
 import { AuthContext } from '../../../store/AuthContext';
 import { WeighingsContext } from '../../../store/WeighingsContext';
+import { getWeighings } from '../../../util/http';
 
-const Weighings = () => {
+const Weighings: React.FC = () => {
   const { onErrorAlert } = useContext(NotificationsContext);
   const { token, onLogout } = useContext(AuthContext);
   const { setWeighings } = useContext(WeighingsContext);
@@ -16,7 +16,7 @@ const Weighings = () => {
   useEffect(() => {
     (async () => {
       try {
-        const weighingsRes = await getWeighings(token);
+        const weighingsRes = await getWeighings(token!);
         setWeighings(weighingsRes.data);
       } catch (err) {
         setWeighings([]);

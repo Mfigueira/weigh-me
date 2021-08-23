@@ -21,7 +21,7 @@ const getWithToken = (token: string, endpoint: string) =>
   });
 
 const postWithToken = (token: string, data: any, endpoint: string) =>
-  axios.post(API_BASE_URL + endpoint, data, {
+  axios.post(API_BASE_URL + endpoint, JSON.stringify(data), {
     headers: {
       ...HTTP_HEADERS.headers,
       Authorization: `Bearer ${token}`,
