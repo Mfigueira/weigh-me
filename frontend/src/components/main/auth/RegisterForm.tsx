@@ -3,11 +3,13 @@ import user from '../../../assets/img/user.svg';
 import key from '../../../assets/img/key.svg';
 import doubleKey from '../../../assets/img/double-key.svg';
 import { useContext, useState } from 'react';
-import { TextField, Button, Grid, CircularProgress } from '@material-ui/core';
+import { TextField, Button, Grid } from '@material-ui/core';
 import { isPasswordValid, isUsernameValid } from '../../../util/helpers';
 import { registerUser } from '../../../util/http';
 import { AuthContext } from '../../../store/AuthContext';
 import { NotificationsContext } from '../../../store/NotificationsContext';
+import AppSpinner from '../../UI/AppSpinner';
+import AuthForm from '../../UI/AuthForm';
 
 const RegisterForm: React.FC = () => {
   const { onLogin } = useContext(AuthContext);
@@ -16,7 +18,7 @@ const RegisterForm: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmation, setConfirmation] = useState('');
-  const [ajaxLoading, setAjaxLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const styles = {
     icon: {
@@ -38,7 +40,7 @@ const RegisterForm: React.FC = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setAjaxLoading(true);
+    setLoading(true);
     try {
       const user = { username, password, confirmation };
       const res = await registerUser(user);
@@ -47,7 +49,7 @@ const RegisterForm: React.FC = () => {
     } catch (err) {
       onErrorAlert(err);
     }
-    setAjaxLoading(false);
+    setLoading(false);
   };
 
   return (
@@ -56,7 +58,7 @@ const RegisterForm: React.FC = () => {
         Register <b>Me</b>
       </h2>
 
-      <form onSubmit={handleSubmit}>
+      <AuthForm onSubmit={handleSubmit}>
         <div style={{ marginBottom: '1rem' }}>
           <Grid container alignItems="flex-end">
             <Grid item>
@@ -114,15 +116,12 @@ const RegisterForm: React.FC = () => {
           variant="contained"
           color="primary"
           type="submit"
-          disabled={!username || !password || !confirmation || ajaxLoading}
+          disabled={!username || !password || !confirmation || loading}
         >
-          {ajaxLoading ? (
-            <CircularProgress style={{ height: '25px', width: '25px' }} />
-          ) : (
-            'Sign Up'
-          )}
+          Sign Up
+          {loading && <AppSpinner />}
         </Button>
-      </form>
+      </AuthForm>
     </section>
   );
 };
