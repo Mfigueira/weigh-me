@@ -29,14 +29,7 @@ body {
   max-width: 900px;
   margin: auto;
 
-  .MuiFormLabel-root,
-  .MuiInputBase-input,
-  .MuiButtonBase-root,
-  .MuiTypography-root,
-  .MuiDataGrid-root,
-  .MuiFormHelperText-root,
-  .MuiAlert-message,
-  .VictoryContainer tspan {
+  * {
     font-family: inherit;
   }
 }
@@ -54,11 +47,4 @@ h2 {
   color: #444;
   margin-bottom: 2rem;
   line-height: 3rem;
-}
-
-header,
-main,
-footer,
-nav {
-  max-width: 900px;
 }
