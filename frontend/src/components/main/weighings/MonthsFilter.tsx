@@ -1,11 +1,17 @@
 import PropTypes from 'prop-types';
 import { InputLabel, FormControl, Select } from '@material-ui/core';
+import {
+  GridCellParams,
+  GridFilterItem,
+  GridFilterInputValueProps,
+} from '@material-ui/data-grid';
 import { monthNames } from '../../../util/helpers';
 
-const MonthsFilter = props => {
-  const { item, applyValue } = props;
-
-  const handleChangeMultiple = event => {
+const MonthsFilter: React.FC<GridFilterInputValueProps> = ({
+  item,
+  applyValue,
+}) => {
+  const handleChangeMultiple = (event: any) => {
     const { options } = event.target;
     const value = [];
     for (let i = 0, l = options.length; i < l; i += 1) {
@@ -13,7 +19,7 @@ const MonthsFilter = props => {
         value.push(options[i].value);
       }
     }
-    applyValue({ ...item, value: value });
+    // applyValue({ ...item, value: value });
   };
 
   return (
@@ -23,14 +29,14 @@ const MonthsFilter = props => {
       </InputLabel>
       <Select
         multiple
-        native
+        native={true}
         value={item.value}
-        onChange={handleChangeMultiple}
+        onChange={(e) => console.log(e.target)}
         inputProps={{
           id: 'custom-months-filter',
         }}
       >
-        {monthNames.map(name => (
+        {monthNames.map((name) => (
           <option key={name} value={name}>
             {name}
           </option>
@@ -40,21 +46,21 @@ const MonthsFilter = props => {
   );
 };
 
-MonthsFilter.propTypes = {
-  applyValue: PropTypes.func.isRequired,
-  item: PropTypes.shape({
-    columnField: PropTypes.string,
-    id: PropTypes.number,
-    operatorValue: PropTypes.string,
-    value: PropTypes.array,
-  }).isRequired,
-};
+// MonthsFilter.propTypes = {
+//   applyValue: PropTypes.func.isRequired,
+//   item: PropTypes.shape({
+//     columnField: PropTypes.string,
+//     id: PropTypes.number,
+//     operatorValue: PropTypes.string,
+//     value: PropTypes.array,
+//   }).isRequired,
+// };
 
 export const monthsFilterOperators = [
   {
     label: 'is',
     value: 'is',
-    getApplyFilterFn: (filterItem, column) => {
+    getApplyFilterFn: (filterItem: GridFilterItem, column: any) => {
       if (
         !filterItem.columnField ||
         !filterItem.value ||
@@ -63,11 +69,11 @@ export const monthsFilterOperators = [
         return null;
       }
 
-      return params => {
+      return (params: GridCellParams) => {
         const rowValue = column.valueGetter
           ? column.valueGetter(params)
           : params.value;
-        return filterItem.value.indexOf(rowValue) >= 0;
+        return filterItem?.value?.indexOf(rowValue) ?? -1 >= 0;
       };
     },
     InputComponent: MonthsFilter,

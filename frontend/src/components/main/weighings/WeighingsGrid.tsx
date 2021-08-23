@@ -8,6 +8,8 @@ import {
   GridToolbarContainer,
   GridFilterToolbarButton,
   GridToolbarExport,
+  GridCellParams,
+  GridColumns,
 } from '@material-ui/data-grid';
 import {
   getMonthFromDate,
@@ -15,7 +17,7 @@ import {
 } from '../../../util/helpers';
 import { WeighingsContext } from '../../../store/WeighingsContext';
 
-const WeighingsGrid = () => {
+const WeighingsGrid: React.FC = () => {
   const { weighings } = useContext(WeighingsContext);
 
   const rows = weighings.map((weighing) => ({
@@ -24,7 +26,7 @@ const WeighingsGrid = () => {
     month: getMonthFromDate(weighing.datetime),
   }));
 
-  const columns = [
+  const columns: GridColumns = [
     {
       field: 'datetime',
       type: 'dateTime',
@@ -46,7 +48,7 @@ const WeighingsGrid = () => {
       headerName: 'Weight (kg)',
       flex: 1,
       headerClassName: 'weighing-grid-th',
-      renderCell: (params) => (
+      renderCell: (params: GridCellParams) => (
         <div
           style={{ textAlign: 'center', width: '100%', position: 'relative' }}
         >
