@@ -1,9 +1,94 @@
-.cta {
+.modal {
   display: flex;
-  justify-content: space-between;
-  gap: 8px;
+  align-items: center;
+  justify-content: center;
 
-  button {
-    flex: 1 0 calc(33.3333% - 16px / 3);
+  .group {
+    text-align: center;
+    margin-bottom: 1.2rem;
+
+    &.dategroup {
+      margin-bottom: 3rem;
+    }
+
+    * {
+      font-family: 'Maven Pro', sans-serif;
+    }
+  }
+
+  .paper {
+    border: 2px solid #444;
+    border-radius: 6px;
+    box-shadow: 0 3px 8px 1px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    background-image: linear-gradient(#a4dad2, #bce08a);
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .weightpicker {
+    margin-bottom: 1.2rem;
+
+    input {
+      color: #333;
+      text-align: center;
+      margin-left: 30px;
+      font-size: 3rem;
+      -moz-appearance: textfield;
+
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+      }
+
+      + div p {
+        color: #333;
+        font-size: 1rem;
+        margin-top: 2rem;
+      }
+    }
+  }
+
+  .datepicker {
+    text-align: center;
+
+    label {
+      color: #333;
+    }
+
+    input {
+      color: #333;
+      font-size: 0.9rem;
+    }
+
+    ::-webkit-calendar-picker-indicator {
+      background-color: transparent;
+      border-radius: 5px;
+      padding: 4px;
+      cursor: pointer;
+    }
+  }
+
+  .weightpicker,
+  .datepicker {
+    & > div {
+      &:before,
+      &:hover:before {
+        border-bottom: 1px solid #333;
+      }
+      &:after {
+        border-bottom: 2px solid #333;
+      }
+    }
+  }
+
+  .cta {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+
+    button {
+      flex: 1 0 calc(33.3333% - 16px / 3);
+    }
   }
 }

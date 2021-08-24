@@ -20,6 +20,8 @@ const EditWeighingButton: React.FC<EditWeighingButtonProps> = ({
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const editModalProps = { id, weight, datetime, open, onClose: handleClose };
+
   return (
     <>
       <Button
@@ -32,11 +34,7 @@ const EditWeighingButton: React.FC<EditWeighingButtonProps> = ({
         <img src={editIcon} alt="edit" />
       </Button>
 
-      {open && (
-        <EditWeighingModal
-          {...{ id, weight, datetime, open, onClose: handleClose }}
-        />
-      )}
+      {open && <EditWeighingModal {...editModalProps} />}
     </>
   );
 };

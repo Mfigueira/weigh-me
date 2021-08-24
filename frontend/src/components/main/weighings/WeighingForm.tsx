@@ -59,7 +59,7 @@ const WeighingForm: React.FC = () => {
       </h2>
 
       <div className={classes.container}>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className={classes.form}>
           <FormControl className={classes.weightpicker}>
             <Input
               value={weight}

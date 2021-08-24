@@ -1,6 +1,5 @@
 import { useContext, useState } from 'react';
 import {
-  makeStyles,
   Modal,
   Backdrop,
   Fade,
@@ -17,24 +16,6 @@ import { AuthContext } from '../../../store/AuthContext';
 import { WeighingsContext } from '../../../store/WeighingsContext';
 import classes from './EditWeighingModal.module.scss';
 import AppSpinner from '../../UI/AppSpinner';
-
-const useStyles = makeStyles((theme) => ({
-  modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  paper: {
-    backgroundColor: theme.palette.background.paper,
-    border: '2px solid #444',
-    borderRadius: '6px',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-    backgroundImage: 'linear-gradient(#a4dad2, #bce08a)',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-  },
-}));
 
 interface EditWeighingModalProps {
   id: number;
@@ -54,8 +35,6 @@ const EditWeighingModal: React.FC<EditWeighingModalProps> = ({
   const { token } = useContext(AuthContext);
   const { onEditWeighing, onRemoveWeighing } = useContext(WeighingsContext);
   const { onSuccessAlert, onErrorAlert } = useContext(NotificationsContext);
-
-  const matClasses = useStyles();
 
   const [editWeight, setEditWeight] = useState('');
   const [editDateTime, setEditDateTime] = useState('');
@@ -83,7 +62,7 @@ const EditWeighingModal: React.FC<EditWeighingModalProps> = ({
     try {
       const weighing = {
         id,
-        weight: editingWeight ? Number(editWeight) : Number(weight),
+        weight: editingWeight ? Number(editWeight) : weight,
         datetime: editingDateTime ? editDateTime : datetime,
       };
       await updateWeighing(token!, weighing);
@@ -111,23 +90,21 @@ const EditWeighingModal: React.FC<EditWeighingModalProps> = ({
 
   return (
     <Modal
-      className={matClasses.modal}
+      className={classes.modal}
       open={open}
       onClose={onClose}
       closeAfterTransition
       BackdropComponent={Backdrop}
-      BackdropProps={{
-        timeout: 500,
-      }}
+      BackdropProps={{ timeout: 500 }}
     >
       <Fade in={open}>
-        <div className={matClasses.paper}>
+        <div className={classes.paper}>
           <h2>Edit Weighing</h2>
           <form onSubmit={(e) => e.preventDefault()}>
-            <div style={{ marginBottom: '1.2rem', textAlign: 'center' }}>
+            <div className={classes.group}>
               <FormControl>
                 <Input
-                  id="addWeighingFormWeight"
+                  className={classes.weightpicker}
                   value={editingWeight ? editWeight : weight}
                   type="number"
                   inputProps={{ step: 0.01, min: 0, max: 999.99 }}
@@ -136,26 +113,19 @@ const EditWeighingModal: React.FC<EditWeighingModalProps> = ({
                   onChange={handleWeightChange}
                   onKeyDown={(e) => e.key === 'e' && e.preventDefault()}
                   endAdornment={
-                    <InputAdornment position="end">
-                      <span style={{ fontSize: '1rem', marginTop: '2rem' }}>
-                        Kg
-                      </span>
-                    </InputAdornment>
+                    <InputAdornment position="end">Kg</InputAdornment>
                   }
-                  style={{ fontSize: '3rem' }}
                 />
               </FormControl>
             </div>
-            <div style={{ marginBottom: '3rem', textAlign: 'center' }}>
+            <div className={`${classes.group} ${classes.dategroup}`}>
               <TextField
-                id="addWeighingFormDatepicker"
+                className={classes.datepicker}
                 label="When?"
                 type="datetime-local"
                 autoComplete="off"
                 value={editingDateTime ? editDateTime : datetime}
-                InputLabelProps={{
-                  shrink: true,
-                }}
+                InputLabelProps={{ shrink: true }}
                 onChange={handleDatetimeChange}
               />
             </div>

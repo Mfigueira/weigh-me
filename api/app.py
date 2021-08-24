@@ -146,7 +146,7 @@ def update_weighing():
         return jsonify(msg='ID missing.'), 400
 
     weight = request.json.get('weight')
-    if not is_weight_valid(weight):
+    if not is_weight_valid(str(weight)):
         return jsonify(msg='Invalid weight.'), 400
 
     dt = request.json.get('datetime')

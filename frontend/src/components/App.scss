@@ -25,7 +25,8 @@ body {
   min-width: 320px;
 }
 
-#root {
+#root,
+#notifications-root {
   max-width: 900px;
   margin: auto;
 

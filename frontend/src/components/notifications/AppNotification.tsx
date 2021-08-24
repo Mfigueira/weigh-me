@@ -38,7 +38,7 @@ const AppNotification: React.FC = () => {
         {alert.message}
       </Alert>
     </Snackbar>,
-    document.getElementById('modals-root')!
+    document.getElementById('notifications-root')!
   );
 };
 

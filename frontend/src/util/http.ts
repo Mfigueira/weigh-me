@@ -50,4 +50,4 @@ export const updateWeighing = (token: string, weighing: Weighing) =>
   postWithToken(token, weighing, '/update_weighing');
 
 export const deleteWeighing = (token: string, id: number) =>
-  postWithToken(token, id, '/delete_weighing');
+  postWithToken(token, { id }, '/delete_weighing');

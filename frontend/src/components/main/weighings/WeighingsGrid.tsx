@@ -58,8 +58,8 @@ const WeighingsGrid: React.FC = () => {
         <div className={classes.weight}>
           {params.value}
           <EditWeighingButton
-            id={params.id}
-            weight={params.value}
+            id={Number(params.id)}
+            weight={Number(params.value)}
             datetime={formatDateTimeOrGetNow(params.row.datetime)}
           />
         </div>
