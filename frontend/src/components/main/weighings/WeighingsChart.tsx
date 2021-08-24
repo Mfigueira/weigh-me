@@ -1,5 +1,3 @@
-import './WeighingsChart.scss';
-import graph from '../../../assets/img/graph.svg';
 import { useState, useEffect, useContext } from 'react';
 import {
   VictoryChart,
@@ -11,16 +9,18 @@ import {
   VictoryScatter,
   VictoryLabel,
 } from 'victory';
+import ZeroStateChart from './ZeroStateChart';
 import { WeighingsContext } from '../../../store/WeighingsContext';
+import classes from './WeighingChart.module.scss';
 
-const WeighingsChart = () => {
+const WeighingsChart: React.FC = () => {
   const { weighings } = useContext(WeighingsContext);
 
   const [selectedDomain, setSelectedDomain] = useState({});
   const [zoomDomain, setZoomDomain] = useState({});
   const [width, setWidth] = useState(window.innerWidth);
 
-  const updateWidth = (e) => setWidth(e.target.innerWidth);
+  const updateWidth = (e: any) => setWidth(e.target.innerWidth);
 
   useEffect(() => {
     window.addEventListener('resize', updateWidth);
@@ -33,31 +33,15 @@ const WeighingsChart = () => {
     y: weighing.weight,
   }));
 
-  const handleZoom = (domain) => setSelectedDomain(domain);
-  const handleBrush = (domain) => setZoomDomain(domain);
+  const handleZoom = (domain: any) => setSelectedDomain(domain);
+  const handleBrush = (domain: any) => setZoomDomain(domain);
 
   return (
     <>
-      <h2 style={{ marginBottom: '1rem' }}>Time Graph</h2>
+      <h2 className={classes.h2}>Time Graph</h2>
 
       {weighings.length < 2 ? (
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <img
-            src={graph}
-            alt="graph"
-            style={{ margin: '30px', width: '180px' }}
-          />
-          <i style={{ lineHeight: '1.5rem' }}>
-            Add at least 2 Weighings to see the Chart
-          </i>
-        </div>
+        <ZeroStateChart />
       ) : (
         <>
           <VictoryChart

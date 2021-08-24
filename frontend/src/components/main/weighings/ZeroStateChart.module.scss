@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    margin: 30px;
+    width: 180px;
+  }
+
+  i {
+    line-height: 1.5rem;
+  }
+}

@@ -6,7 +6,7 @@ import {
   GridToolbarExport,
   GridCellParams,
 } from '@material-ui/data-grid';
-import NoWeighingsOverlay from './NoWeighingsOverlay';
+import ZeroStateGrid from './ZeroStateGrid';
 import EditWeighingButton from './EditWeighingButton';
 import { monthsFilterOperators } from './MonthsFilter';
 import {
@@ -80,7 +80,7 @@ const WeighingsGrid: React.FC = () => {
         disableColumnSelector
         disableSelectionOnClick
         components={{
-          NoRowsOverlay: NoWeighingsOverlay,
+          NoRowsOverlay: ZeroStateGrid,
           Toolbar: CustomToolbar,
         }}
         pagination
