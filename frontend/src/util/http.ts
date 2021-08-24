@@ -49,5 +49,5 @@ export const createWeighing = (token: string, weighing: Weighing) =>
 export const updateWeighing = (token: string, weighing: Weighing) =>
   postWithToken(token, weighing, '/update_weighing');
 
-export const deleteWeighing = (token: string, id: string) =>
+export const deleteWeighing = (token: string, id: number) =>
   postWithToken(token, id, '/delete_weighing');

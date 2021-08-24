@@ -5,7 +5,6 @@ import {
   Backdrop,
   Fade,
   Button,
-  CircularProgress,
   FormControl,
   Input,
   InputAdornment,
@@ -17,6 +16,7 @@ import { NotificationsContext } from '../../../store/NotificationsContext';
 import { AuthContext } from '../../../store/AuthContext';
 import { WeighingsContext } from '../../../store/WeighingsContext';
 import classes from './EditWeighingModal.module.scss';
+import AppSpinner from '../../UI/AppSpinner';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -36,7 +36,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const EditWeighingModal = ({ id, weight, datetime, open, onClose }) => {
+interface EditWeighingModalProps {
+  id: number;
+  weight: number;
+  datetime: string;
+  open: boolean;
+  onClose: () => void;
+}
+
+const EditWeighingModal: React.FC<EditWeighingModalProps> = ({
+  id,
+  weight,
+  datetime,
+  open,
+  onClose,
+}) => {
   const { token } = useContext(AuthContext);
   const { onEditWeighing, onRemoveWeighing } = useContext(WeighingsContext);
   const { onSuccessAlert, onErrorAlert } = useContext(NotificationsContext);
@@ -52,16 +66,16 @@ const EditWeighingModal = ({ id, weight, datetime, open, onClose }) => {
   const [updateLoading, setUpdateLoading] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
 
-  const handleWeightChange = (e) => {
-    if (isWeightValid(`${e.target.value}`)) {
-      setEditWeight(e.target.value);
-      !editingWeight && setEditingWeight(true);
+  const handleWeightChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (isWeightValid(event.target.value)) {
+      setEditWeight(event.target.value);
+      if (!editingWeight) setEditingWeight(true);
     }
   };
 
-  const handleDatetimeChange = (e) => {
-    setEditDateTime(extractSecsFromTime(e.target.value));
-    !editingDateTime && setEditingDateTime(true);
+  const handleDatetimeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEditDateTime(extractSecsFromTime(event.target.value));
+    if (!editingDateTime) setEditingDateTime(true);
   };
 
   const handleUpdate = async () => {
@@ -69,30 +83,30 @@ const EditWeighingModal = ({ id, weight, datetime, open, onClose }) => {
     try {
       const weighing = {
         id,
-        weight: editingWeight ? `${editWeight}` : `${weight}`,
+        weight: editingWeight ? Number(editWeight) : Number(weight),
         datetime: editingDateTime ? editDateTime : datetime,
       };
-      await updateWeighing(token, JSON.stringify(weighing));
+      await updateWeighing(token!, weighing);
       onClose();
-      onEditWeighing({ ...weighing, weight: +weighing.weight });
+      onEditWeighing(weighing);
       onSuccessAlert('Weighing updated.');
     } catch (err) {
       onErrorAlert(err);
+      setUpdateLoading(false);
     }
-    setUpdateLoading(false);
   };
 
   const handleDelete = async () => {
     setDeleteLoading(true);
     try {
-      await deleteWeighing(token, JSON.stringify({ id }));
+      await deleteWeighing(token!, id);
       onClose();
       onRemoveWeighing(id);
       onSuccessAlert('Weighing deleted.');
     } catch (err) {
       onErrorAlert(err);
+      setDeleteLoading(false);
     }
-    setDeleteLoading(false);
   };
 
   return (
@@ -150,13 +164,10 @@ const EditWeighingModal = ({ id, weight, datetime, open, onClose }) => {
                 variant="contained"
                 color="secondary"
                 onClick={handleDelete}
-                disable={deleteLoading}
+                disabled={deleteLoading}
               >
-                {deleteLoading ? (
-                  <CircularProgress className={classes.spinner} />
-                ) : (
-                  'Delete'
-                )}
+                Delete
+                {deleteLoading && <AppSpinner />}
               </Button>
               <Button
                 variant="contained"
@@ -166,11 +177,8 @@ const EditWeighingModal = ({ id, weight, datetime, open, onClose }) => {
                   !id || (!editWeight && !editDateTime) || updateLoading
                 }
               >
-                {updateLoading ? (
-                  <CircularProgress className={classes.spinner} />
-                ) : (
-                  'Update'
-                )}
+                Update
+                {updateLoading && <AppSpinner />}
               </Button>
               <Button variant="contained" onClick={onClose}>
                 Cancel

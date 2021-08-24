@@ -4,7 +4,17 @@ import EditWeighingModal from './EditWeighingModal';
 import classes from './EditWeighingButton.module.scss';
 import editIcon from '../../../assets/img/edit.svg';
 
-const EditWeighingButton = ({ id, weight, datetime }) => {
+interface EditWeighingButtonProps {
+  id: number;
+  weight: number;
+  datetime: string;
+}
+
+const EditWeighingButton: React.FC<EditWeighingButtonProps> = ({
+  id,
+  weight,
+  datetime,
+}) => {
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(true);
