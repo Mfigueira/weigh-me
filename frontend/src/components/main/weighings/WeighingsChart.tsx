@@ -11,7 +11,7 @@ import {
 } from 'victory';
 import ZeroStateChart from './ZeroStateChart';
 import { WeighingsContext } from '../../../store/WeighingsContext';
-import classes from './WeighingChart.module.scss';
+import classes from './WeighingsChart.module.scss';
 
 const WeighingsChart: React.FC = () => {
   const { weighings } = useContext(WeighingsContext);
@@ -24,7 +24,6 @@ const WeighingsChart: React.FC = () => {
 
   useEffect(() => {
     window.addEventListener('resize', updateWidth);
-    // Removes listener on unmount
     return () => window.removeEventListener('resize', updateWidth);
   }, []);
 
@@ -56,31 +55,20 @@ const WeighingsChart: React.FC = () => {
                 zoomDimension="x"
                 zoomDomain={zoomDomain}
                 onZoomDomainChange={handleZoom}
-                style={{ width: '100%', height: '275px' }}
+                className={classes.zoomContainer}
               />
             }
           >
-            <VictoryLabel
-              x={13}
-              y={25}
-              style={{ fill: 'rgb(69, 90, 100)', fontStyle: 'italic' }}
-              text={'Weight (kg)'}
-            />
+            <VictoryLabel x={13} y={25} text={'Weight (kg)'} />
             <VictoryLine
               data={data}
-              animate={{
-                onLoad: { duration: 1200 },
-              }}
-              style={{
-                data: { stroke: 'tomato' },
-              }}
+              animate={{ onLoad: { duration: 1200 } }}
+              style={{ data: { stroke: 'tomato' } }}
             />
             <VictoryScatter
               data={data}
               size={4}
-              animate={{
-                onLoad: { duration: 1200 },
-              }}
+              animate={{ onLoad: { duration: 1200 } }}
               style={{ data: { fill: 'tomato' } }}
             />
           </VictoryChart>
@@ -97,19 +85,15 @@ const WeighingsChart: React.FC = () => {
                 brushDimension="x"
                 brushDomain={selectedDomain}
                 onBrushDomainChange={handleBrush}
-                style={{ width: '100%', height: '90px' }}
+                className={classes.brushContainer}
               />
             }
           >
             <VictoryAxis />
             <VictoryLine
               data={data}
-              animate={{
-                onLoad: { duration: 1200 },
-              }}
-              style={{
-                data: { stroke: 'tomato' },
-              }}
+              animate={{ onLoad: { duration: 1200 } }}
+              style={{ data: { stroke: 'tomato' } }}
             />
           </VictoryChart>
         </>

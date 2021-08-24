@@ -2,6 +2,21 @@
   margin-bottom: 1rem;
 }
 
-.VictoryContainer rect {
-  fill: #333 !important;
+.zoomContainer {
+  width: 100%;
+  height: 275px;
+
+  tspan {
+    fill: rgb(69, 90, 100);
+    font-style: italic;
+  }
+}
+
+.brushContainer {
+  width: 100%;
+  height: 90px;
+
+  rect {
+    fill: #333 !important;
+  }
 }
