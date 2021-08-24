@@ -3,8 +3,8 @@
 ## What is this?
 
 This is WeighMe! A Web -Mobile Styled- Application to help you keep tracking of your weight over time.
-I developed it as my 'CS50's Introduction to Computer Science' Final Project.
-Inspired in solving some of my parents problems with tracking their weights.
+
+I started developing it as my 'CS50's Introduction to Computer Science' Final Project, inspired in solving one of my parents problems with tracking their weights.
 
 Here's a short video [presentation](https://www.youtube.com/watch?v=r1dwkZt882o).
 
@@ -13,8 +13,8 @@ Here's a short video [presentation](https://www.youtube.com/watch?v=r1dwkZt882o)
 Project stack:
 
 - Backend (API): Python with Flask - Deployed to Heroku
-- DB: PostgreSQL (remotely integrated in Heroku)
-- Frontend: React - Deployed to Vercel
+- DB: PostgreSQL
+- Frontend: React - TypeScript - Deployed to Vercel
 
 ## How does it work?
 
