@@ -1,4 +1,4 @@
-import graph from '../../../assets/img/graph.svg';
+import graph from '../../../../assets/img/graph.svg';
 import classes from './ZeroStateChart.module.scss';
 
 const ZeroStateChart: React.FC = () => (

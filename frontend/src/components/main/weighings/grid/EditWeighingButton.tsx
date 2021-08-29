@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button } from '@material-ui/core';
 import EditWeighingModal from './EditWeighingModal';
 import classes from './EditWeighingButton.module.scss';
-import editIcon from '../../../assets/img/edit.svg';
+import editIcon from '../../../../assets/img/edit.svg';
 
 interface EditWeighingButtonProps {
   id: number;

@@ -1,4 +1,4 @@
-import alert from '../../../assets/img/alert.svg';
+import alert from '../../../../assets/img/alert.svg';
 import { GridOverlay } from '@material-ui/data-grid';
 import classes from './ZeroStateGrid.module.scss';
 

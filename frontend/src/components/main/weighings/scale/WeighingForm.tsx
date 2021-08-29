@@ -1,5 +1,5 @@
-import add from '../../../assets/img/add.svg';
-import addDisabled from '../../../assets/img/add-disabled.svg';
+import add from '../../../../assets/img/add.svg';
+import addDisabled from '../../../../assets/img/add-disabled.svg';
 
 import { useContext, useState } from 'react';
 import {
