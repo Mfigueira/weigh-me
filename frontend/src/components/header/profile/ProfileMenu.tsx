@@ -28,7 +28,7 @@ const ProfileMenu: React.FC = () => {
       } catch (err) {
         setProfile(defaultProfile);
         onLogout();
-        onErrorAlert('Could not get profile data');
+        // onErrorAlert('Could not get profile data');
       }
     })();
   }, [token, onLogout, onErrorAlert]);

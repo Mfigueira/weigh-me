@@ -1,5 +1,5 @@
 import { ActionType } from '../action-types';
-import { Weighing } from '../../models';
+import { Profile, Weighing } from '../../models';
 
 interface SetWeighingsAction {
   type: ActionType.SET_WEIGHINGS;
@@ -57,3 +57,12 @@ export type NotificationAction =
   | ShowSuccessNotificationAction
   | ShowErrorNotificationAction
   | HideNotificationAction;
+
+interface SetProfileAction {
+  type: ActionType.SET_PROFILE;
+  payload: {
+    profile: Profile;
+  };
+}
+
+export type ProfileAction = SetProfileAction;

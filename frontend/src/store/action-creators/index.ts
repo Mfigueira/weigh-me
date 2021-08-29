@@ -21,9 +21,7 @@ export const setWeighings =
     } finally {
       dispatch({
         type: ActionType.SET_WEIGHINGS,
-        payload: {
-          weighings,
-        },
+        payload: { weighings },
       });
     }
   };
