@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Notification } from '../models';
+import { Notification } from '../../models';
 
 interface NotificationsContextObj {
   alert: Notification;

@@ -3,7 +3,7 @@ import {
   getTokenFromStorage,
   saveTokenInStorage,
   removeTokenFromStorage,
-} from '../util/helpers';
+} from '../../util/helpers';
 
 interface AuthContextObj {
   token: string;

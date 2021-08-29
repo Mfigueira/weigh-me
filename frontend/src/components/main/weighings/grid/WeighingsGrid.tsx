@@ -23,7 +23,7 @@ const CustomToolbar: React.FC = () => (
 );
 
 const WeighingsGrid: React.FC = () => {
-  const weighings = useTypedSelector((state) => state.weighings);
+  const weighings = useTypedSelector((state) => state.weighings.data);
 
   const rows = weighings.map((weighing) => ({
     ...weighing,

@@ -11,9 +11,9 @@ import {
 } from '@material-ui/core';
 import { extractSecsFromTime, isWeightValid } from '../../../../util/helpers';
 import { updateWeighing, deleteWeighing } from '../../../../util/http';
-import { NotificationsContext } from '../../../../store/NotificationsContext';
-import { AuthContext } from '../../../../store/AuthContext';
-import { WeighingsContext } from '../../../../store/WeighingsContext';
+import { NotificationsContext } from '../../../../store/context/NotificationsContext';
+import { AuthContext } from '../../../../store/context/AuthContext';
+import { WeighingsContext } from '../../../../store/context/WeighingsContext';
 import classes from './EditWeighingModal.module.scss';
 import AppSpinner from '../../../UI/AppSpinner';
 

@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import notificationReducer from './notificationReducer';
-import userProfileReducer from './userProfileReducer';
+import authUserReducer from './authUserReducer';
 import weighingsReducer from './weighingsReducer';
 
 const reducers = combineReducers({
-  userProfile: userProfileReducer,
+  authUser: authUserReducer,
   weighings: weighingsReducer,
   notification: notificationReducer,
 });

@@ -1,12 +1,10 @@
-import classes from './Main.module.scss';
-import { useContext } from 'react';
-import { AuthContext } from '../../store/AuthContext';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
 import Weighings from './weighings/Weighings';
 import AuthForms from './auth/AuthForms';
-import { WeighingsContextProvider } from '../../store/WeighingsContext';
+import classes from './Main.module.scss';
 
 const Main: React.FC = () => {
-  const { token } = useContext(AuthContext);
+  const token = useTypedSelector((state) => state.authUser.token);
 
   const setPaddingTop = () => {
     const header = document.querySelector('header');
@@ -19,13 +17,7 @@ const Main: React.FC = () => {
 
   return (
     <main className={classes.main} style={{ paddingTop: setPaddingTop() }}>
-      {token ? (
-        <WeighingsContextProvider>
-          <Weighings />
-        </WeighingsContextProvider>
-      ) : (
-        <AuthForms />
-      )}
+      {token ? <Weighings /> : <AuthForms />}
     </main>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useState, Dispatch, SetStateAction } from 'react';
-import { Weighing } from '../models';
+import { Weighing } from '../../models';
 
 interface WeighingsContextObj {
   weighings: Weighing[];

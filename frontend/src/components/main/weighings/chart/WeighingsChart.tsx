@@ -14,7 +14,7 @@ import ZeroStateChart from './ZeroStateChart';
 import classes from './WeighingsChart.module.scss';
 
 const WeighingsChart: React.FC = () => {
-  const weighings = useTypedSelector((state) => state.weighings);
+  const weighings = useTypedSelector((state) => state.weighings.data);
 
   const [selectedDomain, setSelectedDomain] = useState({});
   const [zoomDomain, setZoomDomain] = useState({});

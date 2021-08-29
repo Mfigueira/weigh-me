@@ -5,7 +5,7 @@ import { AppBar, Toolbar } from '@material-ui/core';
 import Navbar from './Navbar';
 import ProfileMenu from './profile/ProfileMenu';
 import AuthenticationMenu from './profile/AuthenticationMenu';
-import { AuthContext } from '../../store/AuthContext';
+import { AuthContext } from '../../store/context/AuthContext';
 import classes from './Header.module.scss';
 
 const Header: React.FC = () => {

@@ -6,8 +6,8 @@ import { useContext, useState } from 'react';
 import { TextField, Grid, Button } from '@material-ui/core';
 import AuthForm from '../../UI/AuthForm';
 import AppSpinner from '../../UI/AppSpinner';
-import { AuthContext } from '../../../store/AuthContext';
-import { NotificationsContext } from '../../../store/NotificationsContext';
+import { AuthContext } from '../../../store/context/AuthContext';
+import { NotificationsContext } from '../../../store/context/NotificationsContext';
 import { isPasswordValid, isUsernameValid } from '../../../util/helpers';
 import { loginUser } from '../../../util/http';
 

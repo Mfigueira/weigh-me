@@ -16,6 +16,11 @@ export interface Profile {
   username: string;
 }
 
+export interface AuthUser {
+  token: string;
+  username: string;
+}
+
 export interface Notification {
   open: boolean;
   message: string;
