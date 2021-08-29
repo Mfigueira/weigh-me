@@ -4,7 +4,7 @@ import {
   GridCellParams,
   GridFilterInputValueProps,
 } from '@material-ui/data-grid';
-import { monthNames } from '../../../util/helpers';
+import { monthNames } from '../../../../util/helpers';
 
 const MonthsFilter: React.FC<GridFilterInputValueProps> = ({
   item,

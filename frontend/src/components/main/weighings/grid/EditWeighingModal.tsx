@@ -9,13 +9,13 @@ import {
   InputAdornment,
   TextField,
 } from '@material-ui/core';
-import { extractSecsFromTime, isWeightValid } from '../../../util/helpers';
-import { updateWeighing, deleteWeighing } from '../../../util/http';
-import { NotificationsContext } from '../../../store/NotificationsContext';
-import { AuthContext } from '../../../store/AuthContext';
-import { WeighingsContext } from '../../../store/WeighingsContext';
+import { extractSecsFromTime, isWeightValid } from '../../../../util/helpers';
+import { updateWeighing, deleteWeighing } from '../../../../util/http';
+import { NotificationsContext } from '../../../../store/NotificationsContext';
+import { AuthContext } from '../../../../store/AuthContext';
+import { WeighingsContext } from '../../../../store/WeighingsContext';
 import classes from './EditWeighingModal.module.scss';
-import AppSpinner from '../../UI/AppSpinner';
+import AppSpinner from '../../../UI/AppSpinner';
 
 interface EditWeighingModalProps {
   id: number;

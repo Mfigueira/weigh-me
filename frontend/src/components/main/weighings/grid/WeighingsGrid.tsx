@@ -1,4 +1,4 @@
-import { useTypedSelector } from '../../../hooks/useTypedSelector';
+import { useTypedSelector } from '../../../../hooks/useTypedSelector';
 import {
   DataGrid,
   GridToolbarContainer,
@@ -12,7 +12,7 @@ import { monthsFilterOperators } from './MonthsFilter';
 import {
   getMonthFromDate,
   formatDateTimeOrGetNow,
-} from '../../../util/helpers';
+} from '../../../../util/helpers';
 import classes from './WeighingsGrid.module.scss';
 
 const CustomToolbar: React.FC = () => (

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useTypedSelector } from '../../../hooks/useTypedSelector';
+import { useTypedSelector } from '../../../../hooks/useTypedSelector';
 import {
   VictoryChart,
   VictoryZoomContainer,

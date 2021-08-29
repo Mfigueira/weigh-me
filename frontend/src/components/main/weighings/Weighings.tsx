@@ -1,8 +1,8 @@
 import { useEffect, useContext } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import WeighingForm from './WeighingForm';
-import WeighingsGrid from './WeighingsGrid';
-import WeighingsChart from './WeighingsChart';
+import WeighingForm from './scale/WeighingForm';
+import WeighingsGrid from './grid/WeighingsGrid';
+import WeighingsChart from './chart/WeighingsChart';
 import { NotificationsContext } from '../../../store/NotificationsContext';
 import { AuthContext } from '../../../store/AuthContext';
 import { useActions } from '../../../hooks/useActions';

@@ -9,18 +9,18 @@ import {
   FormControl,
   Fab,
 } from '@material-ui/core';
-import AppSpinner from '../../UI/AppSpinner';
-import { NotificationsContext } from '../../../store/NotificationsContext';
-import { AuthContext } from '../../../store/AuthContext';
-import { WeighingsContext } from '../../../store/WeighingsContext';
+import AppSpinner from '../../../UI/AppSpinner';
+import { NotificationsContext } from '../../../../store/NotificationsContext';
+import { AuthContext } from '../../../../store/AuthContext';
+import { WeighingsContext } from '../../../../store/WeighingsContext';
 import {
   formatDateTimeOrGetNow,
   extractSecsFromTime,
   isWeightValid,
   inputNumberKeyInvalid,
-} from '../../../util/helpers';
-import { createWeighing } from '../../../util/http';
-import { Weighing } from '../../../models';
+} from '../../../../util/helpers';
+import { createWeighing } from '../../../../util/http';
+import { Weighing } from '../../../../models';
 import classes from './WeighingForm.module.scss';
 
 const WeighingForm: React.FC = () => {
