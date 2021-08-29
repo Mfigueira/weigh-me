@@ -12,12 +12,18 @@ const userProfileReducer = (
   state = defaultState,
   action: AuthAction
 ): AuthUser => {
-  if (action.type === ActionType.AUTHENTICATE_USER) {
-    return action.payload.user;
+  if (action.type === ActionType.SET_PROFILE) {
+    return {
+      ...state,
+      username: action.payload.username,
+    };
   }
 
   if (action.type === ActionType.LOGOUT_USER) {
-    return defaultState;
+    return {
+      token: '',
+      username: '',
+    };
   }
 
   return state;

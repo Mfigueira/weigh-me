@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Modal,
   Backdrop,
@@ -10,12 +10,10 @@ import {
   TextField,
 } from '@material-ui/core';
 import { extractSecsFromTime, isWeightValid } from '../../../../util/helpers';
-import { updateWeighing, deleteWeighing } from '../../../../util/http';
-import { NotificationsContext } from '../../../../store/context/NotificationsContext';
-import { AuthContext } from '../../../../store/context/AuthContext';
-import { WeighingsContext } from '../../../../store/context/WeighingsContext';
 import classes from './EditWeighingModal.module.scss';
 import AppSpinner from '../../../UI/AppSpinner';
+import { useTypedSelector } from '../../../../hooks/useTypedSelector';
+import { useActions } from '../../../../hooks/useActions';
 
 interface EditWeighingModalProps {
   id: number;
@@ -32,9 +30,8 @@ const EditWeighingModal: React.FC<EditWeighingModalProps> = ({
   open,
   onClose,
 }) => {
-  const { token } = useContext(AuthContext);
-  const { onEditWeighing, onRemoveWeighing } = useContext(WeighingsContext);
-  const { onSuccessAlert, onErrorAlert } = useContext(NotificationsContext);
+  const loading = useTypedSelector((state) => state.weighings.loading);
+  const { editWeighing, removeWeighing } = useActions();
 
   const [editWeight, setEditWeight] = useState('');
   const [editDateTime, setEditDateTime] = useState('');
@@ -57,36 +54,25 @@ const EditWeighingModal: React.FC<EditWeighingModalProps> = ({
     if (!editingDateTime) setEditingDateTime(true);
   };
 
-  const handleUpdate = async () => {
+  const handleUpdate = () => {
     setUpdateLoading(true);
-    try {
-      const weighing = {
-        id,
-        weight: editingWeight ? Number(editWeight) : weight,
-        datetime: editingDateTime ? editDateTime : datetime,
-      };
-      await updateWeighing(token!, weighing);
-      onClose();
-      onEditWeighing(weighing);
-      onSuccessAlert('Weighing updated.');
-    } catch (err) {
-      onErrorAlert(err);
-      setUpdateLoading(false);
-    }
+    editWeighing({
+      id,
+      weight: editingWeight ? Number(editWeight) : weight,
+      datetime: editingDateTime ? editDateTime : datetime,
+    });
   };
 
-  const handleDelete = async () => {
+  const handleDelete = () => {
     setDeleteLoading(true);
-    try {
-      await deleteWeighing(token!, id);
-      onClose();
-      onRemoveWeighing(id);
-      onSuccessAlert('Weighing deleted.');
-    } catch (err) {
-      onErrorAlert(err);
-      setDeleteLoading(false);
-    }
+    removeWeighing(id);
   };
+
+  useEffect(() => {
+    if (loading) {
+      return () => onClose();
+    }
+  }, [loading, onClose]);
 
   return (
     <Modal

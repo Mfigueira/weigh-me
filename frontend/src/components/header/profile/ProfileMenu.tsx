@@ -1,48 +1,30 @@
-import user from '../../../assets/img/user.svg';
-
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useTypedSelector } from '../../../hooks/useTypedSelector';
+import { useActions } from '../../../hooks/useActions';
 import { Button, Menu, MenuItem } from '@material-ui/core';
 import ProfileSkeleton from './ProfileSkeleton';
-import { NotificationsContext } from '../../../store/context/NotificationsContext';
-import { AuthContext } from '../../../store/context/AuthContext';
-import { getProfile } from '../../../util/http';
-import { Profile } from '../../../models';
 import classes from './ProfileMenu.module.scss';
-
-const defaultProfile: Profile = {
-  username: '',
-};
+import user from '../../../assets/img/user.svg';
 
 const ProfileMenu: React.FC = () => {
-  const [profile, setProfile] = useState<Profile>(defaultProfile);
   const [menuOpen, setMenuOpen] = useState<Element | null>(null);
-
-  const { onSuccessAlert, onErrorAlert } = useContext(NotificationsContext);
-  const { token, onLogout } = useContext(AuthContext);
+  const username = useTypedSelector((state) => state.authUser.username);
+  const { setProfile } = useActions();
 
   useEffect(() => {
-    (async () => {
-      try {
-        const profileRes = await getProfile(token!);
-        setProfile(profileRes.data);
-      } catch (err) {
-        setProfile(defaultProfile);
-        onLogout();
-        // onErrorAlert('Could not get profile data');
-      }
-    })();
-  }, [token, onLogout, onErrorAlert]);
+    setProfile();
+  }, [setProfile]);
 
   const handleOpenMenu = (event: any) => setMenuOpen(event.currentTarget);
   const handleCloseMenu = () => setMenuOpen(null);
 
   const handleLogout = () => {
     handleCloseMenu();
-    onLogout();
-    onSuccessAlert('Logged out, bye!');
+    // onLogout();
+    // onSuccessAlert('Logged out, bye!');
   };
 
-  return !profile.username ? (
+  return !username ? (
     <ProfileSkeleton />
   ) : (
     <>
@@ -53,7 +35,7 @@ const ProfileMenu: React.FC = () => {
         className={classes.btn}
       >
         <img src={user} alt="user" />
-        {profile.username}
+        {username}
       </Button>
       <Menu
         elevation={0}

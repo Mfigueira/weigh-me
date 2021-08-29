@@ -16,7 +16,7 @@ const weighingsReducer = (
   state = defaultState,
   action: WeighingsAction
 ): WeighingsState => {
-  if (action.type === ActionType.INIT_HTTP_REQUEST) {
+  if (action.type === ActionType.INIT_WEIGHINGS_HTTP_REQUEST) {
     return {
       ...state,
       loading: true,

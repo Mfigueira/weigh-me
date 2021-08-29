@@ -1,15 +1,13 @@
-import logo from '../../assets/img/scale.svg';
-
-import { useContext } from 'react';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { AppBar, Toolbar } from '@material-ui/core';
 import Navbar from './Navbar';
 import ProfileMenu from './profile/ProfileMenu';
 import AuthenticationMenu from './profile/AuthenticationMenu';
-import { AuthContext } from '../../store/context/AuthContext';
 import classes from './Header.module.scss';
+import logo from '../../assets/img/scale.svg';
 
 const Header: React.FC = () => {
-  const { token } = useContext(AuthContext);
+  const token = useTypedSelector((state) => state.authUser.token);
 
   return (
     <div className={classes.container}>
