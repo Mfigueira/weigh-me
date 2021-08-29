@@ -2,17 +2,22 @@ import { Dispatch } from 'redux';
 import { Weighing } from '../../models';
 import { getWeighings } from '../../util/http';
 import { ActionType } from '../action-types';
-import { WeighingsAction } from '../actions';
+import { NotificationAction, WeighingsAction } from '../actions';
 
 export const setWeighings =
-  (token: string) => async (dispatch: Dispatch<WeighingsAction>) => {
+  (token: string) =>
+  async (dispatch: Dispatch<WeighingsAction | NotificationAction>) => {
     let weighings: Weighing[] = [];
     try {
       const { data } = await getWeighings(token);
       weighings = data;
     } catch (err) {
-      // onLogout();
-      // onErrorAlert('Could not get weighings data');
+      dispatch({
+        type: ActionType.SHOW_ERROR_NOTIFICATION,
+        payload: {
+          message: 'Could not get weighings data',
+        },
+      });
     } finally {
       dispatch({
         type: ActionType.SET_WEIGHINGS,

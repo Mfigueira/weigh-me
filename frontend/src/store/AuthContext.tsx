@@ -6,13 +6,13 @@ import {
 } from '../util/helpers';
 
 interface AuthContextObj {
-  token: string | null;
+  token: string;
   onLogin: (token: string) => void;
   onLogout: () => void;
 }
 
 export const AuthContext = React.createContext<AuthContextObj>({
-  token: null,
+  token: '',
   onLogin: () => {},
   onLogout: () => {},
 });
@@ -27,7 +27,7 @@ export const AuthContextProvider: React.FC = ({ children }) => {
 
   const handleLogout = useCallback(() => {
     removeTokenFromStorage();
-    setToken(null);
+    setToken('');
   }, []);
 
   const ctxValue = {

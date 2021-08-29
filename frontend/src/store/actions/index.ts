@@ -1,10 +1,18 @@
 import { ActionType } from '../action-types';
 import { Weighing } from '../../models';
+import { Notification } from '../../models';
 
-interface GetWeighingsAction {
+interface SetWeighingsAction {
   type: ActionType.SET_WEIGHINGS;
   payload: {
     weighings: Weighing[];
+  };
+}
+
+interface AddWeighingAction {
+  type: ActionType.ADD_WEIGHING;
+  payload: {
+    weighing: Weighing;
   };
 }
 
@@ -23,6 +31,30 @@ interface DeleteWeighingAction {
 }
 
 export type WeighingsAction =
-  | GetWeighingsAction
+  | SetWeighingsAction
+  | AddWeighingAction
   | EditWeighingAction
   | DeleteWeighingAction;
+
+interface ShowSuccessNotificationAction {
+  type: ActionType.SHOW_SUCCESS_NOTIFICATION;
+  payload: {
+    message: string;
+  };
+}
+
+interface ShowErrorNotificationAction {
+  type: ActionType.SHOW_ERROR_NOTIFICATION;
+  payload: {
+    message: string;
+  };
+}
+
+interface HideNotificationAction {
+  type: ActionType.HIDE_NOTIFICATION;
+}
+
+export type NotificationAction =
+  | ShowSuccessNotificationAction
+  | ShowErrorNotificationAction
+  | HideNotificationAction;

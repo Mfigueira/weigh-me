@@ -38,7 +38,7 @@ export const isWeightValid = (weight: string) =>
 export const saveTokenInStorage = (token: string) =>
   localStorage.setItem('token', token);
 
-export const getTokenFromStorage = () => localStorage.getItem('token');
+export const getTokenFromStorage = () => localStorage.getItem('token') ?? '';
 
 export const removeTokenFromStorage = () => localStorage.removeItem('token');
 
