@@ -1,4 +1,5 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
+import { useTypedSelector } from '../../../hooks/useTypedSelector';
 import {
   VictoryChart,
   VictoryZoomContainer,
@@ -10,11 +11,10 @@ import {
   VictoryLabel,
 } from 'victory';
 import ZeroStateChart from './ZeroStateChart';
-import { WeighingsContext } from '../../../store/WeighingsContext';
 import classes from './WeighingsChart.module.scss';
 
 const WeighingsChart: React.FC = () => {
-  const { weighings } = useContext(WeighingsContext);
+  const weighings = useTypedSelector((state) => state.weighings);
 
   const [selectedDomain, setSelectedDomain] = useState({});
   const [zoomDomain, setZoomDomain] = useState({});

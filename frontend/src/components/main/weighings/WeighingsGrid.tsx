@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useTypedSelector } from '../../../hooks/useTypedSelector';
 import {
   DataGrid,
   GridToolbarContainer,
@@ -13,7 +13,6 @@ import {
   getMonthFromDate,
   formatDateTimeOrGetNow,
 } from '../../../util/helpers';
-import { WeighingsContext } from '../../../store/WeighingsContext';
 import classes from './WeighingsGrid.module.scss';
 
 const CustomToolbar: React.FC = () => (
@@ -24,7 +23,7 @@ const CustomToolbar: React.FC = () => (
 );
 
 const WeighingsGrid: React.FC = () => {
-  const { weighings } = useContext(WeighingsContext);
+  const weighings = useTypedSelector((state) => state.weighings);
 
   const rows = weighings.map((weighing) => ({
     ...weighing,

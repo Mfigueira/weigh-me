@@ -5,26 +5,24 @@ import WeighingsGrid from './WeighingsGrid';
 import WeighingsChart from './WeighingsChart';
 import { NotificationsContext } from '../../../store/NotificationsContext';
 import { AuthContext } from '../../../store/AuthContext';
-import { WeighingsContext } from '../../../store/WeighingsContext';
-import { getWeighings } from '../../../util/http';
+import { useActions } from '../../../hooks/useActions';
 
 const Weighings: React.FC = () => {
+  const { setWeighings } = useActions();
+
   const { onErrorAlert } = useContext(NotificationsContext);
   const { token, onLogout } = useContext(AuthContext);
-  const { setWeighings } = useContext(WeighingsContext);
 
   useEffect(() => {
     (async () => {
       try {
-        const weighingsRes = await getWeighings(token!);
-        setWeighings(weighingsRes.data);
+        setWeighings(token!);
       } catch (err) {
-        setWeighings([]);
         onLogout();
         onErrorAlert('Could not get weighings data');
       }
     })();
-  }, [token, setWeighings, onLogout, onErrorAlert]);
+  }, [token, onLogout, onErrorAlert, setWeighings]);
 
   return (
     <Switch>
