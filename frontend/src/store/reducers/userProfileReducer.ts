@@ -6,7 +6,7 @@ const defaultState: Profile = {
   username: '',
 };
 
-const profileReducer = (
+const userProfileReducer = (
   state = defaultState,
   action: ProfileAction
 ): Profile => {
@@ -19,4 +19,4 @@ const profileReducer = (
   return state;
 };
 
-export default profileReducer;
+export default userProfileReducer;
