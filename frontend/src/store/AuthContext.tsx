@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import {
   getTokenFromStorage,
   saveTokenInStorage,
@@ -20,15 +20,15 @@ export const AuthContext = React.createContext<AuthContextObj>({
 export const AuthContextProvider: React.FC = ({ children }) => {
   const [token, setToken] = useState(getTokenFromStorage());
 
-  const handleLogin = useCallback((token) => {
+  const handleLogin = (token: string) => {
     saveTokenInStorage(token);
     setToken(token);
-  }, []);
+  };
 
-  const handleLogout = useCallback(() => {
+  const handleLogout = () => {
     removeTokenFromStorage();
     setToken('');
-  }, []);
+  };
 
   const ctxValue = {
     token,

@@ -1,6 +1,5 @@
 import { ActionType } from '../action-types';
 import { Weighing } from '../../models';
-import { Notification } from '../../models';
 
 interface SetWeighingsAction {
   type: ActionType.SET_WEIGHINGS;

@@ -1,11 +1,11 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import { Notification } from '../models';
 
 interface NotificationsContextObj {
   alert: Notification;
   onCloseAlert: () => void;
   onSuccessAlert: (message: string) => void;
-  onErrorAlert: (err: string) => void;
+  onErrorAlert: (err: Error) => void;
 }
 
 const defaultAlert: Notification = {
@@ -25,43 +25,34 @@ export const NotificationsContext =
 export const NotificationsContextProvider: React.FC = ({ children }) => {
   const [alert, setAlert] = useState(defaultAlert);
 
-  const handleCloseAlert = useCallback(
-    () =>
-      setAlert((alert) => ({
-        ...alert,
-        open: false,
-      })),
-    []
-  );
+  const handleCloseAlert = () =>
+    setAlert((alert) => ({
+      ...alert,
+      open: false,
+    }));
 
-  const handleSuccessAlert = useCallback(
-    (message) => {
-      handleCloseAlert();
-      setTimeout(() => {
-        setAlert({
-          open: true,
-          message,
-          severity: 'success',
-        });
-      }, 150);
-    },
-    [handleCloseAlert]
-  );
+  const handleSuccessAlert = (message: string) => {
+    handleCloseAlert();
+    setTimeout(() => {
+      setAlert({
+        open: true,
+        message,
+        severity: 'success',
+      });
+    }, 150);
+  };
 
-  const handleErrorAlert = useCallback(
-    (err) => {
-      console.error(err);
-      handleCloseAlert();
-      setTimeout(() => {
-        setAlert({
-          open: true,
-          message: err.response?.data?.msg ?? 'An unexpected error ocurred.',
-          severity: 'error',
-        });
-      }, 150);
-    },
-    [handleCloseAlert]
-  );
+  const handleErrorAlert = (err: Error) => {
+    console.error(err);
+    handleCloseAlert();
+    setTimeout(() => {
+      setAlert({
+        open: true,
+        message: err.message ?? 'An unexpected error ocurred.',
+        severity: 'error',
+      });
+    }, 150);
+  };
 
   const ctxValue = {
     alert,
