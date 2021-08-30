@@ -9,19 +9,19 @@ import user from '../../../assets/img/user.svg';
 const ProfileMenu: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState<Element | null>(null);
   const username = useTypedSelector((state) => state.authUser.username);
-  const { setProfile } = useActions();
+  const { setProfile, logoutUser, showSuccessNotification } = useActions();
 
   useEffect(() => {
-    setProfile();
-  }, [setProfile]);
+    if (!username) setProfile();
+  }, [username, setProfile]);
 
   const handleOpenMenu = (event: any) => setMenuOpen(event.currentTarget);
   const handleCloseMenu = () => setMenuOpen(null);
 
   const handleLogout = () => {
     handleCloseMenu();
-    // onLogout();
-    // onSuccessAlert('Logged out, bye!');
+    showSuccessNotification(`Bye, ${username}!`);
+    logoutUser();
   };
 
   return !username ? (

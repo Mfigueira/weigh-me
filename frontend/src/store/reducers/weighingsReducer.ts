@@ -23,6 +23,13 @@ const weighingsReducer = (
     };
   }
 
+  if (action.type === ActionType.END_WEIGHINGS_HTTP_REQUEST) {
+    return {
+      ...state,
+      loading: false,
+    };
+  }
+
   if (action.type === ActionType.SET_WEIGHINGS) {
     return {
       loading: false,

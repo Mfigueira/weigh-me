@@ -1,3 +1,7 @@
+/**
+ * FILE CURRENTLY NOT MANTAINED - THIS IS JUST A CONTEXT CODE EXAMPLE
+ */
+
 import React, { useState, Dispatch, SetStateAction } from 'react';
 import { Weighing } from '../../models';
 

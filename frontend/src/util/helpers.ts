@@ -1,6 +1,3 @@
-import { Dispatch } from 'redux';
-import { ActionType } from '../store/action-types';
-import { NotificationAction } from '../store/actions';
 import { routes } from './routes';
 
 export const getRouteByPath = (path: string) =>
@@ -47,13 +44,3 @@ export const removeTokenFromStorage = () => localStorage.removeItem('token');
 
 export const inputNumberKeyInvalid = (key: string) =>
   key === 'e' || key === 'E' || key === '+' || key === '-';
-
-export const showNotification = (
-  dispatch: Dispatch,
-  action: NotificationAction
-) => {
-  dispatch({ type: ActionType.HIDE_NOTIFICATION });
-  setTimeout(() => {
-    dispatch(action);
-  }, 150);
-};

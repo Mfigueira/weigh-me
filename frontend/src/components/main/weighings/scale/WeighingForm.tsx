@@ -76,12 +76,15 @@ const WeighingForm: React.FC = () => {
             type="submit"
             disabled={!weight || !datetime || loading}
           >
-            {loading && <AppSpinner />}
-            <img
-              src={!weight || !datetime ? addDisabled : add}
-              alt="Add"
-              style={!weight || !datetime || loading ? { opacity: '0.5' } : {}}
-            />
+            {loading ? (
+              <AppSpinner size={30} />
+            ) : (
+              <img
+                src={!weight || !datetime ? addDisabled : add}
+                alt="Add"
+                style={!weight || !datetime ? { opacity: '0.5' } : {}}
+              />
+            )}
           </Fab>
         </form>
       </div>

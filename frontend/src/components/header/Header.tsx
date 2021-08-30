@@ -16,8 +16,7 @@ const Header: React.FC = () => {
           <img src={logo} className={classes.icon} alt="scale" />
           <h1>WeighMe</h1>
 
-          {token && <ProfileMenu />}
-          {!token && <AuthenticationMenu />}
+          {token ? <ProfileMenu /> : <AuthenticationMenu />}
         </Toolbar>
       </AppBar>
       {token && <Navbar />}

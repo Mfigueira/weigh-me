@@ -1,8 +1,12 @@
 import { ActionType } from '../action-types';
-import { Weighing } from '../../models';
+import { AuthUser, Weighing } from '../../models';
 
 interface InitWeighingsHttpRequestAction {
   type: ActionType.INIT_WEIGHINGS_HTTP_REQUEST;
+}
+
+interface EndWeighingsHttpRequestAction {
+  type: ActionType.END_WEIGHINGS_HTTP_REQUEST;
 }
 
 interface SetWeighingsAction {
@@ -35,6 +39,7 @@ interface DeleteWeighingAction {
 
 export type WeighingsAction =
   | InitWeighingsHttpRequestAction
+  | EndWeighingsHttpRequestAction
   | SetWeighingsAction
   | AddWeighingAction
   | EditWeighingAction
@@ -70,8 +75,16 @@ interface SetProfileAction {
   };
 }
 
+interface AuthenticateUserAction {
+  type: ActionType.AUTHENTICATE_USER;
+  payload: AuthUser;
+}
+
 interface LogoutUserAction {
   type: ActionType.LOGOUT_USER;
 }
 
-export type AuthAction = SetProfileAction | LogoutUserAction;
+export type AuthAction =
+  | SetProfileAction
+  | AuthenticateUserAction
+  | LogoutUserAction;

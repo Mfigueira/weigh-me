@@ -2,42 +2,20 @@ import classes from './LoginForm.module.scss';
 import user from '../../../assets/img/user.svg';
 import key from '../../../assets/img/key.svg';
 
-import { useContext, useState } from 'react';
+import { AuthType, useAuthentication } from '../../../hooks/useAuthentication';
 import { TextField, Grid, Button } from '@material-ui/core';
 import AuthForm from '../../UI/AuthForm';
 import AppSpinner from '../../UI/AppSpinner';
-import { AuthContext } from '../../../store/context/AuthContext';
-import { NotificationsContext } from '../../../store/context/NotificationsContext';
-import { isPasswordValid, isUsernameValid } from '../../../util/helpers';
-import { loginUser } from '../../../util/http';
 
 const LoginForm: React.FC = () => {
-  const { onLogin } = useContext(AuthContext);
-  const { onSuccessAlert, onErrorAlert } = useContext(NotificationsContext);
-
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false);
-
-  const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) =>
-    isUsernameValid(event.target.value) && setUsername(event.target.value);
-
-  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) =>
-    isPasswordValid(event.target.value) && setPassword(event.target.value);
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setLoading(true);
-    try {
-      const user = { username, password };
-      const res = await loginUser(user);
-      onLogin(res.data.access_token);
-      onSuccessAlert(`Hi, ${username}!`);
-    } catch (err) {
-      onErrorAlert(err);
-      setLoading(false);
-    }
-  };
+  const {
+    username,
+    password,
+    loading,
+    handleUsernameChange,
+    handlePasswordChange,
+    handleSubmit,
+  } = useAuthentication(AuthType.SIGN_IN);
 
   return (
     <section>

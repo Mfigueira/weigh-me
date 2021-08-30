@@ -1,5 +1,9 @@
 import { AuthUser } from '../../models';
-import { getTokenFromStorage } from '../../util/helpers';
+import {
+  getTokenFromStorage,
+  removeTokenFromStorage,
+  saveTokenInStorage,
+} from '../../util/helpers';
 import { ActionType } from '../action-types';
 import { AuthAction } from '../actions';
 
@@ -19,7 +23,13 @@ const userProfileReducer = (
     };
   }
 
+  if (action.type === ActionType.AUTHENTICATE_USER) {
+    saveTokenInStorage(action.payload.token);
+    return action.payload;
+  }
+
   if (action.type === ActionType.LOGOUT_USER) {
+    removeTokenFromStorage();
     return {
       token: '',
       username: '',
