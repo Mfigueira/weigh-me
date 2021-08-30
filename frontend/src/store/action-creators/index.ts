@@ -11,6 +11,7 @@ import {
 import { ActionType } from '../action-types';
 import { NotificationAction, WeighingsAction, AuthAction } from '../actions';
 import { Dispatch } from 'redux';
+import { Notification } from '../../util/notifications';
 
 type WeighingThunk = ThunkAction<
   void,
@@ -48,23 +49,21 @@ export const showSuccessNotification =
   };
 
 export const showErrorNotification =
-  (message: string): NotificationThunk =>
+  (err: any): NotificationThunk =>
   (dispatch) => {
+    const message = err.response?.data?.msg ?? err.message;
     showNotification(dispatch, {
       type: ActionType.SHOW_ERROR_NOTIFICATION,
       payload: { message },
     });
   };
 
-const showErrorOnProtectedRoute = (
-  dispatch: Dispatch,
-  err: any,
-  message: string
-) => {
+const showErrorOnProtectedRoute = (dispatch: Dispatch, err: any) => {
   const isNotAuth = (err.response?.status ?? 401) === 401;
   if (isNotAuth) {
     dispatch({ type: ActionType.LOGOUT_USER });
   }
+  const message = err.response?.data?.msg ?? err.message;
   showNotification(dispatch, {
     type: ActionType.SHOW_ERROR_NOTIFICATION,
     payload: { message },
@@ -83,7 +82,7 @@ export const setWeighings = (): WeighingThunk => async (dispatch, getState) => {
     });
   } catch (err) {
     dispatch({ type: ActionType.END_WEIGHINGS_HTTP_REQUEST });
-    showErrorOnProtectedRoute(dispatch, err, 'Could not get user data');
+    showErrorOnProtectedRoute(dispatch, err);
   }
 };
 
@@ -106,11 +105,11 @@ export const addWeighing =
       });
       showNotification(dispatch, {
         type: ActionType.SHOW_SUCCESS_NOTIFICATION,
-        payload: { message: 'Weighing added!' },
+        payload: { message: Notification.WEIGHING_ADDED },
       });
     } catch (err) {
       dispatch({ type: ActionType.END_WEIGHINGS_HTTP_REQUEST });
-      showErrorOnProtectedRoute(dispatch, err, err.message);
+      showErrorOnProtectedRoute(dispatch, err);
     }
   };
 
@@ -128,11 +127,11 @@ export const editWeighing =
       });
       showNotification(dispatch, {
         type: ActionType.SHOW_SUCCESS_NOTIFICATION,
-        payload: { message: 'Weighing updated!' },
+        payload: { message: Notification.WEIGHING_UDPATED },
       });
     } catch (err) {
       dispatch({ type: ActionType.END_WEIGHINGS_HTTP_REQUEST });
-      showErrorOnProtectedRoute(dispatch, err, err.message);
+      showErrorOnProtectedRoute(dispatch, err);
     }
   };
 
@@ -150,11 +149,11 @@ export const removeWeighing =
       });
       showNotification(dispatch, {
         type: ActionType.SHOW_SUCCESS_NOTIFICATION,
-        payload: { message: 'Weighing deleted.' },
+        payload: { message: Notification.WEIGHING_DELETED },
       });
     } catch (err) {
       dispatch({ type: ActionType.END_WEIGHINGS_HTTP_REQUEST });
-      showErrorOnProtectedRoute(dispatch, err, err.message);
+      showErrorOnProtectedRoute(dispatch, err);
     }
   };
 
@@ -169,7 +168,7 @@ export const setProfile = (): AuthThunk => async (dispatch, getState) => {
       payload: { username },
     });
   } catch (err) {
-    showErrorOnProtectedRoute(dispatch, err, 'Could not get user data');
+    showErrorOnProtectedRoute(dispatch, err);
   }
 };
 

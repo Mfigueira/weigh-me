@@ -48,7 +48,7 @@ export const useAuthentication = (type: AuthType) => {
         username,
       });
     } catch (err) {
-      showErrorNotification(err.message);
+      showErrorNotification(err);
       setLoading(false);
     }
   };
