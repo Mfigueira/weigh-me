@@ -1,5 +1,6 @@
 div {
   .snackbar {
+    bottom: 68px;
     @media (max-width: 900px) {
       position: fixed;
       left: auto;

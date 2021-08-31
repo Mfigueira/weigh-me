@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import { Button, ButtonGroup } from '@material-ui/core';
-import classes from './AuthenticationMenu.module.scss';
+import classes from './AuthMenu.module.scss';
 
-const AuthenticationMenu: React.FC = () => (
+const AuthMenu: React.FC = () => (
   <ButtonGroup
     variant="text"
     aria-label="authentication"
@@ -21,4 +21,4 @@ const AuthenticationMenu: React.FC = () => (
   </ButtonGroup>
 );
 
-export default AuthenticationMenu;
+export default AuthMenu;

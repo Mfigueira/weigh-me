@@ -18,15 +18,9 @@ const AppNotification: React.FC = () => {
     hideNotification();
   };
 
-  const setTopPosition = () => {
-    const footer = document.querySelector('footer');
-    return `${12 + (footer?.clientHeight ?? 0)}px`;
-  };
-
   return ReactDOM.createPortal(
     <Snackbar
       className={classes.snackbar}
-      style={{ bottom: setTopPosition() }}
       open={notification.open}
       autoHideDuration={4000}
       onClose={handleClose}

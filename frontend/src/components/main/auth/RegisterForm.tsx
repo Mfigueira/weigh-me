@@ -3,10 +3,10 @@ import user from '../../../assets/img/user.svg';
 import key from '../../../assets/img/key.svg';
 import doubleKey from '../../../assets/img/double-key.svg';
 
-import { TextField, Button, Grid } from '@material-ui/core';
-import AppSpinner from '../../UI/AppSpinner';
-import AuthForm from '../../UI/AuthForm';
 import { AuthType, useAuthentication } from '../../../hooks/useAuthentication';
+import { TextField, Button, Grid } from '@material-ui/core';
+import AuthForm from '../../UI/AuthForm';
+import AppSpinner from '../../UI/AppSpinner';
 
 const RegisterForm: React.FC = () => {
   const {

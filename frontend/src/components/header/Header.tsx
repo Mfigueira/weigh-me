@@ -1,8 +1,8 @@
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { AppBar, Toolbar } from '@material-ui/core';
 import Navbar from './Navbar';
-import ProfileMenu from './profile/ProfileMenu';
-import AuthenticationMenu from './profile/AuthenticationMenu';
+import ProfileMenu from './user/ProfileMenu';
+import AuthMenu from './user/AuthMenu';
 import classes from './Header.module.scss';
 import logo from '../../assets/img/scale.svg';
 
@@ -16,7 +16,7 @@ const Header: React.FC = () => {
           <img src={logo} className={classes.icon} alt="scale" />
           <h1>WeighMe</h1>
 
-          {token ? <ProfileMenu /> : <AuthenticationMenu />}
+          {token ? <ProfileMenu /> : <AuthMenu />}
         </Toolbar>
       </AppBar>
       {token && <Navbar />}
