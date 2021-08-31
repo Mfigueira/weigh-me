@@ -12,9 +12,9 @@ Here's a short video [presentation](https://www.youtube.com/watch?v=r1dwkZt882o)
 
 Project stack:
 
-- Backend (API): Python with Flask - Deployed to Heroku
+- Backend (API): Python (Flask) | Heroku
 - DB: PostgreSQL
-- Frontend: React - TypeScript - Deployed to Vercel
+- Frontend: React | TypeScript | Redux | Material UI | Vercel
 
 ## How does it work?
 

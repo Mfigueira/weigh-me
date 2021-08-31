@@ -1,5 +1,5 @@
 /**
- * FILE CURRENTLY NOT MANTAINED - THIS IS JUST A CONTEXT CODE EXAMPLE
+ * LEGACY FILE UNUSED - JUST FOR CONTEXT CODE EXAMPLE
  */
 
 import React, { useState, Dispatch, SetStateAction } from 'react';
